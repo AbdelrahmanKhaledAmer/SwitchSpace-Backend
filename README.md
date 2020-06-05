@@ -1,7 +1,7 @@
 # Switch Space
 ## Project template based on sebamaster-movie-backend application
 
-sebamaster-movie-frontend application can be found [here](https://github.com/sebischair/sebamaster-movie-frontend)
+SwitchSpace-Frontend application can be found [here](https://github.com/AbdelrahmanKhaledAmer/SwitchSpace-Frontend)
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ Just for the backend application:
 
 Go to your project root folder via command line
 ```
-cd path/to/workspace/sebamaster-movie-backend
+cd path/to/workspace/SwitchSpace-Backend
 ```
 
 **Install node dependencies**
