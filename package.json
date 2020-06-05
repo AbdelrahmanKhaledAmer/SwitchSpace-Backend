@@ -1,0 +1,33 @@
+{
+  "name": "switch_space-backend",
+  "version": "1.0.0",
+  "description": "Switch Space Backend service",
+  "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AbdelrahmanKhaledAmer/SwitchSpace-Backend.git"
+  },
+  "author": "Switch Space",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AbdelrahmanKhaledAmer/SwitchSpace-Backend/issues"
+  },
+  "homepage": "https://github.com/AbdelrahmanKhaledAmer/SwitchSpace-Backend.git#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js",
+    "devstart": "nodemon ./index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "2.4.3",
+    "body-parser": "1.18.2",
+    "express": "4.16.2",
+    "helmet": "^3.22.0",
+    "jsonwebtoken": "8.1.1",
+    "mongoose": "^5.9.17"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.12"
+  }
+}
