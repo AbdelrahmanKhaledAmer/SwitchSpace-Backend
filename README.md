@@ -1,4 +1,5 @@
-# Project based on template of sebamaster-movie-backend application
+# Switch Space
+## Project template based on sebamaster-movie-backend application
 
 sebamaster-movie-frontend application can be found [here](https://github.com/sebischair/sebamaster-movie-frontend)
 
