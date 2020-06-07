@@ -1,22 +1,59 @@
 "use strict";
 
 const mongoose = require('mongoose');
+const reviewSchema = require('./review');
 
 // Define the user schema
-
-const UserSchema  = new mongoose.Schema({
+const userSchema  = new mongoose.Schema({
+    reviews: [reviewSchema],
     username: {
         type: String,
         required: true
     },
-    password: {
+    email: {
         type: String,
         required: true,
         unique: true
-    }
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    // stores the image path on the server
+    profilePicture: {
+        type: String
+    },
+    // average rating for user communication
+    commRate: {
+        type: Number,
+        min: 1,
+        max: 5
+    },
+    // average rating for item condition
+    conditionRate: {
+        type: Number,
+        min: 1,
+        max: 5
+    },
+    // average rating for compliance to item description
+    descriptionRate: {
+        type: Number,
+        min: 1,
+        max: 5
+    },
+    tier: {
+        type: String,
+        enum: ['PerPost', 'LimitedSubscription', 'UnlimitedSubscription'],
+        default: 'PerPost'
+    },
+    violationsCount: Number
 });
 
-UserSchema.set('versionKey', false);
+userSchema.set('versionKey', false);
 
-// Export the Movie model
-module.exports = mongoose.model('User', UserSchema);
+// Export the user model
+module.exports = mongoose.model('User', userSchema);
