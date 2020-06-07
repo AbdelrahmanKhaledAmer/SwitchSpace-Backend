@@ -20,7 +20,32 @@ const create = async (req, res) => {
     }
 };
 
+const ViewPostDetails = async(req, res) => {
+    try {
+        let post = PostModel.findById(req.params.id).exec();
+
+        if (!post) return res.status(404).json({
+            error: 'Not Found',
+            message: `Post not found`
+          });
+        
+        return res.status(200).json(post)
+    }
+    catch(err) {
+    return res.status(500).json({
+        error: 'Internal server error',
+        message: err.message
+    });
+
+    }
+};
+
+
+
+
+
 
 module.exports = {
-    create
+    create,
+    ViewPostDetails
 };
