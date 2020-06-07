@@ -5,12 +5,12 @@ const mongoose = require('mongoose');
 // Define the report schema
 const reportSchema  = new mongoose.Schema({
     reporterID: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
     postID: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Post',
         required: true
     },
