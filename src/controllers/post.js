@@ -22,7 +22,7 @@ const create = async (req, res) => {
 
 const ViewPostDetails = async(req, res) => {
     try {
-        let post = PostModel.findById(req.params.id).exec();
+        let post = await PostModel.findById(req.params.id).exec();
 
         if (!post) return res.status(404).json({
             error: 'Not Found',
@@ -66,7 +66,7 @@ const update = async(req, res) => {
 
 const remove = async(req, res) => {
     try{
-    await (await PostModel.findByIdAndRemove(req.params.id)).exec();
+    await PostModel.findByIdAndRemove(req.params.id).exec();
     return res.status(200).json({message: 'Post with id${req.params.id} was deleted'});
     }
     catch(err){
@@ -79,11 +79,30 @@ const remove = async(req, res) => {
 
 };
 
+const ViewAll = async(req, res) =>{
+    try {
+        posts = await PostModel.find({'creatorID':req.params.id}).exec();
+        if (!posts) return res.status(404).json({
+            error: 'Not Found',
+            message: `Post not found`
+          });
+        
+        return res.status(200).json(posts)
 
+    }
+    catch(err){
+    return res.status(500).json({
+        error: 'Internal server error',
+        message: err.message
+    });
+
+    }
+};
 
 module.exports = {
     create,
     ViewPostDetails,
     update,
-    remove
+    remove,
+    ViewAll
 };

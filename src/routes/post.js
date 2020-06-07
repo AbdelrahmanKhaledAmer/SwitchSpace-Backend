@@ -10,3 +10,4 @@ router.post('/post/create',middlewares.checkAuthentication ,PostController.creat
 router.get('/post/view:id', middlewares.checkAuthentication, PostController.ViewPostDetails);
 router.put('/post/update:id',middlewares.checkAuthentication ,PostController.update);
 router.delete('post/delete:id', middlewares.checkAuthentication,PostController.remove);
+router.get('/post/view/all:id',middlewares.checkAuthentication,PostController.ViewAll);
