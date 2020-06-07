@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require('mongoose');
+const reviewSchema = require('./review');
 
 // Define the user schema
 const userSchema  = new mongoose.Schema({
@@ -52,39 +53,7 @@ const userSchema  = new mongoose.Schema({
     violationsCount: Number
 });
 
-// Define the review schema
-const reviewSchema = new mongoose.Schema({
-    reviewerID: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    description: String,
-    // rating for user communication
-    commRate: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 5
-    },
-    // rating for item condition
-    conditionRate: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 5
-    },
-    // rating for compliance to item description
-    descriptionRate: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 5
-    }
-});
-
 userSchema.set('versionKey', false);
-reviewSchema.set('versionKey', false);
 
 // Export the user model
 module.exports = mongoose.model('User', userSchema);

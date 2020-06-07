@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require('mongoose');
+const messageSchema = require('./message');
 
 // Define the chat schema
 const chatSchema  = new mongoose.Schema({
@@ -20,22 +21,7 @@ const chatSchema  = new mongoose.Schema({
     }
 });
 
-// Define the message schema
-const messageSchema = new mongoose.Schema({
-    senderID: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    content: {
-        type: String,
-        required: true
-    }
-});
-
 chatSchema.set('versionKey', false);
-messageSchema.set('versionKey', false);
-messageSchema.set('timestamps', true);
 
 // Export the chat model
 module.exports = mongoose.model('Chat', chatSchema);
