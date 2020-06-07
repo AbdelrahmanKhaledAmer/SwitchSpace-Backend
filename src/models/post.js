@@ -7,7 +7,7 @@ const exchangeLocationSchema = require('./exchangeLocation')
 // Define the post schema
 const postSchema  = new mongoose.Schema({
     creatorID: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },

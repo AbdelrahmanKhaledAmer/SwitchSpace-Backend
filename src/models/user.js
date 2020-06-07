@@ -31,26 +31,32 @@ const userSchema  = new mongoose.Schema({
     commRate: {
         type: Number,
         min: 1,
-        max: 5
+        max: 5,
+        default: 0
     },
     // average rating for item condition
     conditionRate: {
         type: Number,
         min: 1,
-        max: 5
+        max: 5,
+        default: 0
     },
     // average rating for compliance to item description
     descriptionRate: {
         type: Number,
         min: 1,
-        max: 5
+        max: 5,
+        default: 0
     },
     tier: {
         type: String,
         enum: ['PerPost', 'LimitedSubscription', 'UnlimitedSubscription'],
         default: 'PerPost'
     },
-    violationsCount: Number
+    violationsCount: {
+        type: Number,
+        default: 0
+    }
 });
 
 userSchema.set('versionKey', false);

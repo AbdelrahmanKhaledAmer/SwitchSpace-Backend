@@ -6,12 +6,12 @@ const messageSchema = require('./message');
 // Define the chat schema
 const chatSchema  = new mongoose.Schema({
     postOwnerID: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
     interestedUserID: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
