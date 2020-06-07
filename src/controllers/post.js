@@ -64,12 +64,26 @@ const update = async(req, res) => {
 
 };
 
+const remove = async(req, res) => {
+    try{
+    await (await PostModel.findByIdAndRemove(req.params.id)).exec();
+    return res.status(200).json({message: 'Post with id${req.params.id} was deleted'});
+    }
+    catch(err){
+    return res.status(500).json({
+        error: 'Internal server error',
+        message: err.message
+    });
 
+    }
+
+};
 
 
 
 module.exports = {
     create,
     ViewPostDetails,
-    update
+    update,
+    remove
 };
