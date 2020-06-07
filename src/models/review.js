@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 // Define the review schema
 const reviewSchema = new mongoose.Schema({
     reviewerID: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
