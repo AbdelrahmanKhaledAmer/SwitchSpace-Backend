@@ -8,3 +8,5 @@ const PostController = require('../controllers/post');
 
 router.post('/post/create',middlewares.checkAuthentication ,PostController.create);
 router.get('/post/view', middlewares.checkAuthentication, PostController.ViewPostDetails);
+router.put('/post/update',middlewares.checkAuthentication ,PostController.update);
+
