@@ -4,8 +4,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const config = require("../config");
-const UserModel = require("../models/user");
+const UserModel = require("../models/schema/user");
 const UserValidator = require("../models/validations/userRegister");
+
+// ********************************************************************************************************* //
 
 // login user in
 const login = (req, res) => {
@@ -52,6 +54,8 @@ const login = (req, res) => {
       })
     );
 };
+
+// ********************************************************************************************************* //
 
 // register user into the platform
 const register = (req, res) => {
