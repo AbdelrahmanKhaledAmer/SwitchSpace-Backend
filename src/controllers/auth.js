@@ -27,13 +27,15 @@ const login = async (req, res) => {
     });
 
   try {
-    let user = UserModel.findOne({ username: req.body.username }).exec();
+    let user = await UserModel.findOne({ username: req.body.username }).exec();
     // check if the password is valid
     const isPasswordValid = bcrypt.compareSync(
       req.body.password,
       user.password
     );
-    if (!isPasswordValid) return res.status(401).send({ token: null });
+    if (!isPasswordValid) {
+      return res.status(401).send({ token: null });
+    }
 
     // if user is found and password is valid
     // create a token
@@ -62,7 +64,6 @@ const register = async (req, res) => {
   const validationVerdict = UserValidator.validate(req.body);
   // check whether the form is incomplete
   if (validationVerdict.error) {
-    console.log(validationVerdict.error);
     return res.status(400).json(validationVerdict.error.details);
   }
   // create user and assign encrypted password
