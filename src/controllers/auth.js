@@ -63,8 +63,7 @@ const register = async (req, res) => {
   // check whether the form is incomplete
   if (validationVerdict.error) {
     console.log(validationVerdict.error);
-    res.status(400).json(validationVerdict.error.details);
-    return;
+    return res.status(400).json(validationVerdict.error.details);
   }
   // create user and assign encrypted password
   let user = Object.assign(req.body, {
