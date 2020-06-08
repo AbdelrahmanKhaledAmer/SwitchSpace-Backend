@@ -11,6 +11,7 @@ const UserValidator = require("../models/validations/userRegister");
 
 // login user in
 const login = (req, res) => {
+  // TODO add signin with email
   // check the password
   if (!Object.prototype.hasOwnProperty.call(req.body, "password")) {
     return res.status(400).json({
