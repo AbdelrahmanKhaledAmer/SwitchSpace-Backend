@@ -2,14 +2,16 @@
 
 const mongoose = require("mongoose");
 
-// Define the exchangeLocation schema
+// Define the exchangeLocation schema following GeoJSON Schema
 const exchangeLocationSchema = new mongoose.Schema({
-  longitude: {
-    type: Number,
+  type: {
+    type: String, // Don't do `{ location: { type: String } }`
+    enum: ["Point"], // 'location.type' must be 'Point'
     required: true,
   },
-  latitude: {
-    type: Number,
+  // Note that longitude comes first in a GeoJSON coordinate array, not latitude
+  coordinates: {
+    type: [Number],
     required: true,
   },
 });
