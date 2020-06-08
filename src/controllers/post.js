@@ -1,15 +1,23 @@
 "use strict";
 
-const ItemModel = require('../models/item');
-const PostModel = require('../models/post');
+const ItemModel = require("../models/item");
+const PostModel = require("../models/post");
+const PostValidator = require("../models/validations/post")
 
+// ********************************************************************************************************* //
 
+// cretae a post
 const create = async (req, res) => {
-    if (Object.keys(req.body).length === 0) return res.status(400).json({
-        error: 'Bad Request',
-        message: 'The request body is empty'
-    });
+    // validate the post form
+    const validationVerdict = PostValidator.validate(req.body);
+    // check whether the form is incomplete
+    if(validationVerdict.error) {
+        console.log(validationVerdict.error);
+        res.status(400).json(validationVerdict.error.details);
+        return;
+    }
 
+    // create post with its complete attributes
     try {
         let post = await PostModel.create(req.body);
     } catch(err) {
@@ -20,6 +28,9 @@ const create = async (req, res) => {
     }
 };
 
+// ********************************************************************************************************* //
+
+// view a specific post
 const ViewPostDetails = async(req, res) => {
     try {
         let post = await PostModel.findById(req.params.id).exec();
@@ -40,11 +51,18 @@ const ViewPostDetails = async(req, res) => {
     }
 };
 
+// ********************************************************************************************************* //
+
+// update a post
 const update = async(req, res) => {
-    if (Object.keys(req.body).length === 0) return res.status(400).json({
-        error: 'Bad Request',
-        message: 'The request body is empty'
-    });
+    // validate post form
+    const validationVerdict = PostValidator.validate(req.body);
+    // check whether the form is incomplete
+    if(validationVerdict.error) {
+        console.log(validationVerdict.error);
+        res.status(400).json(validationVerdict.error.details);
+        return;
+    }
     
     try {
         let post = await PostModel.findByIdAndUpdate(req.params.id, req.body, {
@@ -64,6 +82,9 @@ const update = async(req, res) => {
 
 };
 
+// ********************************************************************************************************* //
+
+// delete a post
 const remove = async(req, res) => {
     try{
     await PostModel.findByIdAndRemove(req.params.id).exec();
