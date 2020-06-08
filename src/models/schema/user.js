@@ -30,21 +30,21 @@ const userSchema = new mongoose.Schema({
   // average rating for user communication
   commRate: {
     type: Number,
-    min: 1,
+    min: 0,
     max: 5,
     default: 0,
   },
   // average rating for item condition
   conditionRate: {
     type: Number,
-    min: 1,
+    min: 0,
     max: 5,
     default: 0,
   },
   // average rating for compliance to item description
   descriptionRate: {
     type: Number,
-    min: 1,
+    min: 0,
     max: 5,
     default: 0,
   },
