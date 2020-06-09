@@ -71,11 +71,11 @@ const update = async(req, res) => {
     }
     
     try {
-        let post = await PostModel.findByIdAndUpdate(req.params.id, req.body, {
+        let post = await PostModel.findByIdAndUpdate(req.headers.id, req.body, {
             new: true,
             runValidators: true
         }).exec();
-        return res.status.status(200).json(post)
+        return res.status(200).json(post)
     }
 
     catch(err){
@@ -93,7 +93,7 @@ const update = async(req, res) => {
 // delete a post
 const remove = async(req, res) => {
     try{
-    await PostModel.findByIdAndRemove(req.params.id).exec();
+    await PostModel.findByIdAndRemove(req.headers.id).exec();
     return res.status(200).json({message: 'Post with id${req.params.id} was deleted'});
     }
     catch(err){
@@ -108,7 +108,7 @@ const remove = async(req, res) => {
 
 const ViewAll = async(req, res) =>{
     try {
-        posts = await PostModel.find({'creatorID':req.params.id}).exec();
+        posts = await PostModel.find({'creatorID':req.headers.id}).exec();
         if (!posts) return res.status(404).json({
             error: 'Not Found',
             message: `Post not found`
