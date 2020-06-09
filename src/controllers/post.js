@@ -108,12 +108,11 @@ const remove = async(req, res) => {
 
 const ViewAll = async(req, res) =>{
     try {
-        posts = await PostModel.find({'creatorID':req.headers.id}).exec();
+        let posts = await PostModel.find({'creatorID':req.headers.id}).exec();
         if (!posts) return res.status(404).json({
             error: 'Not Found',
             message: `Post not found`
           });
-        
         return res.status(200).json(posts)
 
     }
