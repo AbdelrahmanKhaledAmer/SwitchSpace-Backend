@@ -5,8 +5,8 @@ const multer = require("multer");
 const upload = multer({dest: "public/images/postsGallery"});
 const type = upload.array("photos");
 const fs = require('fs');
-const ItemModel = require("../models/item");
-const PostModel = require("../models/post");
+const ItemModel = require("../models/schema/item");
+const PostModel = require("../models/schema/post");
 const PostValidator = require("../models/validations/post")
 
 // ********************************************************************************************************* //

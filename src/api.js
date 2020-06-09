@@ -27,7 +27,7 @@ api.get("/", (req, res) => {
 
 // API routes
 api.use("/auth", auth);
-api.use("/auth", post);
+api.use("/post", post);
 
 
 module.exports = api;
