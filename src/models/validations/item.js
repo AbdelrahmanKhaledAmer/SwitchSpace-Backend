@@ -3,10 +3,10 @@ const categorySchemaValidator = require("./category")
 const subcategorySchemaValidator = require("./subcategory")
 
 const itemSchemaValidator = Joi.object({
-    title: Joi.string().alphanum().required(),
+    title: Joi.string().required(),
     condition: Joi.string().valid("New", "Used").required(),
     modelYear: Joi.date(),
-    description: Joi.string().alphanum(),
+    description: Joi.string(),
     category: categorySchemaValidator,
     subcategory: subcategorySchemaValidator
 });

@@ -23,7 +23,7 @@ const checkAuthentication = (req, res, next) => {
   if (req.headers.authorization) {
     token = req.headers.authorization.substring(4);
   }
-
+  
   if (!token)
     return res.status(401).send({
       error: "Unauthorized",
@@ -32,12 +32,14 @@ const checkAuthentication = (req, res, next) => {
 
   // verifies secret and checks exp
   jwt.verify(token, config.JwtSecret, (err, decoded) => {
-    if (err)
+    console.log(token);
+    if (err){
+    //console.log(err);
       return res.status(401).send({
         error: "Unauthorized",
         message: "Failed to authenticate token.",
       });
-
+    }
     // if everything is good, save to request for use in other routes
     req.userId = decoded.id;
     next();
