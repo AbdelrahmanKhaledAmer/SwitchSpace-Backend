@@ -94,7 +94,7 @@ const update = async(req, res) => {
 const remove = async(req, res) => {
     try{
     await PostModel.findByIdAndRemove(req.headers.id).exec();
-    return res.status(200).json({message: 'Post with id${req.params.id} was deleted'});
+    return res.status(200).json({message: 'Post is deleted successfully'});
     }
     catch(err){
     return res.status(500).json({
