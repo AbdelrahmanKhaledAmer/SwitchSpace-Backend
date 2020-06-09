@@ -7,8 +7,8 @@ const itemSchemaValidator = Joi.object({
     condition: Joi.string().valid("New", "Used").required(),
     modelYear: Joi.date(),
     description: Joi.string(),
-    category: categorySchemaValidator,
-    subcategory: subcategorySchemaValidator
+    category: Joi.string().required(),
+    subcategory: Joi.string().required()
 });
 
 

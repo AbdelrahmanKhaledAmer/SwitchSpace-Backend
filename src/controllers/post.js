@@ -25,6 +25,7 @@ const create = async (req, res) => {
     // create post with its complete attributes
     try {
         let post = await PostModel.create(req.body);
+        return res.status(201).json(post)
     } catch(err) {
       return res.status(500).json({
         error: 'Internal server error',
