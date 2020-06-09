@@ -39,7 +39,7 @@ const create = async (req, res) => {
 // view a specific post
 const ViewPostDetails = async(req, res) => {
     try {
-        let post = await PostModel.findById(req.params.id).exec();
+        let post = await PostModel.findById(req.headers.id).exec();
 
         if (!post) return res.status(404).json({
             error: 'Not Found',

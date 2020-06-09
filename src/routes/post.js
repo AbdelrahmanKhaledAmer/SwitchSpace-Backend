@@ -15,10 +15,10 @@ router.delete('/delete:id', middlewares.checkAuthentication, PostController.remo
 router.get('/view/all:id', middlewares.checkAuthentication, PostController.ViewAll);
 */
 router.post('/create', type, PostController.create);
-router.get('/view:id', PostController.ViewPostDetails);
-router.put('/update:id', type, PostController.update);
-router.delete('/delete:id', PostController.remove);
-router.get('/view/all:id', PostController.ViewAll);
+router.get('/view', PostController.ViewPostDetails);
+router.put('/update', type, PostController.update);
+router.delete('/delete', PostController.remove);
+router.get('/view/all', PostController.ViewAll);
 
 
 
