@@ -18,7 +18,6 @@ const create = async (req, res) => {
     const validationVerdict = PostValidator.validate(req.body);
     // check whether the form is incomplete
     if(validationVerdict.error) {
-        console.log(validationVerdict.error);
         res.status(400).json(validationVerdict.error.details[0].message);
         return;
     }
@@ -71,6 +70,7 @@ const update = async(req, res) => {
     }
     
     try {
+        req.body.creatorID = req.userId;
         let post = await PostModel.findByIdAndUpdate(req.headers.id, req.body, {
             new: true,
             runValidators: true
@@ -94,7 +94,7 @@ const update = async(req, res) => {
 const remove = async(req, res) => {
     try{
     await PostModel.findByIdAndRemove(req.headers.id).exec();
-    return res.status(200).json({message: 'Post is deleted successfully'});
+    return res.status(200).json({message: 'success'});
     }
     catch(err){
     return res.status(500).json({
@@ -108,7 +108,7 @@ const remove = async(req, res) => {
 
 const ViewAll = async(req, res) =>{
     try {
-        let posts = await PostModel.find({'creatorID':req.headers.id}).exec();
+        let posts = await PostModel.find({'creatorID':req.userId}).exec();
         if (!posts) return res.status(404).json({
             error: 'Not Found',
             message: `Post not found`
