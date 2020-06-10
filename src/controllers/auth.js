@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 const config = require("../config");
 const UserModel = require("../models/schema/user");
 const registerValidator = require("../models/validations/userRegister");
-const loginValidator = require("../models/validations/userLogin");
+const loginValidator = require("../models/validations/login");
 
 // ********************************************************************************************************* //
 
