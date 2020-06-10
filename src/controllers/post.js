@@ -104,14 +104,21 @@ const update = async (req, res) => {
 // delete a post
 const remove = async (req, res) => {
   // check that there's a post of this onwer
+  // check that there's a post of this onwer
   try {
-    await PostModel.find({
+    let ownerPost = await PostModel.findOne({
       creatorID: req.userId,
       _id: req.headers.id,
     });
+    if (!ownerPost) {
+      return res.status(403).json({
+        message: "Cannot find user and post combination",
+      });
+    }
   } catch (err) {
-    return res.status(403).json({
-      message: "Cannot find user and post combination",
+    console.log("here");
+    return res.status(400).json({
+      message: "Internal server error",
     });
   }
   // the owner has this post, delte it
