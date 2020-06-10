@@ -19,12 +19,12 @@ const allowCrossDomain = (req, res, next) => {
 
 const checkAuthentication = (req, res, next) => {
   // check header or url parameters or post parameters for token
-  let token = "";
-  let bearertype = true;
+  let bearer;
+  let token;
   if (req.headers.authorization) {
-    // remove auth type
-    bearertype = req.headers.authorization.startsWith("Bearer");
-    token = req.headers.authorization.substring(7);
+    // fetch auth type
+    bearer = req.headers.authorization.split(" ");
+    token = bearer[1];
   }
   // check token exists
   if (!token)
@@ -33,7 +33,7 @@ const checkAuthentication = (req, res, next) => {
       message: "No token provided in the request",
     });
   // check authentication scheme
-  if (!bearertype) {
+  if (bearer[0] !== "Bearer") {
     return res.status(401).send({
       error: "unauthorized",
       message: "unauthorized authentication scheme",
