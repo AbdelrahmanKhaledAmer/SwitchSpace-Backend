@@ -19,17 +19,26 @@ const allowCrossDomain = (req, res, next) => {
 
 const checkAuthentication = (req, res, next) => {
   // check header or url parameters or post parameters for token
-  let token = "";
+  let bearer;
+  let token;
   if (req.headers.authorization) {
-    token = req.headers.authorization.substring(4);
+    // fetch auth type
+    bearer = req.headers.authorization.split(" ");
+    token = bearer[1];
   }
-
+  // check token exists
   if (!token)
     return res.status(401).send({
       error: "Unauthorized",
       message: "No token provided in the request",
     });
-
+  // check authentication scheme
+  if (bearer[0] !== "Bearer") {
+    return res.status(401).send({
+      error: "unauthorized",
+      message: "unauthorized authentication scheme",
+    });
+  }
   // verifies secret and checks exp
   jwt.verify(token, config.JwtSecret, (err, decoded) => {
     if (err)
