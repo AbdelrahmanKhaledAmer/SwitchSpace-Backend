@@ -92,7 +92,7 @@ const remove = async (req, res) => {
   try {
     await PostModel.findByIdAndRemove(req.headers.id).exec();
     return res.status(200).json({
-      message: "success",
+      message: "Deleted successfully",
     });
   } catch (err) {
     return res.status(500).json({
@@ -106,7 +106,7 @@ const ViewAll = async (req, res) => {
     let posts = await PostModel.find({ creatorID: req.userId }).exec();
     if (!posts)
       return res.status(404).json({
-        message: `Post not found`,
+        message: "Post not found",
       });
     return res.status(200).json(posts);
   } catch (err) {
