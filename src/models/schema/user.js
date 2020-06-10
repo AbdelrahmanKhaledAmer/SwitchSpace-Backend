@@ -6,10 +6,6 @@ const reviewSchema = require("./review");
 // Define the user schema
 const userSchema = new mongoose.Schema({
   reviews: [reviewSchema],
-  username: {
-    type: String,
-    required: true,
-  },
   email: {
     type: String,
     required: true,
@@ -22,6 +18,8 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    minlength: 2,
+    maxlength: 50,
   },
   // stores the image path on the server
   profilePicture: {
