@@ -16,18 +16,21 @@ const create = async (req, res) => {
   const validationVerdict = PostValidator.validate(req.body);
   // check whether the form is incomplete
   if (validationVerdict.error) {
-    res.status(400).json(validationVerdict.error.details[0].message);
+    res.status(400).json({
+      message: validationVerdict.error.details[0].message,
+    });
     return;
   }
 
   // create post with its complete attributes
   try {
     let post = await PostModel.create(req.body);
-    return res.status(201).json(post);
+    return res.status(201).json({
+      data: post,
+    });
   } catch (err) {
     return res.status(500).json({
-      error: "Internal server error",
-      message: err.message,
+      message: "Internal server error",
     });
   }
 };
@@ -41,15 +44,13 @@ const ViewPostDetails = async (req, res) => {
 
     if (!post)
       return res.status(404).json({
-        error: "Not Found",
-        message: `Post not found`,
+        message: "Post not found",
       });
 
     return res.status(200).json(post);
   } catch (err) {
     return res.status(500).json({
-      error: "Internal server error",
-      message: err.message,
+      message: "Internal server error",
     });
   }
 };
@@ -62,7 +63,9 @@ const update = async (req, res) => {
   const validationVerdict = PostValidator.validate(req.body);
   // check whether the form is incomplete
   if (validationVerdict.error) {
-    res.status(400).json(validationVerdict.error.details[0].message);
+    res.status(400).json({
+      message: validationVerdict.error.details[0].message,
+    });
     return;
   }
 
@@ -72,11 +75,12 @@ const update = async (req, res) => {
       new: true,
       runValidators: true,
     }).exec();
-    return res.status(200).json(post);
+    return res.status(200).json({
+      data: post,
+    });
   } catch (err) {
     return res.status(500).json({
-      error: "Internal server error",
-      message: err.message,
+      message: "Internal server error",
     });
   }
 };
@@ -87,11 +91,12 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
   try {
     await PostModel.findByIdAndRemove(req.headers.id).exec();
-    return res.status(200);
+    return res.status(200).json({
+      message: "success",
+    });
   } catch (err) {
     return res.status(500).json({
-      error: "Internal server error",
-      message: err.message,
+      message: "Internal server error",
     });
   }
 };
@@ -101,14 +106,12 @@ const ViewAll = async (req, res) => {
     let posts = await PostModel.find({ creatorID: req.userId }).exec();
     if (!posts)
       return res.status(404).json({
-        error: "Not Found",
         message: `Post not found`,
       });
     return res.status(200).json(posts);
   } catch (err) {
     return res.status(500).json({
-      error: "Internal server error",
-      message: err.message,
+      message: "Internal server error",
     });
   }
 };
