@@ -28,5 +28,4 @@ api.get("/", (req, res) => {
 api.use("/auth", auth);
 api.use("/post", post);
 
-
 module.exports = api;
