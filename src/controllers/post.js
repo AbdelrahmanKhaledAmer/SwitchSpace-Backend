@@ -13,12 +13,13 @@ const PostValidator = require("../models/validations/post")
 
 // cretae a post
 const create = async (req, res) => {
+    req.body.creatorID = req.userId;
     // validate the post form
     const validationVerdict = PostValidator.validate(req.body);
     // check whether the form is incomplete
     if(validationVerdict.error) {
         console.log(validationVerdict.error);
-        res.status(400).json(validationVerdict.error.details);
+        res.status(400).json(validationVerdict.error.details[0].message);
         return;
     }
 
@@ -65,7 +66,6 @@ const update = async(req, res) => {
     const validationVerdict = PostValidator.validate(req.body);
     // check whether the form is incomplete
     if(validationVerdict.error) {
-        console.log(validationVerdict.error);
         res.status(400).json(validationVerdict.error.details);
         return;
     }
