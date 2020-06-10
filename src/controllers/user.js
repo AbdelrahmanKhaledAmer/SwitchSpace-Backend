@@ -1,6 +1,8 @@
 const UserModel = require("../models/schema/user");
 const registerValidator = require("../models/validations/userRegister");
 
+// ********************************************************************************************************* //
+
 // update user profile
 // TODO update email or not
 const updateProfile = async function (req, res) {
