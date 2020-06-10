@@ -5,7 +5,8 @@ const bcrypt = require("bcryptjs");
 
 const config = require("../config");
 const UserModel = require("../models/schema/user");
-const UserValidator = require("../models/validations/userRegister");
+const registerValidator = require("../models/validations/userRegister");
+const loginValidator = require("../models/validations/userLogin");
 
 // ********************************************************************************************************* //
 
@@ -13,46 +14,46 @@ const UserValidator = require("../models/validations/userRegister");
 const login = async (req, res) => {
   // TODO add signin with email
   // check the password
-  if (!Object.prototype.hasOwnProperty.call(req.body, "password")) {
+  const validationVerdict = loginValidator.validate(req.body);
+  // check whether the form is incomplete
+  if (validationVerdict.error) {
     return res.status(400).json({
-      error: "Bad Request",
-      message: "The request body must contain a password property",
+      message: validationVerdict.error.details[0].message,
     });
   }
-  // check username
-  if (!Object.prototype.hasOwnProperty.call(req.body, "username"))
-    return res.status(400).json({
-      error: "Bad Request",
-      message: "The request body must contain a username property",
-    });
-
+  let user;
   try {
-    let user = await UserModel.findOne({ username: req.body.username }).exec();
+    user = await UserModel.findOne({ email: req.body.email });
     // check if the password is valid
     const isPasswordValid = bcrypt.compareSync(
       req.body.password,
       user.password
     );
     if (!isPasswordValid) {
-      return res.status(401).send({ token: null });
+      return res.status(401).json({ message: "Invalid Password", token: null });
     }
 
     // if user is found and password is valid
     // create a token
     const token = jwt.sign(
-      { id: user._id, username: user.username },
+      { id: user._id, email: user.email },
       config.JwtSecret,
       {
         expiresIn: 86400, // expires in 24 hours
       }
     );
 
-    return res.status(200).json({ token: token });
+    return res.status(200).json({ data: { token: token } });
   } catch (err) {
-    return res.status(404).json({
-      error: "User Not Found",
-      message: err.message,
-    });
+    if (!user) {
+      return res.status(404).json({
+        message: "User Not Found",
+      });
+    } else {
+      return res.status(500).json({
+        message: "Internal Error",
+      });
+    }
   }
 };
 
@@ -61,10 +62,12 @@ const login = async (req, res) => {
 // register user into the platform
 const register = async (req, res) => {
   // validate the user form
-  const validationVerdict = UserValidator.validate(req.body);
+  const validationVerdict = registerValidator.validate(req.body);
   // check whether the form is incomplete
   if (validationVerdict.error) {
-    return res.status(400).json(validationVerdict.error.details);
+    return res
+      .status(400)
+      .json({ message: validationVerdict.error.details[0].message });
   }
   // create user and assign encrypted password
   let user = Object.assign(req.body, {
@@ -74,7 +77,7 @@ const register = async (req, res) => {
     let retUser = await UserModel.create(user);
     // create a token
     const token = jwt.sign(
-      { id: retUser._id, username: retUser.username },
+      { id: retUser._id, email: retUser.email },
       config.JwtSecret,
       {
         expiresIn: 86400, // expires in 24 hours
@@ -85,13 +88,11 @@ const register = async (req, res) => {
   } catch (err) {
     if (err.code == 11000) {
       return res.status(400).json({
-        error: "User exists",
-        message: err.message,
+        message: "User exists",
       });
     } else {
       return res.status(500).json({
-        error: "Internal server error",
-        message: err.message,
+        message: "Internal server error",
       });
     }
   }
@@ -99,7 +100,7 @@ const register = async (req, res) => {
 
 // log the user out
 const logout = (req, res) => {
-  res.status(200).send({ token: null });
+  res.status(200).json({ data: { token: null } });
 };
 
 module.exports = {
