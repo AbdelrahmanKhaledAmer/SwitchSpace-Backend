@@ -9,7 +9,6 @@ const middlewares = require("./middlewares");
 const auth = require("./routes/auth");
 const post = require("./routes/post");
 
-
 const api = express();
 
 // Adding Basic Middlewares
