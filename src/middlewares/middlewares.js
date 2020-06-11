@@ -2,7 +2,7 @@
 
 const jwt = require("jsonwebtoken");
 
-const config = require("./config");
+const config = require("../config");
 
 const allowCrossDomain = (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -53,16 +53,16 @@ const checkAuthentication = (req, res, next) => {
   });
 };
 
-const errorHandler = (err, req, res, next) => {
-  if (res.headersSent) {
-    return next(err);
-  }
-  res.status(500);
-  res.render("error", { error: err });
-};
+// const errorHandler = (err, req, res, next) => {
+//   if (res.headersSent) {
+//     return next(err);
+//   }
+//   res.status(500);
+//   res.render("error", { error: err });
+// };
 
 module.exports = {
   allowCrossDomain,
   checkAuthentication,
-  errorHandler,
+  // errorHandler,
 };
