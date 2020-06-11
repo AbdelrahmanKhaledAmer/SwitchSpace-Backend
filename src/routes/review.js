@@ -3,19 +3,15 @@
 const express = require("express");
 const router = express.Router();
 
-const middlewares = require("../middlewares");
+const logger = require("../middlewares/loggerHandler");
+const middlewares = require("../middlewares/middlewares");
 const reviewController = require("../controllers/review");
 
-// TODO: Change route Names
 router.post(
-  "/create",
+  "/write",
+  logger,
   middlewares.checkAuthentication,
-  reviewController.logout
-);
-router.post(
-  "/update",
-  middlewares.checkAuthentication,
-  reviewController.logout
+  reviewController.writeReview
 );
 
 module.exports = router;

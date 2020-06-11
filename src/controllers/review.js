@@ -6,34 +6,79 @@ const reviewValidator = require("../models/validations/review");
 // ********************************************************************************************************* //
 
 const writeReview = async (req, res) => {
-  // Retrieve reviewer ID from token
-  let reviewerID = req.userID;
+  // Retrieve reviewer ID from token and reviewee ID from req.body
+  let reviewerId = req.userId;
+  let revieweeId = req.body.revieweeId;
+  delete req.body.revieweeId;
   // If no reviewer ID exists, then user needs to log in.
-  if (!reviewerID) {
-    res.status(403).json({
+  if (!reviewerId) {
+    return res.status(403).json({
       message: "Logging in is required for reviewing a user",
     });
-    return;
   }
   // Validate review
-  req.body.reviewerID = reviewerID;
+  req.body.reviewerId = reviewerId;
   let valid = reviewValidator.validate(req.body);
   // If review is not valid, then user needs to enter valid data.
   if (valid.error) {
-    res.status(400).json({
+    console.log(valid);
+    return res.status(400).json({
       message: "Incorrect data. Ratings must be a value between one and 5.",
     });
-    return;
   }
   // Retrieve user to be reviewed
   try {
-    let revieweeID = req.body.revieweeID;
-    let reviewee = await userModel.findById(revieweeID).exec();
+    let reviewee = await userModel.findById(revieweeId);
+    let numReviews = reviewee.reviews.length;
+    // If reviewer had already written a review, edit that review
+    let review = reviewee.reviews
+      .filter((elem) => {
+        return elem.reviewerId == reviewerId;
+      })
+      .pop();
+    if (review) {
+      // Remove the original review from the array
+      reviewee.reviews = reviewee.reviews.filter((elem) => {
+        return elem.reviewerId != reviewerId;
+      });
+      // Edit ratings by adding the new rating and subtracting the old ones
+      let commRate = reviewee.commRate * numReviews;
+      commRate += req.body.commRate - review.commRate;
+      commRate = commRate / numReviews;
+      reviewee.commRate = commRate;
+      let conditionRate = reviewee.conditionRate * numReviews;
+      conditionRate += req.body.conditionRate - review.conditionRate;
+      conditionRate = conditionRate / numReviews;
+      reviewee.conditionRate = conditionRate;
+      let descriptionRate = reviewee.descriptionRate * numReviews;
+      descriptionRate += req.body.descriptionRate - review.descriptionRate;
+      descriptionRate = descriptionRate / numReviews;
+      reviewee.descriptionRate = descriptionRate;
+    } else {
+      // Edit the ratings by adding the new ratings
+      let commRate = reviewee.commRate * numReviews;
+      commRate += req.body.commRate;
+      commRate = commRate / (numReviews + 1);
+      reviewee.commRate = commRate;
+      let conditionRate = reviewee.conditionRate * numReviews;
+      conditionRate += req.body.conditionRate;
+      conditionRate = conditionRate / (numReviews + 1);
+      reviewee.conditionRate = conditionRate;
+      let descriptionRate = reviewee.descriptionRate * numReviews;
+      descriptionRate += req.body.descriptionRate;
+      descriptionRate = descriptionRate / (numReviews + 1);
+      reviewee.descriptionRate = descriptionRate;
+    }
+    // Add review to list of reviews
     reviewee.reviews.push(req.body);
+    // Save user in database
     reviewee.save();
+    return res.status(200).json({
+      body: reviewee,
+    });
   } catch (err) {
-    res.status(404).json({
-      message: "There was an error retrieving this user, try again later.",
+    return res.status(404).json({
+      message: "There was an error retrieving user data, try again later.",
     });
   }
 };

@@ -9,6 +9,7 @@ const middlewares = require("./middlewares/middlewares");
 const userAuth = require("./routes/userAuth");
 const adminAuth = require("./routes/adminAuth");
 const post = require("./routes/post");
+const review = require("./routes/review");
 
 const api = express();
 
@@ -29,5 +30,6 @@ api.get("/", (req, res) => {
 api.use("/user/auth", userAuth);
 api.use("/admin/auth", adminAuth);
 api.use("/post", post);
+api.use("/review", review);
 
 module.exports = api;
