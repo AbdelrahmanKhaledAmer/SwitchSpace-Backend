@@ -4,7 +4,7 @@ const itemSchemaValidator = require("./item");
 const exchangeLocationShemaValidator = require("./exchangeLocation");
 
 const postShemaValidation = Joi.object({
-  creatorID: Joi.string().alphanum().required(),
+  creatorId: Joi.string().alphanum().required(),
   itemOwned: itemSchemaValidator.required(),
   itemDesired: itemSchemaValidator.required(),
   exchangeLocation: exchangeLocationShemaValidator.required(),

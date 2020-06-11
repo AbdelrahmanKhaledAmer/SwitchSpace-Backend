@@ -6,16 +6,16 @@ const reviewValidator = require("../models/validations/report");
 // ********************************************************************************************************* //
 
 const reportPost = async (req, res) => {
-  // Retrieve reporter ID from token
+  // Retrieve reporter Id from token
   let reporterId = req.userId;
-  // If no reporter ID exists, then user needs to log in.
+  // If no reporter Id exists, then user needs to log in.
   if (!reporterId) {
     return res.status(403).json({
       message: "Logging in is required for reprting a post",
     });
   }
   // Validate report
-  req.body.reporterID = reporterId;
+  req.body.reporterId = reporterId;
   let valid = reviewValidator.validate(req.body);
   // If review is not valid, then user needs to enter valid data.
   if (valid.error) {
@@ -27,8 +27,8 @@ const reportPost = async (req, res) => {
   try {
     // If reporter has already reported a post, don't report again
     let report = await reportSchema.findOne({
-      reporterID: reporterId,
-      postID: req.body.postID,
+      reporterId: reporterId,
+      postId: req.body.postId,
     });
     // let report = await reportSchema.findOne({});
 

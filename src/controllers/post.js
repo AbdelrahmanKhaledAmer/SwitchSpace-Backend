@@ -11,7 +11,7 @@ const PostValidator = require("../models/validations/post");
 
 // cretae a post
 const create = async (req, res) => {
-  req.body.creatorID = req.userId;
+  req.body.creatorId = req.userId;
   // validate the post form
   const validationVerdict = PostValidator.validate(req.body);
   // check whether the form is incomplete
@@ -68,7 +68,7 @@ const update = async (req, res) => {
   // check that there's a post of this onwer
   try {
     let ownerPost = await PostModel.findOne({
-      creatorID: req.userId,
+      creatorId: req.userId,
       _id: req.headers.id,
     });
     if (!ownerPost) {
@@ -76,7 +76,7 @@ const update = async (req, res) => {
         message: "Unauthorized action",
       });
     } else {
-      req.body.creatorID = req.userId;
+      req.body.creatorId = req.userId;
       let post = await PostModel.findByIdAndUpdate(req.headers.id, req.body, {
         new: true,
         runValidators: true,
@@ -100,7 +100,7 @@ const remove = async (req, res) => {
   // check that there's a post of this onwer
   try {
     let ownerPost = await PostModel.findOne({
-      creatorID: req.userId,
+      creatorId: req.userId,
       _id: req.headers.id,
     });
     if (!ownerPost) {
@@ -123,7 +123,7 @@ const remove = async (req, res) => {
 
 const ViewAll = async (req, res) => {
   try {
-    let posts = await PostModel.find({ creatorID: req.userId });
+    let posts = await PostModel.find({ creatorId: req.userId });
     if (!posts)
       return res.status(404).json({
         message: "Posts not found",

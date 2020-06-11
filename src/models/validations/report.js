@@ -1,8 +1,8 @@
 const Joi = require("@hapi/joi");
 
 const reportSchemaValidator = Joi.object({
-  reporterID: Joi.required(),
-  postID: Joi.required(),
+  reporterId: Joi.required(),
+  postId: Joi.required(),
   complaint: Joi.required(),
 });
 
