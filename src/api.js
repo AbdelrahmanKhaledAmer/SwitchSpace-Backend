@@ -8,6 +8,7 @@ const middlewares = require("./middlewares/middlewares");
 
 const userAuth = require("./routes/userAuth");
 const adminAuth = require("./routes/adminAuth");
+const user = require("./routes/user");
 const post = require("./routes/post");
 const review = require("./routes/review");
 const report = require("./routes/report");
@@ -28,6 +29,7 @@ api.get("/", (req, res) => {
 });
 
 // API routes
+api.use("/profile", user);
 api.use("/user/auth", userAuth);
 api.use("/admin/auth", adminAuth);
 api.use("/post", post);
