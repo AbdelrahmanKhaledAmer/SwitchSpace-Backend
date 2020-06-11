@@ -1,0 +1,74 @@
+[
+  {
+    "creatorID": "5ee245bbdedc1468ff6e3221",
+    "itemOwned": {
+      "title": "iphone 10+",
+      "condition": "Used",
+      "modelYear": 2010,
+      "description": "Used in a good condition",
+      "category": "electronics",
+      "subcategory": "smartphones"
+    },
+    "itemDesired": {
+      "title": "Samsung s9",
+      "condition": "New",
+      "modelYear": 2019,
+      "description": "Must be new",
+      "category": "electronics",
+      "subcategory": "smartphones"
+    },
+    "exchangeLocation": {
+      "type": "Point",
+      "coordinates": [-104.99404, 39.75621]
+    },
+    "photos": ["photo1", "photo2"]
+  },
+  {
+    "creatorID": "5ee245bbdedc1468ff6e3221",
+    "itemOwned": {
+      "title": "BMW X3",
+      "condition": "Used",
+      "modelYear": 2010,
+      "description": "Used in a good condition",
+      "category": "vehicles",
+      "subcategory": "cars"
+    },
+    "itemDesired": {
+      "title": "Audi A5",
+      "condition": "New",
+      "modelYear": 2019,
+      "description": "Must be new",
+      "category": "vehicles",
+      "subcategory": "cars"
+    },
+    "exchangeLocation": {
+      "type": "Point",
+      "coordinates": [-96.58, 45.94]
+    },
+    "photos": ["photo1", "photo2"]
+  },
+  {
+    "creatorID": "5ee245bbdedc1468ff6e3222",
+    "itemOwned": {
+      "title": "Ceramic pot",
+      "condition": "New",
+      "modelYear": 2010,
+      "description": "Non stick brand new",
+      "category": "kitchenware",
+      "subcategory": "utensils"
+    },
+    "itemDesired": {
+      "title": "Adidas sneakers",
+      "condition": "Used",
+      "modelYear": 2019,
+      "description": "Prefered to be in a good condition",
+      "category": "other",
+      "subcategory": "cars"
+    },
+    "exchangeLocation": {
+      "type": "Point",
+      "coordinates": [-104.05, 48.99]
+    },
+    "photos": ["photo1", "photo2"]
+  }
+]
