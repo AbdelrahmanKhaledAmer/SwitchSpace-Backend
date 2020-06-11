@@ -63,6 +63,20 @@ export JWT_SECRET="Your Secret token"
 sudo systemctl start mongod
 ```
 
+-**Add seed data from seeds folder**
+
+Install mongo seeds globally
+
+```bash
+npm install -g node-mongo-seeds
+```
+
+Run seed
+
+```bash
+seed
+```
+
 -**Start dev server**
 
 ```bash
