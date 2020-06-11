@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 
 const UserModel = require("../models/schema/user");
 const registerValidator = require("../models/validations/userUpdate");
-const { use } = require("../routes/user");
 
 // ********************************************************************************************************* //
 
