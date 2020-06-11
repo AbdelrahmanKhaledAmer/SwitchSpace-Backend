@@ -1,0 +1,63 @@
+[
+  {
+    "_id": "5ee25a9d5a40da2bfb58efe3",
+    "title": "electronics",
+    "subcategories": [
+      {
+        "_id": "5ee25c6da091caad8bcfaa78",
+        "title": "smartphones"
+      },
+      {
+        "_id": "5ee25c96a4ffb3b2b77cdc52",
+        "title": "tablets"
+      }
+    ]
+  },
+  {
+    "_id": "5ee25ac32dcdec84ec0c502a",
+    "title": "furniture",
+    "subcategories": [
+      {
+        "_id": "5ee25cb8968eb13d70915c78",
+        "title": "chairs"
+      },
+      {
+        "_id": "5ee25ccfd63c5e2a1abf914c",
+        "title": "tables"
+      }
+    ]
+  },
+  {
+    "_id": "5ee25ae2c0640a3a353181a3",
+    "title": "vehicles",
+    "subcategories": [
+      {
+        "_id": "5ee25ceb9bdbba8b5f36a8ad",
+        "title": "cars"
+      },
+      {
+        "_id": "5ee25cf9a57a5643a1cf1760",
+        "title": "bikes"
+      }
+    ]
+  },
+  {
+    "_id": "5ee25b18a24138977e9be4a0",
+    "title": "kitchenware",
+    "subcategories": [
+      {
+        "_id": "5ee25d689cb6b4deed51f7e1",
+        "title": "microwaves"
+      },
+      {
+        "_id": "5ee25d94c2e1a734702c2157",
+        "title": "utensils"
+      }
+    ]
+  },
+  {
+    "_id": "5ee25d31b0cec4134388c714",
+    "title": "other",
+    "subcategories": []
+  }
+]
