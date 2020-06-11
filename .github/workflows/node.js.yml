@@ -31,13 +31,11 @@ jobs:
   populate:
     
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     steps:
       - uses: actions/checkout@v2 
       - name: mongo-action
         uses: DigiPie/mongo-action@v1.0.0
-#         with:
-#           image_version: latest default value
-#           port: # optional, default is 27017
       - run: npm install node-mongo-seeds
       - run: ./node_modules/node-mongo-seeds/bin/seed
     
