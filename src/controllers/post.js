@@ -39,8 +39,7 @@ const create = async (req, res) => {
 // view a specific post
 const ViewPostDetails = async (req, res) => {
   try {
-    let post = await PostModel.findById(req.headers.id).exec();
-
+    let post = await PostModel.findById(req.headers.id);
     if (!post)
       return res.status(404).json({
         message: "Post not found",
@@ -74,26 +73,21 @@ const update = async (req, res) => {
     });
     if (!ownerPost) {
       return res.status(403).json({
-        message: "Cannot find user and post combination",
+        message: "Post not found",
+      });
+    } else {
+      req.body.creatorID = req.userId;
+      let post = await PostModel.findByIdAndUpdate(req.headers.id, req.body, {
+        new: true,
+        runValidators: true,
+      });
+      return res.status(200).json({
+        data: post,
       });
     }
   } catch (err) {
     console.log("here");
     return res.status(400).json({
-      message: "Internal server error",
-    });
-  }
-  try {
-    req.body.creatorID = req.userId;
-    let post = await PostModel.findByIdAndUpdate(req.headers.id, req.body, {
-      new: true,
-      runValidators: true,
-    }).exec();
-    return res.status(200).json({
-      data: post,
-    });
-  } catch (err) {
-    return res.status(500).json({
       message: "Internal server error",
     });
   }
@@ -104,7 +98,6 @@ const update = async (req, res) => {
 // delete a post
 const remove = async (req, res) => {
   // check that there's a post of this onwer
-  // check that there's a post of this onwer
   try {
     let ownerPost = await PostModel.findOne({
       creatorID: req.userId,
@@ -112,7 +105,12 @@ const remove = async (req, res) => {
     });
     if (!ownerPost) {
       return res.status(403).json({
-        message: "Cannot find user and post combination",
+        message: "Post not found",
+      });
+    } else {
+      await PostModel.findByIdAndRemove(req.headers.id);
+      return res.status(200).json({
+        message: "Deleted successfully",
       });
     }
   } catch (err) {
@@ -121,22 +119,11 @@ const remove = async (req, res) => {
       message: "Internal server error",
     });
   }
-  // the owner has this post, delte it
-  try {
-    await PostModel.findByIdAndRemove(req.headers.id).exec();
-    return res.status(200).json({
-      message: "Deleted successfully",
-    });
-  } catch (err) {
-    return res.status(500).json({
-      message: "Internal server error",
-    });
-  }
 };
 
 const ViewAll = async (req, res) => {
   try {
-    let posts = await PostModel.find({ creatorID: req.userId }).exec();
+    let posts = await PostModel.find({ creatorID: req.userId });
     if (!posts)
       return res.status(404).json({
         message: "Posts not found",

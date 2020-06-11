@@ -14,11 +14,7 @@ router.post(
   type,
   PostController.create
 );
-router.get(
-  "/view",
-  middlewares.checkAuthentication,
-  PostController.ViewPostDetails
-);
+router.get("/view", PostController.ViewPostDetails);
 router.put(
   "/update",
   middlewares.checkAuthentication,
