@@ -1,18 +1,18 @@
 [
   {
-    "_id": "5ee245bbdedc1468ff6e3221",
+    "_id": { "$oid": "5ee245bbdedc1468ff6e3221" },
     "commRate": 0,
     "conditionRate": 0,
     "descriptionRate": 0,
     "tier": "PerPost",
     "violationsCount": 0,
-    "password": "$$2y$10$TDLmkg38ig.TdobPNc6/XuzQ5UdQJUCVh4KnGNboX.IEshuA2BKg2",
+    "password": "$2y$10$9LUVPLcVuq34H9F8MQs.V.JrfXpJlIN4QU9uRREgWxlEgM7G1uVsO",
     "name": "mohamed",
     "email": "mohamed@gmail.com",
     "reviews": []
   },
   {
-    "_id": "5ee245bbdedc1468ff6e3222",
+    "_id": { "$oid": "5ee245bbdedc1468ff6e3222" },
     "commRate": 0,
     "conditionRate": 0,
     "descriptionRate": 0,
@@ -24,7 +24,7 @@
     "reviews": []
   },
   {
-    "_id": "5ee245bbdedc1468ff6e3223",
+    "_id": { "$oid": "5ee245bbdedc1468ff6e3223" },
     "commRate": 0,
     "conditionRate": 0,
     "descriptionRate": 0,
@@ -36,7 +36,7 @@
     "reviews": []
   },
   {
-    "_id": "5ee245bbdedc1468ff6e3224",
+    "_id": { "$oid": "5ee245bbdedc1468ff6e3224" },
     "commRate": 0,
     "conditionRate": 0,
     "descriptionRate": 0,
