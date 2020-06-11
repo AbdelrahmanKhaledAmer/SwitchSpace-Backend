@@ -31,6 +31,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+        node-version: ${{ matrix.node-version }}
       - name: mongo-action
         uses: DigiPie/mongo-action@v1.0.0
       # - run: npm install node-mongo-seeds - done in npm install
