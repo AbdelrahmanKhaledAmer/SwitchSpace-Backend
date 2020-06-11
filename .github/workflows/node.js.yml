@@ -38,6 +38,6 @@ jobs:
 #         with:
 #           image_version: latest default value
 #           port: # optional, default is 27017
-      - run: npm install -g node-mongo-seeds
-      - run: seed
+      - run: npm install node-mongo-seeds
+      - run: ./node_modules/node-mongo-seeds/bin/seed
     
