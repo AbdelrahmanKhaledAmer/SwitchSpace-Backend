@@ -5,7 +5,7 @@ const router = express.Router();
 
 const logger = require("../middlewares/loggerHandler");
 const middlewares = require("../middlewares/middlewares");
-const reportController = require("../controllers/reportController");
+const reportController = require("../controllers/report");
 
 router.post(
   "/write",

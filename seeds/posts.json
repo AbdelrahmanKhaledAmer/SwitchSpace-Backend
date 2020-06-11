@@ -1,5 +1,6 @@
 [
   {
+    "_id": "5ee28666de1873f021bcf471",
     "creatorID": "5ee245bbdedc1468ff6e3221",
     "itemOwned": {
       "title": "iphone 10+",
@@ -24,6 +25,7 @@
     "photos": ["photo1", "photo2"]
   },
   {
+    "_id": "5ee2869e3d8df45c02a0f283",
     "creatorID": "5ee245bbdedc1468ff6e3221",
     "itemOwned": {
       "title": "BMW X3",
@@ -48,6 +50,7 @@
     "photos": ["photo1", "photo2"]
   },
   {
+    "_id": "5ee286aa7a5ff15116a86009",
     "creatorID": "5ee245bbdedc1468ff6e3222",
     "itemOwned": {
       "title": "Ceramic pot",
