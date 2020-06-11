@@ -17,16 +17,12 @@ router.post(
   type,
   PostController.create
 );
-<<<<<<< HEAD
-router.get("/view", PostController.ViewPostDetails);
-=======
 router.get(
   "/view",
   logger,
   middlewares.checkAuthentication,
   PostController.ViewPostDetails
 );
->>>>>>> d373e92ce443d11514d79315c63a500c2592c29d
 router.put(
   "/update",
   logger,
