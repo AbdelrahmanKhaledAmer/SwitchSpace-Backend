@@ -73,7 +73,7 @@ const update = async (req, res) => {
     });
     if (!ownerPost) {
       return res.status(403).json({
-        message: "Post not found",
+        message: "Unauthorized action",
       });
     } else {
       req.body.creatorID = req.userId;
@@ -105,7 +105,7 @@ const remove = async (req, res) => {
     });
     if (!ownerPost) {
       return res.status(403).json({
-        message: "Post not found",
+        message: "Unauthorized action",
       });
     } else {
       await PostModel.findByIdAndRemove(req.headers.id);
