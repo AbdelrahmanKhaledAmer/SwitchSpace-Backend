@@ -71,7 +71,7 @@ const register = async (req, res) => {
   }
   // create user and assign encrypted password
   let user = Object.assign(req.body, {
-    password: bcrypt.hashSync(req.body.password, 8),
+    password: bcrypt.hashSync(req.body.password, 10),
   });
   try {
     let retUser = await UserModel.create(user);

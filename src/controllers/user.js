@@ -1,5 +1,8 @@
+const bcrypt = require("bcryptjs");
+
 const UserModel = require("../models/schema/user");
-const registerValidator = require("../models/validations/userRegister");
+const registerValidator = require("../models/validations/userUpdate");
+const { use } = require("../routes/user");
 
 // ********************************************************************************************************* //
 
@@ -7,16 +10,23 @@ const registerValidator = require("../models/validations/userRegister");
 // TODO update email or not
 const updateProfile = async function (req, res) {
   // validate the post form
-  const validationVerdict = registerValidator(req.body);
+  const validationVerdict = registerValidator.validate(req.body);
   // check whether the form is incomplete
   if (validationVerdict.error) {
     return res
       .status(400)
       .json({ message: validationVerdict.error.details[0].message });
   }
-  let user;
+  let user = req.body;
+
   try {
-    user = await UserModel.findByIdAndUpdate(req.userId, req.body, {
+    if (req.body.password) {
+      user = Object.assign(req.body, {
+        password: bcrypt.hashSync(req.body.password, 10),
+      });
+      console.log(req.body);
+    }
+    user = await UserModel.findByIdAndUpdate(req.userId, user, {
       new: true,
       runValidators: true,
     });
