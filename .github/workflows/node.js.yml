@@ -32,7 +32,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [12.x]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -41,5 +41,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: mongo-action
         uses: DigiPie/mongo-action@v1.0.0
-      # - run: npm install node-mongo-seeds - done in npm install
+      - run: npm install
       - run: ./node_modules/node-mongo-seeds/bin/seed --seeds-folder seeds
