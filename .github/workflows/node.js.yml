@@ -35,3 +35,4 @@ jobs:
         uses: DigiPie/mongo-action@v1.0.0
       - run: npm install node-mongo-seeds
       - run: ./node_modules/node-mongo-seeds/bin/seed
+      - run: echo $? 
