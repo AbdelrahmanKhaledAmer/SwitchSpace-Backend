@@ -1,14 +1,50 @@
 [
   {
+    "_id": "5ee245bbdedc1468ff6e3221",
     "commRate": 0,
     "conditionRate": 0,
     "descriptionRate": 0,
     "tier": "PerPost",
     "violationsCount": 0,
-    "username": "mey5",
-    "password": "$2a$08$gvnjZMDOD6S/VKSU2I1PZuZ2cYtcdzQc5Qp5xFfHWzKVfRWQdIaAy",
+    "password": "$$2y$10$TDLmkg38ig.TdobPNc6/XuzQ5UdQJUCVh4KnGNboX.IEshuA2BKg2",
     "name": "mohamed",
     "email": "mohamed@gmail.com",
+    "reviews": []
+  },
+  {
+    "_id": "5ee245bbdedc1468ff6e3222",
+    "commRate": 0,
+    "conditionRate": 0,
+    "descriptionRate": 0,
+    "tier": "PerPost",
+    "violationsCount": 0,
+    "password": "$2y$10$L9DVvXUhQ31GY0lkLK2XOeXM28JpoSNhdOY0CzgmXUS.stHXGUD4e",
+    "name": "test",
+    "email": "test@gmail.com",
+    "reviews": []
+  },
+  {
+    "_id": "5ee245bbdedc1468ff6e3223",
+    "commRate": 0,
+    "conditionRate": 0,
+    "descriptionRate": 0,
+    "tier": "PerPost",
+    "violationsCount": 0,
+    "password": "$2y$10$EWozjpDp5o/hEW2QbHuTqub/rXDtXZCU0a5EtGlj3N/6AGSYHTEp6",
+    "name": "test2",
+    "email": "test2@gmail.com",
+    "reviews": []
+  },
+  {
+    "_id": "5ee245bbdedc1468ff6e3224",
+    "commRate": 0,
+    "conditionRate": 0,
+    "descriptionRate": 0,
+    "tier": "PerPost",
+    "violationsCount": 0,
+    "password": "$2y$10$A5/qiaMcwUtjwDTMvXnLZ.yIg09vTore3Rt8dQTl1078ev0TdwTtm",
+    "name": "test3",
+    "email": "test3@gmail.com",
     "reviews": []
   }
 ]
