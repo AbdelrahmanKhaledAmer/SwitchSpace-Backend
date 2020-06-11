@@ -1,34 +1,34 @@
 [
   {
-    "_id": "5ee25c6da091caad8bcfaa78",
+    "_id": { "$oid": "5ee25c6da091caad8bcfaa78" },
     "title": "smartphones"
   },
   {
-    "_id": "5ee25c96a4ffb3b2b77cdc52",
+    "_id": { "$oid": "5ee25c96a4ffb3b2b77cdc52" },
     "title": "tablets"
   },
   {
-    "_id": "5ee25cb8968eb13d70915c78",
+    "_id": { "$oid": "5ee25cb8968eb13d70915c78" },
     "title": "chairs"
   },
   {
-    "_id": "5ee25ccfd63c5e2a1abf914c",
+    "_id": { "$oid": "5ee25ccfd63c5e2a1abf914c" },
     "title": "tables"
   },
   {
-    "_id": "5ee25ceb9bdbba8b5f36a8ad",
+    "_id": { "$oid": "5ee25ceb9bdbba8b5f36a8ad" },
     "title": "cars"
   },
   {
-    "_id": "5ee25cf9a57a5643a1cf1760",
+    "_id": { "$oid": "5ee25cf9a57a5643a1cf1760" },
     "title": "bikes"
   },
   {
-    "_id": "5ee25d689cb6b4deed51f7e1",
+    "_id": { "$oid": "5ee25d689cb6b4deed51f7e1" },
     "title": "microwaves"
   },
   {
-    "_id": "5ee25d94c2e1a734702c2157",
+    "_id": { "$oid": "5ee25d94c2e1a734702c2157" },
     "title": "utensils"
   }
 ]

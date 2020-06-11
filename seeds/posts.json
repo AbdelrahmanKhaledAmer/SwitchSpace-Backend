@@ -1,6 +1,7 @@
 [
   {
-    "creatorID": "5ee245bbdedc1468ff6e3221",
+    "_id": { "$oid": "5ee28666de1873f021bcf471" },
+    "creatorId": { "$oid": "5ee245bbdedc1468ff6e3221" },
     "itemOwned": {
       "title": "iphone 10+",
       "condition": "Used",
@@ -24,7 +25,8 @@
     "photos": ["photo1", "photo2"]
   },
   {
-    "creatorID": "5ee245bbdedc1468ff6e3221",
+    "_id": { "$oid": "5ee2869e3d8df45c02a0f283" },
+    "creatorId": { "$oid": "5ee245bbdedc1468ff6e3221" },
     "itemOwned": {
       "title": "BMW X3",
       "condition": "Used",
@@ -48,7 +50,8 @@
     "photos": ["photo1", "photo2"]
   },
   {
-    "creatorID": "5ee245bbdedc1468ff6e3222",
+    "_id": { "$oid": "5ee286aa7a5ff15116a86009" },
+    "creatorId": { "$oid": "5ee245bbdedc1468ff6e3222" },
     "itemOwned": {
       "title": "Ceramic pot",
       "condition": "New",
