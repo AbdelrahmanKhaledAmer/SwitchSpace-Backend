@@ -16,10 +16,9 @@ const create = async (req, res) => {
   const validationVerdict = PostValidator.validate(req.body);
   // check whether the form is incomplete
   if (validationVerdict.error) {
-    res.status(400).json({
+    return res.status(400).json({
       message: validationVerdict.error.details[0].message,
     });
-    return;
   }
 
   // create post with its complete attributes
@@ -40,8 +39,7 @@ const create = async (req, res) => {
 // view a specific post
 const ViewPostDetails = async (req, res) => {
   try {
-    let post = await PostModel.findById(req.headers.id).exec();
-
+    let post = await PostModel.findById(req.headers.id);
     if (!post)
       return res.status(404).json({
         message: "Post not found",
@@ -63,23 +61,33 @@ const update = async (req, res) => {
   const validationVerdict = PostValidator.validate(req.body);
   // check whether the form is incomplete
   if (validationVerdict.error) {
-    res.status(400).json({
+    return res.status(400).json({
       message: validationVerdict.error.details[0].message,
     });
-    return;
   }
-
+  // check that there's a post of this onwer
   try {
-    req.body.creatorID = req.userId;
-    let post = await PostModel.findByIdAndUpdate(req.headers.id, req.body, {
-      new: true,
-      runValidators: true,
-    }).exec();
-    return res.status(200).json({
-      data: post,
+    let ownerPost = await PostModel.findOne({
+      creatorID: req.userId,
+      _id: req.headers.id,
     });
+    if (!ownerPost) {
+      return res.status(403).json({
+        message: "Unauthorized action",
+      });
+    } else {
+      req.body.creatorID = req.userId;
+      let post = await PostModel.findByIdAndUpdate(req.headers.id, req.body, {
+        new: true,
+        runValidators: true,
+      });
+      return res.status(200).json({
+        data: post,
+      });
+    }
   } catch (err) {
-    return res.status(500).json({
+    console.log("here");
+    return res.status(400).json({
       message: "Internal server error",
     });
   }
@@ -89,13 +97,25 @@ const update = async (req, res) => {
 
 // delete a post
 const remove = async (req, res) => {
+  // check that there's a post of this onwer
   try {
-    await PostModel.findByIdAndRemove(req.headers.id).exec();
-    return res.status(200).json({
-      message: "Deleted successfully",
+    let ownerPost = await PostModel.findOne({
+      creatorID: req.userId,
+      _id: req.headers.id,
     });
+    if (!ownerPost) {
+      return res.status(403).json({
+        message: "Unauthorized action",
+      });
+    } else {
+      await PostModel.findByIdAndRemove(req.headers.id);
+      return res.status(200).json({
+        message: "Deleted successfully",
+      });
+    }
   } catch (err) {
-    return res.status(500).json({
+    console.log("here");
+    return res.status(400).json({
       message: "Internal server error",
     });
   }
@@ -103,10 +123,10 @@ const remove = async (req, res) => {
 
 const ViewAll = async (req, res) => {
   try {
-    let posts = await PostModel.find({ creatorID: req.userId }).exec();
+    let posts = await PostModel.find({ creatorID: req.userId });
     if (!posts)
       return res.status(404).json({
-        message: "Post not found",
+        message: "Posts not found",
       });
     return res.status(200).json(posts);
   } catch (err) {
