@@ -6,11 +6,11 @@ const reviewValidator = require("../models/validations/review");
 // ********************************************************************************************************* //
 
 const writeReview = async (req, res) => {
-  // Retrieve reviewer ID from token and reviewee ID from req.body
+  // Retrieve reviewer Id from token and reviewee Id from req.body
   let reviewerId = req.userId;
   let revieweeId = req.body.revieweeId;
   delete req.body.revieweeId;
-  // If no reviewer ID exists, then user needs to log in.
+  // If no reviewer Id exists, then user needs to log in.
   if (!reviewerId) {
     return res.status(403).json({
       message: "Logging in is required for reviewing a user",
