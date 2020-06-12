@@ -66,8 +66,10 @@ const deletePost = async (req, res) => {
   try {
     let post = await PostModel.findOne({ _id: req.body.postId });
     let creatorId = post.creatorId;
-    let user = await UserModel.findOne({ _id: creatorId }).isDeleted(false);
-    user = user[0];
+    let user = await UserModel.findOne({
+      _id: creatorId,
+      deleted: false,
+    });
     if (user) {
       user.violationsCount += 1;
       if (user.violationsCount > MAX_VIOLATIONS) {

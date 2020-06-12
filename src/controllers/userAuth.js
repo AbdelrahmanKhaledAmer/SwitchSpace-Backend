@@ -23,7 +23,7 @@ const login = async (req, res) => {
   let user;
   try {
     // This plugin (softdelete) returns an array
-    user = await UserModel.findOne({ email: req.body.email }).isDeleted(false);
+    user = await UserModel.findOne({ email: req.body.email, deleted: false });
     user = user[0];
     // check if the password is valid
     const isPasswordValid = bcrypt.compareSync(

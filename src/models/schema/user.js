@@ -1,7 +1,6 @@
 "use strict";
 
 const mongoose = require("mongoose");
-const soft_delete = require("mongoose-softdelete");
 const reviewSchema = require("./review");
 
 // Define the user schema
@@ -56,9 +55,14 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  deleted: {
+    type: Boolean,
+    default: false,
+  },
+  deletedAt: {
+    type: Date,
+  },
 });
-
-userSchema.plugin(soft_delete);
 
 userSchema.set("versionKey", false);
 
