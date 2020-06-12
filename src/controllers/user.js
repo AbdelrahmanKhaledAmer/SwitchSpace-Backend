@@ -28,7 +28,6 @@ const updateProfile = async (req, res) => {
       user = Object.assign(req.body, {
         password: bcrypt.hashSync(req.body.password, 10),
       });
-      console.log(req.body);
     }
 
     user = await UserModel.findOneAndUpdate(
