@@ -11,6 +11,11 @@ const PostValidator = require("../models/validations/post");
 
 // cretae a post
 const create = async (req, res) => {
+  if (!req.userId) {
+    return res.status(403).json({
+      message: "You need to be a regular user to create a post.",
+    });
+  }
   req.body.creatorId = req.userId;
   // validate the post form
   const validationVerdict = PostValidator.validate(req.body);
@@ -57,6 +62,11 @@ const ViewPostDetails = async (req, res) => {
 
 // update a post
 const update = async (req, res) => {
+  if (!req.userId) {
+    return res.status(403).json({
+      message: "You need to be a regular user to edit your post.",
+    });
+  }
   // validate post form
   const validationVerdict = PostValidator.validate(req.body);
   // check whether the form is incomplete
@@ -97,6 +107,11 @@ const update = async (req, res) => {
 
 // delete a post
 const remove = async (req, res) => {
+  if (!req.userId) {
+    return res.status(403).json({
+      message: "You need to be a regular user to delete your post.",
+    });
+  }
   // check that there's a post of this onwer
   try {
     let ownerPost = await PostModel.findOne({

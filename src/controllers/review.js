@@ -6,6 +6,11 @@ const reviewValidator = require("../models/validations/review");
 // ********************************************************************************************************* //
 
 const writeReview = async (req, res) => {
+  if (!req.userId) {
+    return res.status(403).json({
+      message: "You need to be a regular user to review another user.",
+    });
+  }
   // Retrieve reviewer Id from token and reviewee Id from req.body
   let reviewerId = req.userId;
   let revieweeId = req.body.revieweeId;
