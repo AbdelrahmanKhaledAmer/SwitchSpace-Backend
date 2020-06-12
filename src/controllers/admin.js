@@ -72,11 +72,12 @@ const deletePost = async (req, res) => {
     });
     if (user) {
       user.violationsCount += 1;
+      // user violations exceeded => automatically remove user
       if (user.violationsCount > MAX_VIOLATIONS) {
-        await user.softdelete();
-      } else {
-        await user.save();
+        user.deleted = true;
+        user.deletedAt = Date.now();
       }
+      await user.save();
     }
     await post.remove();
     return res.status(200).json({
