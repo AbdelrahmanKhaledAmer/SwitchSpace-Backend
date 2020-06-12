@@ -33,7 +33,8 @@ const writeReview = async (req, res) => {
   }
   // Retrieve user to be reviewed
   try {
-    let reviewee = await userModel.findById(revieweeId);
+    let reviewee = await userModel.findById(revieweeId).isDeleted(false);
+    reviewee = reviewee[0];
     let numReviews = reviewee.reviews.length;
     // If reviewer had already written a review, edit that review
     let review = reviewee.reviews

@@ -12,7 +12,6 @@ const loginValidator = require("../models/validations/login");
 
 // login user in
 const login = async (req, res) => {
-  // TODO add signin with email
   // check the password
   const validationVerdict = loginValidator.validate(req.body);
   // check whether the form is incomplete
@@ -23,7 +22,9 @@ const login = async (req, res) => {
   }
   let user;
   try {
-    user = await UserModel.findOne({ email: req.body.email });
+    // This plugin (softdelete) returns an array
+    user = await UserModel.findOne({ email: req.body.email }).isDeleted(false);
+    user = user[0];
     // check if the password is valid
     const isPasswordValid = bcrypt.compareSync(
       req.body.password,
@@ -45,6 +46,7 @@ const login = async (req, res) => {
 
     return res.status(200).json({ data: { token: token } });
   } catch (err) {
+    console.log(user);
     if (!user) {
       return res.status(404).json({
         message: "User Not Found",

@@ -33,7 +33,8 @@ const updateProfile = async (req, res) => {
     user = await UserModel.findByIdAndUpdate(req.userId, user, {
       new: true,
       runValidators: true,
-    });
+    }).isDeleted(false);
+    user = user[0];
     return res.status(200).json({ data: user });
   } catch (err) {
     if (!user) {
@@ -61,7 +62,8 @@ const userChangeSubscription = async (req, res) => {
       req.userId,
       { tier: req.body.tier },
       { new: true, runValidators: true }
-    );
+    ).isDeleted(false);
+    user = user[0];
     return res.status(200).json({ data: user });
   } catch (err) {
     if (!user) {
