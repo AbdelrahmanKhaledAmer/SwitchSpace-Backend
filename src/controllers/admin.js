@@ -1,6 +1,7 @@
 const ReportModel = require("../models/schema/report");
 const PostModel = require("../models/schema/post");
-
+const UserModel = require("../models/schema/user");
+const MAX_VIOLATIONS = 3;
 // ********************************************************************************************************* //
 
 // Get all reports with pagination
@@ -63,7 +64,18 @@ const deletePost = async (req, res) => {
     });
   }
   try {
-    await PostModel.deleteOne({ _id: req.body.postId });
+    let post = await PostModel.findOne({ _id: req.body.postId });
+    let creatorId = post.creatorId;
+    let user = await UserModel.findOne({ _id: creatorId });
+    if (user) {
+      user.violationsCount += 1;
+      if (user.violationsCount > MAX_VIOLATIONS) {
+        // TODO: "Delete" user
+      } else {
+        await user.save();
+      }
+    }
+    await post.remove();
     return res.status(200).json({
       data: { message: "Post deleted successfully" },
     });
