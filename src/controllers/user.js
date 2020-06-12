@@ -28,13 +28,13 @@ const updateProfile = async (req, res) => {
       user = Object.assign(req.body, {
         password: bcrypt.hashSync(req.body.password, 10),
       });
-      console.log(req.body);
     }
-    user = await UserModel.findByIdAndUpdate(req.userId, user, {
-      new: true,
-      runValidators: true,
-    }).isDeleted(false);
-    user = user[0];
+
+    user = await UserModel.findOneAndUpdate(
+      { _id: req.userId, deleted: false },
+      user,
+      { new: true, runValidators: true }
+    );
     return res.status(200).json({ data: user });
   } catch (err) {
     if (!user) {
@@ -58,12 +58,11 @@ const userChangeSubscription = async (req, res) => {
   }
   let user;
   try {
-    user = await UserModel.findByIdAndUpdate(
-      req.userId,
+    user = await UserModel.findOneAndUpdate(
+      { _id: req.userId, deleted: false },
       { tier: req.body.tier },
       { new: true, runValidators: true }
-    ).isDeleted(false);
-    user = user[0];
+    );
     return res.status(200).json({ data: user });
   } catch (err) {
     if (!user) {

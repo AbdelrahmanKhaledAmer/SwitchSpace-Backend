@@ -26,14 +26,13 @@ const writeReview = async (req, res) => {
   let valid = reviewValidator.validate(req.body);
   // If review is not valid, then user needs to enter valid data.
   if (valid.error) {
-    console.log(valid);
     return res.status(400).json({
       message: "Incorrect data. Ratings must be a value between one and 5.",
     });
   }
   // Retrieve user to be reviewed
   try {
-    let reviewee = await userModel.findById(revieweeId).isDeleted(false);
+    let reviewee = await userModel.findOne({ _id: revieweeId, deleted: false });
     reviewee = reviewee[0];
     let numReviews = reviewee.reviews.length;
     // If reviewer had already written a review, edit that review

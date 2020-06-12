@@ -66,15 +66,18 @@ const deletePost = async (req, res) => {
   try {
     let post = await PostModel.findOne({ _id: req.body.postId });
     let creatorId = post.creatorId;
-    let user = await UserModel.findOne({ _id: creatorId }).isDeleted(false);
-    user = user[0];
+    let user = await UserModel.findOne({
+      _id: creatorId,
+      deleted: false,
+    });
     if (user) {
       user.violationsCount += 1;
+      // user violations exceeded => automatically remove user
       if (user.violationsCount > MAX_VIOLATIONS) {
-        await user.softdelete();
-      } else {
-        await user.save();
+        user.deleted = true;
+        user.deletedAt = Date.now();
       }
+      await user.save();
     }
     await post.remove();
     return res.status(200).json({

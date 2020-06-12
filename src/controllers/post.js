@@ -96,7 +96,6 @@ const update = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log("here");
     return res.status(400).json({
       message: "Internal server error",
     });
@@ -129,7 +128,6 @@ const remove = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log("here");
     return res.status(400).json({
       message: "Internal server error",
     });
