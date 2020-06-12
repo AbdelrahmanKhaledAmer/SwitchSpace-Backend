@@ -48,7 +48,12 @@ const checkAuthentication = (req, res, next) => {
       });
     }
     // if everything is good, save to request for use in other routes
-    req.userId = decoded.id;
+    // admin funcs will have to check for the admin existing or not
+    if (decoded.isAdmin) {
+      req.adminId = decoded.id;
+    } else {
+      req.userId = decoded.id;
+    }
     next();
   });
 };
