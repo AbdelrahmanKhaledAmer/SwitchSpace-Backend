@@ -1,5 +1,55 @@
 [
   {
+    "_id": { "$oid": "5ee28666de1873f021bcf563" },
+    "creatorId": { "$oid": "5ee245bbdedc1468ff6e3221" },
+    "itemOwned": {
+      "title": "iphone 10+",
+      "condition": "Used",
+      "modelYear": 2010,
+      "description": "Used in a good condition",
+      "category": "electronics",
+      "subcategory": "smartphones"
+    },
+    "itemDesired": {
+      "title": "Samsung s9",
+      "condition": "New",
+      "modelYear": 2019,
+      "description": "Must be new",
+      "category": "electronics",
+      "subcategory": "smartphones"
+    },
+    "exchangeLocation": {
+      "type": "Point",
+      "coordinates": [-104.99404, 39.75621]
+    },
+    "photos": ["photo1", "photo2"]
+  },
+  {
+    "_id": { "$oid": "5ee2869e3d8df45c02a0f382" },
+    "creatorId": { "$oid": "5ee245bbdedc1468ff6e3221" },
+    "itemOwned": {
+      "title": "BMW X3",
+      "condition": "Used",
+      "modelYear": 2010,
+      "description": "Used in a good condition",
+      "category": "vehicles",
+      "subcategory": "cars"
+    },
+    "itemDesired": {
+      "title": "Audi A5",
+      "condition": "New",
+      "modelYear": 2019,
+      "description": "Must be new",
+      "category": "vehicles",
+      "subcategory": "cars"
+    },
+    "exchangeLocation": {
+      "type": "Point",
+      "coordinates": [-96.58, 45.94]
+    },
+    "photos": ["photo1", "photo2"]
+  },
+  {
     "_id": { "$oid": "5ee28666de1873f021bcf471" },
     "creatorId": { "$oid": "5ee245bbdedc1468ff6e3221" },
     "itemOwned": {
