@@ -11,7 +11,7 @@ const allowCrossDomain = (req, res, next) => {
 
   // intercept OPTIONS method
   if ("OPTIONS" == req.method) {
-    res.status(200).send(200);
+    res.status(200).json(200);
   } else {
     next();
   }
@@ -28,13 +28,13 @@ const checkAuthentication = (req, res, next) => {
   }
   // check token exists
   if (!token)
-    return res.status(401).send({
+    return res.status(401).json({
       error: "Unauthorized",
       message: "No token provided in the request",
     });
   // check authentication scheme
   if (bearer[0] !== "Bearer") {
-    return res.status(401).send({
+    return res.status(401).json({
       error: "unauthorized",
       message: "unauthorized authentication scheme",
     });
@@ -42,13 +42,18 @@ const checkAuthentication = (req, res, next) => {
   // verifies secret and checks exp
   jwt.verify(token, config.JwtSecret, (err, decoded) => {
     if (err) {
-      return res.status(401).send({
+      return res.status(401).json({
         error: "Unauthorized",
         message: "Failed to authenticate token.",
       });
     }
     // if everything is good, save to request for use in other routes
-    req.userId = decoded.id;
+    // admin funcs will have to check for the admin existing or not
+    if (decoded.isAdmin) {
+      req.adminId = decoded.id;
+    } else {
+      req.userId = decoded.id;
+    }
     next();
   });
 };

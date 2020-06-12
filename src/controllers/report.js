@@ -6,6 +6,11 @@ const reviewValidator = require("../models/validations/report");
 // ********************************************************************************************************* //
 
 const reportPost = async (req, res) => {
+  if (!req.userId) {
+    return res.status(403).json({
+      message: "You need to be a regular user to report a post.",
+    });
+  }
   // Retrieve reporter Id from token
   let reporterId = req.userId;
   // If no reporter Id exists, then user needs to log in.
