@@ -7,7 +7,7 @@ const registerValidator = require("../models/validations/userUpdate");
 
 // update user profile
 // TODO update email or not
-const updateProfile = async function (req, res) {
+const updateProfile = async (req, res) => {
   // validate the post form
   const validationVerdict = registerValidator.validate(req.body);
   // check whether the form is incomplete
@@ -40,7 +40,7 @@ const updateProfile = async function (req, res) {
 // ********************************************************************************************************* //
 
 // change current subscription tier of the user.
-const userChangeSubscription = async function (req, res) {
+const userChangeSubscription = async (req, res) => {
   if (!req.body.tier) {
     return res.json.status(404).json({ message: "missing subscription tier" });
   }
