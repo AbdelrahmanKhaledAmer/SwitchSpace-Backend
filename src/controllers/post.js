@@ -167,9 +167,7 @@ const searchPosts = async (req, res) => {
     type: "Point",
     coordinates: [lon, lat],
   };
-  let radius = req.query.radius ? req.query.lat : 1e5 * 1000; // convert radius to km
-  console.log(location);
-  console.log(radius);
+  let radius = req.query.radius ? req.query.radius : 1e5 * 1000; // convert radius to km
   // let lon = req.query.lon ? req.query.lon : "";
   // let lat = req.query.lat ? req.query.lat : "";
   try {
