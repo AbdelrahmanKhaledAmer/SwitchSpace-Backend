@@ -13,6 +13,7 @@ const admin = require("./routes/admin");
 const post = require("./routes/post");
 const review = require("./routes/review");
 const report = require("./routes/report");
+const trending = require("./routes/trending");
 
 const api = express();
 
@@ -37,5 +38,6 @@ api.use("/admin/auth", adminAuth);
 api.use("/post", post);
 api.use("/review", review);
 api.use("/report", report);
+api.use("/trending", trending);
 
 module.exports = api;

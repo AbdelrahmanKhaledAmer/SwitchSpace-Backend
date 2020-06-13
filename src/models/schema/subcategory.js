@@ -9,6 +9,11 @@ const subcategorySchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  trendingScore: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 
 subcategorySchema.set("versionKey", false);

@@ -4,7 +4,10 @@
 //const upload = multer({ dest: "public/images/postsGallery" });
 //const type = upload.array("photos");
 //const fs = require("fs");
+const Mongoose = require("mongoose");
 const PostModel = require("../models/schema/post");
+const subcategorySchema = require("../models/schema/subcategory");
+const subcategoryModel = Mongoose.model("Subcategory", subcategorySchema);
 const PostValidator = require("../models/validations/post");
 
 // ********************************************************************************************************* //
@@ -29,6 +32,13 @@ const create = async (req, res) => {
   // create post with its complete attributes
   try {
     let post = await PostModel.create(req.body);
+    let subcategory = post.itemDesired.subcategory;
+    if (subcategory) {
+      // update the trending score of this subcategory
+      subcategory = await subcategoryModel.findOne({ title: subcategory });
+      subcategory.trendingScore += 1;
+      subcategory.save();
+    }
     return res.status(201).json({
       data: post,
     });
@@ -67,6 +77,7 @@ const update = async (req, res) => {
       message: "You need to be a regular user to edit your post.",
     });
   }
+  req.body.creatorId = req.userId;
   // validate post form
   const validationVerdict = PostValidator.validate(req.body);
   // check whether the form is incomplete
@@ -86,11 +97,23 @@ const update = async (req, res) => {
         message: "Unauthorized action",
       });
     } else {
-      req.body.creatorId = req.userId;
+      // update the trending score of the subcategory
+      let subcategory = ownerPost.itemDesired.subcategory;
+      if (subcategory) {
+        subcategory = await subcategoryModel.findOne({ title: subcategory });
+        subcategory.trendingScore -= 1;
+        subcategory.save();
+      }
       let post = await PostModel.findByIdAndUpdate(req.headers.id, req.body, {
         new: true,
         runValidators: true,
       });
+      subcategory = post.itemDesired.subcategory;
+      if (subcategory) {
+        subcategory = await subcategoryModel.findOne({ title: subcategory });
+        subcategory.trendingScore += 1;
+        subcategory.save();
+      }
       return res.status(200).json({
         data: post,
       });
@@ -122,7 +145,14 @@ const remove = async (req, res) => {
         message: "Unauthorized action",
       });
     } else {
-      await PostModel.findByIdAndRemove(req.headers.id);
+      let subcategory = ownerPost.itemDesired.subcategory;
+      if (subcategory) {
+        subcategory = await subcategoryModel.findOne({ title: subcategory });
+        subcategory.trendingScore -= 1;
+        subcategory.save();
+      }
+      ownerPost.remove();
+      // await PostModel.findByIdAndRemove(req.headers.id);
       return res.status(200).json({
         message: "Deleted successfully",
       });
