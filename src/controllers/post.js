@@ -77,6 +77,7 @@ const update = async (req, res) => {
       message: "You need to be a regular user to edit your post.",
     });
   }
+  req.body.creatorId = req.userId;
   // validate post form
   const validationVerdict = PostValidator.validate(req.body);
   // check whether the form is incomplete
@@ -96,11 +97,19 @@ const update = async (req, res) => {
         message: "Unauthorized action",
       });
     } else {
-      req.body.creatorId = req.userId;
+      // update the trending score of the subcategory
+      let subcategory = ownerPost.itemDesired.subcategory;
+      subcategory = await subcategoryModel.findOne({ title: subcategory });
+      subcategory.trendingScore -= 1;
+      subcategory.save();
       let post = await PostModel.findByIdAndUpdate(req.headers.id, req.body, {
         new: true,
         runValidators: true,
       });
+      subcategory = post.itemDesired.subcategory;
+      subcategory = await subcategoryModel.findOne({ title: subcategory });
+      subcategory.trendingScore += 1;
+      subcategory.save();
       return res.status(200).json({
         data: post,
       });
