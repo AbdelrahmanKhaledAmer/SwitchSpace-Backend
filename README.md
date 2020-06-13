@@ -77,6 +77,16 @@ Run seed
 seed
 ```
 
+Create index on the seeded items in the db
+
+```bash
+use switch_space
+```
+
+```bash
+db.posts.createIndex({exchangeLocation:"2dsphere"})
+```
+
 -**Start dev server**
 
 ```bash

@@ -155,15 +155,21 @@ const ViewAll = async (req, res) => {
 
 // Search all posts regardless of case sensitivity, but is character sensitive
 const searchPosts = async (req, res) => {
-  // if (Object.keys(req.query).length === 0 && req.query.constructor === Object) {
-  //   return res.status(400).json({
-  //     message: "You need to enter a search query.",
-  //   });
-  // }
+  // filter attributes
+  // default search location is the center of the earth with largest radius possible
   let itemWanted = req.query.iw ? req.query.iw : "";
   let itemOwned = req.query.io ? req.query.io : "";
   let itemWantedCategory = req.query.iwCat ? req.query.iwCat : "";
   let itemOwnedCategory = req.query.ioCat ? req.query.ioCat : "";
+  let lon = req.query.lon ? req.query.lon : 0;
+  let lat = req.query.lat ? req.query.lat : 0;
+  let location = {
+    type: "Point",
+    coordinates: [lon, lat],
+  };
+  let radius = req.query.radius ? req.query.lat : 1e5 * 1000; // convert radius to km
+  console.log(location);
+  console.log(radius);
   // let lon = req.query.lon ? req.query.lon : "";
   // let lat = req.query.lat ? req.query.lat : "";
   try {
@@ -175,6 +181,12 @@ const searchPosts = async (req, res) => {
       "itemOwned.category": { $regex: itemWantedCategory, $options: "i" },
       "itemDesired.title": { $regex: itemOwned, $options: "i" },
       "itemDesired.category": { $regex: itemOwnedCategory, $options: "i" },
+      exchangeLocation: {
+        $nearSphere: {
+          $geometry: location,
+          $maxDistance: radius,
+        },
+      },
     });
     return res.status(200).json({
       data: posts,
