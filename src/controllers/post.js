@@ -141,7 +141,12 @@ const remove = async (req, res) => {
         message: "Unauthorized action",
       });
     } else {
-      await PostModel.findByIdAndRemove(req.headers.id);
+      let subcategory = ownerPost.itemDesired.subcategory;
+      subcategory = await subcategoryModel.findOne({ title: subcategory });
+      subcategory.trendingScore -= 1;
+      subcategory.save();
+      ownerPost.remove();
+      // await PostModel.findByIdAndRemove(req.headers.id);
       return res.status(200).json({
         message: "Deleted successfully",
       });
