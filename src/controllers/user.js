@@ -6,7 +6,6 @@ const registerValidator = require("../models/validations/userUpdate");
 // ********************************************************************************************************* //
 
 // update user profile
-// TODO update email or not
 const updateProfile = async (req, res) => {
   if (!req.userId) {
     return res.status(403).json({

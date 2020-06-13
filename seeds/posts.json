@@ -20,7 +20,7 @@
     },
     "exchangeLocation": {
       "type": "Point",
-      "coordinates": [-104.99404, 39.75621]
+      "coordinates": [11.581981, 48.135124]
     },
     "photos": ["photo1", "photo2"]
   },
@@ -45,7 +45,7 @@
     },
     "exchangeLocation": {
       "type": "Point",
-      "coordinates": [-96.58, 45.94]
+      "coordinates": [11.581984, 48.135124]
     },
     "photos": ["photo1", "photo2"]
   },
@@ -120,7 +120,7 @@
     },
     "exchangeLocation": {
       "type": "Point",
-      "coordinates": [-104.05, 48.99]
+      "coordinates": [11.581981, 48.135126]
     },
     "photos": ["photo1", "photo2"]
   }

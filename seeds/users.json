@@ -14,7 +14,7 @@
     "deletedAt": null
   },
   {
-    "_id": { "oid": "5ee245bbdedc1468ff6e3220" },
+    "_id": { "$oid": "5ee245bbdedc1468ff6e3220" },
     "commRate": 0,
     "conditionRate": 0,
     "descriptionRate": 0,

@@ -32,6 +32,6 @@ const postSchema = new mongoose.Schema({
 
 postSchema.set("versionKey", false);
 postSchema.set("timestamps", true);
-
+postSchema.index({ exchangeLocation: "2dsphere" });
 // Export the post model
 module.exports = mongoose.model("Post", postSchema);

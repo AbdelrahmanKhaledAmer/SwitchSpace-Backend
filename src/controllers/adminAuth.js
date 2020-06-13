@@ -10,7 +10,6 @@ const loginValidator = require("../models/validations/login");
 
 // login Admin in
 const login = async (req, res) => {
-  // TODO add signin with email
   // check the password
   const validationVerdict = loginValidator.validate(req.body);
   // check whether the form is incomplete
