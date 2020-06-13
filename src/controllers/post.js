@@ -134,6 +134,8 @@ const remove = async (req, res) => {
   }
 };
 
+// ********************************************************************************************************* //
+
 const ViewAll = async (req, res) => {
   try {
     let posts = await PostModel.find({ creatorId: req.userId });
@@ -149,10 +151,46 @@ const ViewAll = async (req, res) => {
   }
 };
 
+// ********************************************************************************************************* //
+
+// Search all posts regardless of case sensitivity, but is character sensitive
+const searchPosts = async (req, res) => {
+  // if (Object.keys(req.query).length === 0 && req.query.constructor === Object) {
+  //   return res.status(400).json({
+  //     message: "You need to enter a search query.",
+  //   });
+  // }
+  let itemWanted = req.query.iw ? req.query.iw : "";
+  let itemOwned = req.query.io ? req.query.io : "";
+  let itemWantedCategory = req.query.iwCat ? req.query.iwCat : "";
+  let itemOwnedCategory = req.query.ioCat ? req.query.ioCat : "";
+  // let lon = req.query.lon ? req.query.lon : "";
+  // let lat = req.query.lat ? req.query.lat : "";
+  try {
+    let posts = await PostModel.find({
+      "itemOwned.title": {
+        $regex: itemWanted,
+        $options: "i",
+      },
+      "itemOwned.category": { $regex: itemWantedCategory, $options: "i" },
+      "itemDesired.title": { $regex: itemOwned, $options: "i" },
+      "itemDesired.category": { $regex: itemOwnedCategory, $options: "i" },
+    });
+    return res.status(200).json({
+      data: posts,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: "Internal server error.",
+    });
+  }
+};
+
 module.exports = {
   create,
   ViewPostDetails,
   update,
   remove,
   ViewAll,
+  searchPosts,
 };

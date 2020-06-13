@@ -37,5 +37,6 @@ router.get(
   middlewares.checkAuthentication,
   PostController.ViewAll
 );
+router.get("/search", logger, PostController.searchPosts);
 
 module.exports = router;
