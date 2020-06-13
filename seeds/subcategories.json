@@ -2,7 +2,7 @@
   {
     "_id": { "$oid": "5ee25c6da091caad8bcfaa78" },
     "title": "smartphones",
-    "trendingScore": 0
+    "trendingScore": 2
   },
   {
     "_id": { "$oid": "5ee25c96a4ffb3b2b77cdc52" },
@@ -22,7 +22,7 @@
   {
     "_id": { "$oid": "5ee25ceb9bdbba8b5f36a8ad" },
     "title": "cars",
-    "trendingScore": 0
+    "trendingScore": 2
   },
   {
     "_id": { "$oid": "5ee25cf9a57a5643a1cf1760" },
