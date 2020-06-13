@@ -99,17 +99,21 @@ const update = async (req, res) => {
     } else {
       // update the trending score of the subcategory
       let subcategory = ownerPost.itemDesired.subcategory;
-      subcategory = await subcategoryModel.findOne({ title: subcategory });
-      subcategory.trendingScore -= 1;
-      subcategory.save();
+      if (subcategory) {
+        subcategory = await subcategoryModel.findOne({ title: subcategory });
+        subcategory.trendingScore -= 1;
+        subcategory.save();
+      }
       let post = await PostModel.findByIdAndUpdate(req.headers.id, req.body, {
         new: true,
         runValidators: true,
       });
       subcategory = post.itemDesired.subcategory;
-      subcategory = await subcategoryModel.findOne({ title: subcategory });
-      subcategory.trendingScore += 1;
-      subcategory.save();
+      if (subcategory) {
+        subcategory = await subcategoryModel.findOne({ title: subcategory });
+        subcategory.trendingScore += 1;
+        subcategory.save();
+      }
       return res.status(200).json({
         data: post,
       });
@@ -142,9 +146,11 @@ const remove = async (req, res) => {
       });
     } else {
       let subcategory = ownerPost.itemDesired.subcategory;
-      subcategory = await subcategoryModel.findOne({ title: subcategory });
-      subcategory.trendingScore -= 1;
-      subcategory.save();
+      if (subcategory) {
+        subcategory = await subcategoryModel.findOne({ title: subcategory });
+        subcategory.trendingScore -= 1;
+        subcategory.save();
+      }
       ownerPost.remove();
       // await PostModel.findByIdAndRemove(req.headers.id);
       return res.status(200).json({
