@@ -4,7 +4,10 @@
 //const upload = multer({ dest: "public/images/postsGallery" });
 //const type = upload.array("photos");
 //const fs = require("fs");
+const Mongoose = require("mongoose");
 const PostModel = require("../models/schema/post");
+const subcategorySchema = require("../models/schema/subcategory");
+const subcategoryModel = Mongoose.model("Subcategory", subcategorySchema);
 const PostValidator = require("../models/validations/post");
 
 // ********************************************************************************************************* //
@@ -29,6 +32,13 @@ const create = async (req, res) => {
   // create post with its complete attributes
   try {
     let post = await PostModel.create(req.body);
+    let subcategory = post.itemDesired.subcategory;
+    if (subcategory) {
+      // update the trending score of this subcategory
+      subcategory = await subcategoryModel.findOne({ title: subcategory });
+      subcategory.trendingScore += 1;
+      subcategory.save();
+    }
     return res.status(201).json({
       data: post,
     });
