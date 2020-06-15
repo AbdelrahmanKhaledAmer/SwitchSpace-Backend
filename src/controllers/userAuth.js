@@ -30,7 +30,7 @@ const login = async (req, res) => {
       user.password
     );
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid Password", token: null });
+      return res.status(401).json({ message: "Invalid Password" });
     }
 
     // if user is found and password is valid
@@ -43,7 +43,7 @@ const login = async (req, res) => {
       }
     );
 
-    return res.status(200).json({ data: { token: token } });
+    return res.status(200).json({ data: token });
   } catch (err) {
     if (!user) {
       return res.status(404).json({
@@ -84,7 +84,7 @@ const register = async (req, res) => {
       }
     );
 
-    res.status(200).json({ token: token });
+    res.status(200).json({ data: token });
   } catch (err) {
     if (err.code == 11000) {
       return res.status(400).json({
@@ -100,7 +100,7 @@ const register = async (req, res) => {
 
 // log the user out
 const logout = (req, res) => {
-  res.status(200).json({ data: { token: null } });
+  res.status(200).json({ message: "logout successful." });
 };
 
 module.exports = {

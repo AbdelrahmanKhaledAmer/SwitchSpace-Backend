@@ -13,12 +13,6 @@ const reportPost = async (req, res) => {
   }
   // Retrieve reporter Id from token
   let reporterId = req.userId;
-  // If no reporter Id exists, then user needs to log in.
-  if (!reporterId) {
-    return res.status(403).json({
-      message: "Logging in is required for reprting a post",
-    });
-  }
   // Validate report
   req.body.reporterId = reporterId;
   let valid = reviewValidator.validate(req.body);
@@ -44,7 +38,7 @@ const reportPost = async (req, res) => {
     }
     // Otherwise write a new report
     report = await reportSchema.create(req.body);
-    return res.status(200).json({
+    return res.status(201).json({
       data: report,
     });
   } catch (err) {

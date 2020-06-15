@@ -13,7 +13,5 @@ const categorySchema = new mongoose.Schema({
   subcategories: [subcategorySchema],
 });
 
-categorySchema.set("versionKey", false);
-
 // Export the category model
 module.exports = mongoose.model("Category", categorySchema);

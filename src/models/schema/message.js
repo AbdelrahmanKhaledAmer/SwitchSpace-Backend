@@ -15,7 +15,6 @@ const messageSchema = new mongoose.Schema({
   },
 });
 
-messageSchema.set("versionKey", false);
 messageSchema.set("timestamps", true);
 
 // Export the message schema

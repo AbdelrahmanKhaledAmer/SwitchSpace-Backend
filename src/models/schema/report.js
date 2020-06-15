@@ -20,7 +20,5 @@ const reportSchema = new mongoose.Schema({
   },
 });
 
-reportSchema.set("versionKey", false);
-
 // Export the report model
 module.exports = mongoose.model("Report", reportSchema);

@@ -16,8 +16,6 @@ const exchangeLocationSchema = new mongoose.Schema({
   },
 });
 
-exchangeLocationSchema.set("versionKey", false);
-
 // Export the exchangeLocation schema
 // exchangeLocation is an embedded document inside the post document
 module.exports = exchangeLocationSchema;

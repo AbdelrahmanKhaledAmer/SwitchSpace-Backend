@@ -15,12 +15,6 @@ const writeReview = async (req, res) => {
   let reviewerId = req.userId;
   let revieweeId = req.body.revieweeId;
   delete req.body.revieweeId;
-  // If no reviewer Id exists, then user needs to log in.
-  if (!reviewerId) {
-    return res.status(403).json({
-      message: "Logging in is required for reviewing a user",
-    });
-  }
   // Validate review
   req.body.reviewerId = reviewerId;
   let valid = reviewValidator.validate(req.body);
@@ -34,6 +28,11 @@ const writeReview = async (req, res) => {
   try {
     let reviewee = await userModel.findOne({ _id: revieweeId, deleted: false });
     reviewee = reviewee[0];
+    if (!reviewee) {
+      return res.status(404).json({
+        message: "There was an error retrieving user data, try again later.",
+      });
+    }
     let numReviews = reviewee.reviews.length;
     // If reviewer had already written a review, edit that review
     let review = reviewee.reviews
@@ -78,12 +77,12 @@ const writeReview = async (req, res) => {
     reviewee.reviews.push(req.body);
     // Save user in database
     reviewee.save();
-    return res.status(200).json({
+    return res.status(201).json({
       body: reviewee,
     });
   } catch (err) {
-    return res.status(404).json({
-      message: "There was an error retrieving user data, try again later.",
+    return res.status(500).json({
+      message: "Internal Server Error.",
     });
   }
 };

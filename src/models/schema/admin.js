@@ -19,7 +19,5 @@ const adminSchema = new mongoose.Schema({
   },
 });
 
-adminSchema.set("versionKey", false);
-
 // Export the admin model
 module.exports = mongoose.model("Admin", adminSchema);

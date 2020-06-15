@@ -7,13 +7,13 @@ const logger = require("../middlewares/loggerHandler");
 const middlewares = require("../middlewares/middlewares");
 const UserController = require("../controllers/user");
 
-router.post(
+router.put(
   "/update",
   logger,
   middlewares.checkAuthentication,
   UserController.updateProfile
 );
-router.post(
+router.put(
   "/subscription",
   logger,
   middlewares.checkAuthentication,
