@@ -60,7 +60,7 @@ const ViewPostDetails = async (req, res) => {
         message: "Post not found",
       });
 
-    return res.status(200).json(post);
+    return res.status(200).json({ data: post });
   } catch (err) {
     return res.status(500).json({
       message: "Internal server error",
@@ -119,7 +119,7 @@ const update = async (req, res) => {
       });
     }
   } catch (err) {
-    return res.status(400).json({
+    return res.status(500).json({
       message: "Internal server error",
     });
   }
@@ -158,7 +158,7 @@ const remove = async (req, res) => {
       });
     }
   } catch (err) {
-    return res.status(400).json({
+    return res.status(500).json({
       message: "Internal server error",
     });
   }
@@ -166,6 +166,7 @@ const remove = async (req, res) => {
 
 // ********************************************************************************************************* //
 
+// View all posts made by a certain user
 const ViewAll = async (req, res) => {
   try {
     let posts = await PostModel.find({ creatorId: req.userId });
@@ -173,7 +174,7 @@ const ViewAll = async (req, res) => {
       return res.status(404).json({
         message: "Posts not found",
       });
-    return res.status(200).json(posts);
+    return res.status(200).json({ data: posts });
   } catch (err) {
     return res.status(500).json({
       message: "Internal server error",
@@ -198,8 +199,6 @@ const searchPosts = async (req, res) => {
     coordinates: [lon, lat],
   };
   let radius = req.query.radius ? req.query.radius : 1e5 * 1000; // convert radius to km
-  // let lon = req.query.lon ? req.query.lon : "";
-  // let lat = req.query.lat ? req.query.lat : "";
   try {
     let posts = await PostModel.find({
       "itemOwned.title": {

@@ -53,7 +53,7 @@ const userChangeSubscription = async (req, res) => {
     });
   }
   if (!req.body.tier) {
-    return res.json.status(404).json({ message: "missing subscription tier" });
+    return res.json.status(400).json({ message: "missing subscription tier" });
   }
   let user;
   try {
@@ -65,7 +65,7 @@ const userChangeSubscription = async (req, res) => {
     return res.status(200).json({ data: user });
   } catch (err) {
     if (!user) {
-      return res.status(400).json({ message: "user not found" });
+      return res.status(404).json({ message: "user not found" });
     }
     return res.status(500).json({ message: "Internal server error" });
   }

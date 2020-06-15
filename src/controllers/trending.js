@@ -23,6 +23,8 @@ const trendingCategories = async (req, res) => {
   }
 };
 
+// ********************************************************************************************************* //
+
 const viewPostsByCategory = async (req, res) => {
   let subcategory = req.query.cat;
   try {

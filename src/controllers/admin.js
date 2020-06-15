@@ -32,7 +32,7 @@ const deleteReport = async (req, res) => {
       message: "Only admins are allowed to delete reports.",
     });
   }
-  if (!req.body.reportId) {
+  if (!req.headers.reportId) {
     return res.status(402).json({
       message: "Cannot delete a report without its ID.",
     });
@@ -40,7 +40,7 @@ const deleteReport = async (req, res) => {
   try {
     await ReportModel.deleteOne({ _id: req.body.reportId });
     return res.status(200).json({
-      data: { message: "Report deleted successfully" },
+      message: "Report deleted successfully",
     });
   } catch (err) {
     return res.status(500).json({
@@ -58,7 +58,7 @@ const deletePost = async (req, res) => {
       message: "Only admins are allowed to delete posts on this path.",
     });
   }
-  if (!req.body.postId) {
+  if (!req.headers.postId) {
     return res.status(402).json({
       message: "Cannot delete a post without its ID.",
     });

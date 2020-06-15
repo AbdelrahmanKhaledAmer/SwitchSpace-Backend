@@ -40,7 +40,7 @@ const login = async (req, res) => {
       }
     );
 
-    return res.status(200).json({ data: { token: token } });
+    return res.status(200).json({ data: token });
   } catch (err) {
     if (!admin) {
       return res.status(404).json({
@@ -58,7 +58,7 @@ const login = async (req, res) => {
 
 // log the Admin out
 const logout = (req, res) => {
-  res.status(200).json({ data: { token: null } });
+  res.status(200).json({ message: "logout successful." });
 };
 
 module.exports = {
