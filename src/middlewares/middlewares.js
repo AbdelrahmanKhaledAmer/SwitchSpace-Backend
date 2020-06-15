@@ -26,7 +26,7 @@ const checkAuthentication = (req, res, next) => {
     bearer = req.headers.authorization.split(" ");
     token = bearer[1];
   }
-  // check token exists
+  // check if token exists
   if (!token)
     return res.status(401).json({
       error: "Unauthorized",
@@ -39,7 +39,7 @@ const checkAuthentication = (req, res, next) => {
       message: "unauthorized authentication scheme",
     });
   }
-  // verifies secret and checks exp
+  // verify token using jwt secret
   jwt.verify(token, config.JwtSecret, (err, decoded) => {
     if (err) {
       return res.status(401).json({
@@ -58,6 +58,22 @@ const checkAuthentication = (req, res, next) => {
   });
 };
 
+const socketAuthentication = (socket, next) => {
+  let token = socket.handshake.headers.token;
+  // check if token exists
+  if (!token) {
+    return next(new Error("Unauthorized: No token provided"));
+  }
+  // verify token using jwt secret
+  jwt.verify(token, config.JwtSecret, (err, decoded) => {
+    if (err) {
+      return next(new Error("Unauthorized: Failed to authenticate token"));
+    }
+    socket.userId = decoded.id;
+    next();
+  });
+};
+
 // const errorHandler = (err, req, res, next) => {
 //   if (res.headersSent) {
 //     return next(err);
@@ -69,5 +85,6 @@ const checkAuthentication = (req, res, next) => {
 module.exports = {
   allowCrossDomain,
   checkAuthentication,
+  socketAuthentication,
   // errorHandler,
 };
