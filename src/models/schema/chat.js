@@ -21,7 +21,5 @@ const chatSchema = new mongoose.Schema({
   },
 });
 
-chatSchema.set("versionKey", false);
-
 // Export the chat model
 module.exports = mongoose.model("Chat", chatSchema);

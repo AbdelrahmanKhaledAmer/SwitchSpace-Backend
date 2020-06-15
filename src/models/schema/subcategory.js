@@ -16,8 +16,6 @@ const subcategorySchema = new mongoose.Schema({
   },
 });
 
-subcategorySchema.set("versionKey", false);
-
 // Export the subcategory schema
 // subcategory is an embedded document inside the category document
 module.exports = subcategorySchema;

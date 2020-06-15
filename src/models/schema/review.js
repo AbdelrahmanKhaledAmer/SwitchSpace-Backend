@@ -33,8 +33,6 @@ const reviewSchema = new mongoose.Schema({
   },
 });
 
-reviewSchema.set("versionKey", false);
-
 // Export the review schema
 // review is an an embedded document inside the user document
 module.exports = reviewSchema;

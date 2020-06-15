@@ -22,8 +22,6 @@ const itemSchema = new mongoose.Schema({
   subcategory: String,
 });
 
-itemSchema.set("versionKey", false);
-
 // Export the item schema
 // item is an embedded document inside the post document
 module.exports = itemSchema;
