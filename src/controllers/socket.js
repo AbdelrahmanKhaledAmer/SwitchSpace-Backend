@@ -1,6 +1,8 @@
 const ChatModel = require("../models/schema/chat");
 const { chatMessageValidator } = require("../models/validations/chat");
 
+// ********************************************************************************************************* //
+
 const socketController = (io) => {
   return (socket) => {
     // let each socket join a room identified by the userId
