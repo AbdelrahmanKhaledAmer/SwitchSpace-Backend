@@ -98,6 +98,8 @@ const register = async (req, res) => {
   }
 };
 
+// ********************************************************************************************************* //
+
 // log the user out
 const logout = (req, res) => {
   res.status(200).json({ message: "logout successful." });
