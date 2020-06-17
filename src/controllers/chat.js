@@ -1,6 +1,8 @@
 const ChatModel = require("../models/schema/chat");
 const UserModel = require("../models/schema/user");
 
+// ********************************************************************************************************* //
+
 // get the list of previous chats
 const getChatList = async (req, res) => {
   try {
@@ -41,6 +43,8 @@ const getChatList = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+// ********************************************************************************************************* //
 
 // get the chat history with another user
 const getChatHistory = async (req, res) => {
