@@ -9,6 +9,8 @@ const PostModel = require("../models/schema/post");
 const subcategorySchema = require("../models/schema/subcategory");
 const subcategoryModel = Mongoose.model("Subcategory", subcategorySchema);
 const PostValidator = require("../models/validations/post");
+const UserModel = require("../models/schema/user");
+const MAX_VIOLATIONS = 3;
 
 // ********************************************************************************************************* //
 
@@ -129,38 +131,69 @@ const update = async (req, res) => {
 
 // delete a post
 const remove = async (req, res) => {
-  if (!req.userId) {
-    return res.status(403).json({
-      message: "You need to be a regular user to delete your post.",
+  if (!req.headers.id) {
+    return res.status(402).json({
+      message: "Cannot delete a post without its ID.",
     });
   }
-  // check that there's a post of this onwer
-  try {
-    let ownerPost = await PostModel.findOne({
-      creatorId: req.userId,
-      _id: req.headers.id,
-    });
-    if (!ownerPost) {
-      return res.status(403).json({
-        message: "Unauthorized action",
+  // user is deleting the post
+  if (req.userId) {
+    // check that there's a post of this onwer
+    try {
+      let ownerPost = await PostModel.findOne({
+        creatorId: req.userId,
+        _id: req.headers.id,
       });
-    } else {
-      let subcategory = ownerPost.itemDesired.subcategory;
-      if (subcategory) {
-        subcategory = await subcategoryModel.findOne({ title: subcategory });
-        subcategory.trendingScore -= 1;
-        subcategory.save();
+      if (!ownerPost) {
+        return res.status(403).json({
+          message: "Unauthorized action",
+        });
+      } else {
+        let subcategory = ownerPost.itemDesired.subcategory;
+        if (subcategory) {
+          subcategory = await subcategoryModel.findOne({ title: subcategory });
+          subcategory.trendingScore -= 1;
+          subcategory.save();
+        }
+        ownerPost.remove();
+        return res.status(200).json({
+          message: "Deleted successfully",
+        });
       }
-      ownerPost.remove();
-      // await PostModel.findByIdAndRemove(req.headers.id);
-      return res.status(200).json({
-        message: "Deleted successfully",
+    } catch (err) {
+      return res.status(500).json({
+        message: "Internal server error",
       });
     }
-  } catch (err) {
-    return res.status(500).json({
-      message: "Internal server error",
-    });
+  }
+  // admin is deleting the post
+  if (req.adminId) {
+    try {
+      let post = await PostModel.findOne({ _id: req.headers.id });
+      let creatorId = post.creatorId;
+      let user = await UserModel.findOne({
+        _id: creatorId,
+        deleted: false,
+      });
+      if (user) {
+        user.violationsCount += 1;
+        // user violations exceeded => automatically remove user
+        if (user.violationsCount > MAX_VIOLATIONS) {
+          user.deleted = true;
+          user.deletedAt = Date.now();
+        }
+        await user.save();
+      }
+      await post.remove();
+      return res.status(200).json({
+        data: { message: "Post deleted successfully" },
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        message: "Internal server error.",
+      });
+    }
   }
 };
 
