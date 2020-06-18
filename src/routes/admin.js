@@ -6,6 +6,7 @@ const logger = require("../middlewares/loggerHandler");
 
 const middlewares = require("../middlewares/middlewares");
 const adminController = require("../controllers/admin");
+const postController = require("../controllers/post");
 
 router.get(
   "/report",
@@ -23,7 +24,7 @@ router.delete(
   "/post",
   logger,
   middlewares.checkAuthentication,
-  adminController.deletePost
+  postController.remove
 );
 
 module.exports = router;
