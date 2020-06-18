@@ -1,6 +1,4 @@
 const ReportModel = require("../models/schema/report");
-const PostModel = require("../models/schema/post");
-const UserModel = require("../models/schema/user");
 // ********************************************************************************************************* //
 
 // Get all reports with pagination
