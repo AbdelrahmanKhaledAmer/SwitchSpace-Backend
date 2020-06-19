@@ -53,7 +53,7 @@ const userSchema = new mongoose.Schema({
     default: "PerPost",
   },
   remainingPosts: {
-    type: number,
+    type: Number,
     default: 0,
   },
   violationsCount: {
