@@ -2,6 +2,7 @@
 
 const mongoose = require("mongoose");
 const reviewSchema = require("./review");
+const { number } = require("@hapi/joi");
 
 // Define the user schema
 const userSchema = new mongoose.Schema({
@@ -50,6 +51,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["PerPost", "LimitedSubscription", "UnlimitedSubscription"],
     default: "PerPost",
+  },
+  remainingPosts: {
+    type: number,
+    default: 0,
   },
   violationsCount: {
     type: Number,
