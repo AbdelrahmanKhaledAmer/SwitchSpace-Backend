@@ -31,9 +31,23 @@ const create = async (req, res) => {
     });
   }
 
-  // create post with its complete attributes
+  // create post with its complete attributes if the user still has remaining posts
   try {
+    let user = await UserModel.findById(req.body.creatorId);
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    } else {
+      if (user.remainingPosts == 0) {
+        return res.status(403).json({
+          message: "User doesn't have sufficient credit to create a post",
+        });
+      }
+    }
     let post = await PostModel.create(req.body);
+    user.remainingPosts -= 1;
+    user.save();
     let subcategory = post.itemDesired.subcategory;
     if (subcategory) {
       // update the trending score of this subcategory

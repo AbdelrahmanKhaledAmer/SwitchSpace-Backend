@@ -51,6 +51,10 @@ const userSchema = new mongoose.Schema({
     enum: ["PerPost", "LimitedSubscription", "UnlimitedSubscription"],
     default: "PerPost",
   },
+  remainingPosts: {
+    type: Number,
+    default: 0,
+  },
   violationsCount: {
     type: Number,
     default: 0,
