@@ -2,6 +2,7 @@
 
 const http = require("http");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const api = require("./src/api");
 const config = require("./src/config");

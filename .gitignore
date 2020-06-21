@@ -4,3 +4,4 @@
 /config/config.js
 /switchSpaceDB
 /logs
+.env
