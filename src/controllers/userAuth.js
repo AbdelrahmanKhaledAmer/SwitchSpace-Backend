@@ -8,7 +8,6 @@ const registerValidator = require("../models/validations/userRegister");
 const loginValidator = require("../models/validations/login");
 const s3upload = require("../utils/s3Upload");
 const ObjectID = require("bson-objectid");
-const s3Upload = require("../utils/s3Upload");
 
 // ********************************************************************************************************* //
 
