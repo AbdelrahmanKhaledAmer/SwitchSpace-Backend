@@ -6,12 +6,15 @@ const logger = require("../middlewares/loggerHandler");
 
 const middlewares = require("../middlewares/middlewares");
 const UserController = require("../controllers/user");
+const ImageUploader = require("../middlewares/ImageUploader");
 
 router.put(
   "/update",
   logger,
   middlewares.checkAuthentication,
-  UserController.updateProfile
+  ImageUploader.singleFileUpload,
+  UserController.updateProfile,
+  ImageUploader.deleteTmpFile
 );
 router.put(
   "/subscription",

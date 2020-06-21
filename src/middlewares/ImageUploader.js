@@ -15,7 +15,6 @@ const deleteTmpFile = async function (req) {
   console.log("deleting tmp file");
   if (req.file) {
     const filePath = req.file.path;
-    console.log(filePath);
     await fs.unlink(filePath, function (err) {
       if (err) throw err;
       // if no error, file has been deleted successfully
@@ -25,7 +24,7 @@ const deleteTmpFile = async function (req) {
 // define single file constraints and its attributes
 const singleUpload = multer({
   dest: "uploads/profile",
-  limits: { fileSize: 5242880, files: 1 }, // file size 5mbs,only 1 file is allowed
+  limits: { fileSize: 2097152, files: 1 }, // file size 2mbs,only 1 file is allowed
   fileFilter: imageFilter,
 }).single("profilePicture");
 
