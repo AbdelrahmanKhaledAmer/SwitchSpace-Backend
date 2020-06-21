@@ -26,8 +26,7 @@ const writeReview = async (req, res) => {
   }
   // Retrieve user to be reviewed
   try {
-    let reviewee = await userModel.findOne({ _id: revieweeId, deleted: false });
-    reviewee = reviewee[0];
+    let reviewee = await userModel.findOne({ _id: revieweeId });
     if (!reviewee) {
       return res.status(404).json({
         message: "There was an error retrieving user data, try again later.",
