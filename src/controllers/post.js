@@ -22,6 +22,7 @@ const create = async (req, res) => {
     });
   }
   req.body.creatorId = req.userId;
+  req.body.creatorName = req.userName;
   // validate the post form
   const validationVerdict = PostValidator.validate(req.body);
   // check whether the form is incomplete
@@ -94,6 +95,9 @@ const update = async (req, res) => {
     });
   }
   req.body.creatorId = req.userId;
+  req.body.creatorName = req.userName;
+  let postId = req.body.postId;
+  delete req.body.postId;
   // validate post form
   const validationVerdict = PostValidator.validate(req.body);
   // check whether the form is incomplete
@@ -106,7 +110,7 @@ const update = async (req, res) => {
   try {
     let ownerPost = await PostModel.findOne({
       creatorId: req.userId,
-      _id: req.headers.id,
+      _id: postId,
     });
     if (!ownerPost) {
       return res.status(403).json({
@@ -120,7 +124,7 @@ const update = async (req, res) => {
         subcategory.trendingScore -= 1;
         subcategory.save();
       }
-      let post = await PostModel.findByIdAndUpdate(req.headers.id, req.body, {
+      let post = await PostModel.findByIdAndUpdate(postId, req.body, {
         new: true,
         runValidators: true,
       });
@@ -185,18 +189,13 @@ const remove = async (req, res) => {
     try {
       let post = await PostModel.findOne({ _id: req.headers.id });
       let creatorId = post.creatorId;
-      let user = await UserModel.findOne({
-        _id: creatorId,
-        deleted: false,
-      });
+      let user = await UserModel.findOne({ _id: creatorId });
       if (user) {
         user.violationsCount += 1;
         // user violations exceeded => automatically remove user
         if (user.violationsCount > MAX_VIOLATIONS) {
-          user.deleted = true;
-          user.deletedAt = Date.now();
+          await user.remove();
         }
-        await user.save();
       }
       await post.remove();
       return res.status(200).json({
