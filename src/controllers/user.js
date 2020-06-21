@@ -52,11 +52,10 @@ const updateProfile = async (req, res, next) => {
       });
     }
 
-    user = await UserModel.findOneAndUpdate(
-      { _id: req.userId, deleted: false },
-      user,
-      { new: true, runValidators: true }
-    );
+    user = await UserModel.findOneAndUpdate({ _id: req.userId }, user, {
+      new: true,
+      runValidators: true,
+    });
     res.status(200).json({ data: user });
     return next();
   } catch (err) {
@@ -84,7 +83,7 @@ const userChangeSubscription = async (req, res) => {
   let user;
   try {
     user = await UserModel.findOneAndUpdate(
-      { _id: req.userId, deleted: false },
+      { _id: req.userId },
       { tier: req.body.tier },
       { new: true, runValidators: true }
     );

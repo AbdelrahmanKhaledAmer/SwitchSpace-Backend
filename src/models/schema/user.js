@@ -2,6 +2,7 @@
 
 const mongoose = require("mongoose");
 const reviewSchema = require("./review");
+const emailValidator = require("email-validator");
 
 // Define the user schema
 const userSchema = new mongoose.Schema({
@@ -10,6 +11,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    validate: {
+      validator: (v) => emailValidator.validate(v),
+      message: "The email entered is invalid.",
+    },
   },
   password: {
     type: String,
@@ -21,7 +26,7 @@ const userSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 50,
   },
-  // stores the image path on the server
+  // stores the image as a {url, key} pair on the S3 Object storage
   profilePicture: {
     url: { type: String },
     key: { type: String },
@@ -59,13 +64,6 @@ const userSchema = new mongoose.Schema({
   violationsCount: {
     type: Number,
     default: 0,
-  },
-  deleted: {
-    type: Boolean,
-    default: false,
-  },
-  deletedAt: {
-    type: Date,
   },
 });
 
