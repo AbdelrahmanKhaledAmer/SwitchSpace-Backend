@@ -21,18 +21,18 @@ createSocketServer(server);
 mongoose.set("useUnifiedTopology", true);
 
 mongoose
-  .connect(config.mongoURI, { useNewUrlParser: true })
-  .then(() => server.listen(config.port))
-  .catch((err) => {
-    console.log("Error connecting to the database", err.message);
-    process.exit(err.statusCode);
-  });
+    .connect(config.mongoURI, {useNewUrlParser: true})
+    .then(() => server.listen(config.port))
+    .catch(err => {
+        console.log("Error connecting to the database", err.message);
+        process.exit(err.statusCode);
+    });
 
 server.on("listening", () => {
-  console.log(`API is running in port ${config.port}`);
+    console.log(`API is running in port ${config.port}`);
 });
 
-server.on("error", (err) => {
-  console.log("Error in the server", err.message);
-  process.exit(err.statusCode);
+server.on("error", err => {
+    console.log("Error in the server", err.message);
+    process.exit(err.statusCode);
 });

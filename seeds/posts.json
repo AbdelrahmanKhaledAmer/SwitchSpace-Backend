@@ -1,217 +1,217 @@
 [
-  {
-    "_id": { "$oid": "5ee28666de1873f021bcf563" },
-    "photos": [
-      {
-        "_id": { "$oid": "5eef818f1ca7ce3b37b3d348" },
-        "url": "https://static.toiimg.com/photo/61654288.cms",
-        "key": "1"
-      },
-      {
-        "_id": { "$oid": "5eef818f1ca7ce3b37b3d349" },
-        "url": "https://i.gadgets360cdn.com/large/iphone_11_pro_max_afp_new_1568185633865.jpg",
-        "key": "2"
-      },
-      {
-        "_id": { "$oid": "5eef818f1ca7ce3b37b3d369" },
-        "url": "https://cdn.cultofmac.com/wp-content/uploads/2019/08/210BCC3A-98B1-41D4-A98D-E4BDD34B5DC3.jpg",
-        "key": "3"
-      }
-    ],
-    "itemOwned": {
-      "_id": { "$oid": "5eee8625d836d34976705da8" },
-      "title": "iphone 10+",
-      "condition": "Used",
-      "modelYear": 2010,
-      "description": "Used in a good condition",
-      "category": "electronics",
-      "subcategory": "smartphones"
+    {
+        "_id": {"$oid": "5ee28666de1873f021bcf563"},
+        "photos": [
+            {
+                "_id": {"$oid": "5eef818f1ca7ce3b37b3d348"},
+                "url": "https://static.toiimg.com/photo/61654288.cms",
+                "key": "1"
+            },
+            {
+                "_id": {"$oid": "5eef818f1ca7ce3b37b3d349"},
+                "url": "https://i.gadgets360cdn.com/large/iphone_11_pro_max_afp_new_1568185633865.jpg",
+                "key": "2"
+            },
+            {
+                "_id": {"$oid": "5eef818f1ca7ce3b37b3d369"},
+                "url": "https://cdn.cultofmac.com/wp-content/uploads/2019/08/210BCC3A-98B1-41D4-A98D-E4BDD34B5DC3.jpg",
+                "key": "3"
+            }
+        ],
+        "itemOwned": {
+            "_id": {"$oid": "5eee8625d836d34976705da8"},
+            "title": "iphone 10+",
+            "condition": "Used",
+            "modelYear": 2010,
+            "description": "Used in a good condition",
+            "category": "electronics",
+            "subcategory": "smartphones"
+        },
+        "itemDesired": {
+            "_id": {"$oid": "5eee8625d836d34976705da9"},
+            "title": "Samsung s9",
+            "condition": "New",
+            "modelYear": 2019,
+            "description": "Must be new",
+            "category": "electronics",
+            "subcategory": "smartphones"
+        },
+        "exchangeLocation": {
+            "coordinates": [11.581981, 48.135124],
+            "_id": {"$oid": "5eee8625d836d34976705daa"},
+            "type": "Point"
+        },
+        "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
+        "creatorName": "Mohamed",
+        "createdAt": "2020-06-20T21:56:53.039Z",
+        "updatedAt": "2020-06-20T21:56:53.039Z",
+        "__v": 0
     },
-    "itemDesired": {
-      "_id": { "$oid": "5eee8625d836d34976705da9" },
-      "title": "Samsung s9",
-      "condition": "New",
-      "modelYear": 2019,
-      "description": "Must be new",
-      "category": "electronics",
-      "subcategory": "smartphones"
+    {
+        "_id": {"$oid": "5ee2869e3d8df45c02a0f382"},
+        "photos": [
+            {
+                "_id": {"$oid": "5eef818f1ca7ce3b37b3d34a"},
+                "url": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2020-bmw-x3-mmp-1-1570552516.jpg",
+                "key": "1"
+            },
+            {
+                "_id": {"$oid": "5eef818f1ca7ce3b37b3d34b"},
+                "url": "https://www.autozeitung.de/assets/field/image/bmw-x3-01.jpg",
+                "key": "2"
+            }
+        ],
+        "itemOwned": {
+            "_id": {"$oid": "5eee8625d836d34976705dab"},
+            "title": "BMW X3",
+            "condition": "Used",
+            "modelYear": 2010,
+            "description": "Used in a good condition",
+            "category": "vehicles",
+            "subcategory": "cars"
+        },
+        "itemDesired": {
+            "_id": {"$oid": "5eee8625d836d34976705dac"},
+            "title": "Audi A5",
+            "condition": "New",
+            "modelYear": 2019,
+            "description": "Must be new",
+            "category": "vehicles",
+            "subcategory": "cars"
+        },
+        "exchangeLocation": {
+            "coordinates": [11.581981, 48.135124],
+            "_id": {"$oid": "5eee8625d836d34976705dad"},
+            "type": "Point"
+        },
+        "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
+        "creatorName": "Mohamed",
+        "createdAt": "2020-06-20T21:56:53.039Z",
+        "updatedAt": "2020-06-20T21:56:53.039Z",
+        "__v": 0
     },
-    "exchangeLocation": {
-      "coordinates": [11.581981, 48.135124],
-      "_id": { "$oid": "5eee8625d836d34976705daa" },
-      "type": "Point"
+    {
+        "_id": {"$oid": "5ee28666de1873f021bcf471"},
+        "photos": [
+            {
+                "_id": {"$oid": "5eef818f1ca7ce3b37b3d34c"},
+                "url": "https://i.guim.co.uk/img/media/4d15e7605d06515d0bba590b3c101ba27fe5b572/606_505_3912_2347/master/3912.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=0bb8e02364449f07c83dbcc1fc0548ef",
+                "key": "1"
+            },
+            {
+                "_id": {"$oid": "5eef818f1ca7ce3b37b3d34d"},
+                "url": "https://zdnet1.cbsistatic.com/hub/i/r/2019/09/26/bc6496a5-00a5-409a-9531-ba350cdc7f87/thumbnail/770x433/d8f80e6700536aa076082b90ebbec607/iphone-11-pro-2.jpg",
+                "key": "2"
+            }
+        ],
+        "itemOwned": {
+            "_id": {"$oid": "5eee8625d836d34976705dae"},
+            "title": "iphone 10+",
+            "condition": "Used",
+            "modelYear": 2010,
+            "description": "Used in a good condition",
+            "category": "electronics",
+            "subcategory": "smartphones"
+        },
+        "itemDesired": {
+            "_id": {"$oid": "5eee8625d836d34976705daf"},
+            "title": "Samsung s9",
+            "condition": "New",
+            "modelYear": 2019,
+            "description": "Must be new",
+            "category": "electronics",
+            "subcategory": "smartphones"
+        },
+        "exchangeLocation": {
+            "coordinates": [11.581981, 48.135124],
+            "_id": {"$oid": "5eee8625d836d34976705db0"},
+            "type": "Point"
+        },
+        "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
+        "creatorName": "Mohamed",
+        "createdAt": "2020-06-20T21:56:53.039Z",
+        "updatedAt": "2020-06-20T21:56:53.039Z",
+        "__v": 0
     },
-    "creatorId": { "$oid": "5ee245bbdedc1468ff6e3221" },
-    "creatorName": "Mohamed",
-    "createdAt": "2020-06-20T21:56:53.039Z",
-    "updatedAt": "2020-06-20T21:56:53.039Z",
-    "__v": 0
-  },
-  {
-    "_id": { "$oid": "5ee2869e3d8df45c02a0f382" },
-    "photos": [
-      {
-        "_id": { "$oid": "5eef818f1ca7ce3b37b3d34a" },
-        "url": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2020-bmw-x3-mmp-1-1570552516.jpg",
-        "key": "1"
-      },
-      {
-        "_id": { "$oid": "5eef818f1ca7ce3b37b3d34b" },
-        "url": "https://www.autozeitung.de/assets/field/image/bmw-x3-01.jpg",
-        "key": "2"
-      }
-    ],
-    "itemOwned": {
-      "_id": { "$oid": "5eee8625d836d34976705dab" },
-      "title": "BMW X3",
-      "condition": "Used",
-      "modelYear": 2010,
-      "description": "Used in a good condition",
-      "category": "vehicles",
-      "subcategory": "cars"
+    {
+        "_id": {"$oid": "5ee2869e3d8df45c02a0f283"},
+        "photos": [
+            {
+                "_id": {"$oid": "5eef818f1ca7ce3b37b3d34e"},
+                "url": "https://www.autogazette.de/wp-content/uploads/2018/08/BMW-X3-Front.jpg",
+                "key": "1"
+            }
+        ],
+        "itemOwned": {
+            "_id": {"$oid": "5eee8625d836d34976705db1"},
+            "title": "BMW X3",
+            "condition": "Used",
+            "modelYear": 2010,
+            "description": "Used in a good condition",
+            "category": "vehicles",
+            "subcategory": "cars"
+        },
+        "itemDesired": {
+            "_id": {"$oid": "5eee8625d836d34976705db2"},
+            "title": "Audi A5",
+            "condition": "New",
+            "modelYear": 2019,
+            "description": "Must be new",
+            "category": "vehicles",
+            "subcategory": "cars"
+        },
+        "exchangeLocation": {
+            "coordinates": [11.581981, 48.135124],
+            "_id": {"$oid": "5eee8625d836d34976705db3"},
+            "type": "Point"
+        },
+        "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
+        "creatorName": "Mohamed",
+        "createdAt": "2020-06-20T21:56:53.039Z",
+        "updatedAt": "2020-06-20T21:56:53.039Z",
+        "__v": 0
     },
-    "itemDesired": {
-      "_id": { "$oid": "5eee8625d836d34976705dac" },
-      "title": "Audi A5",
-      "condition": "New",
-      "modelYear": 2019,
-      "description": "Must be new",
-      "category": "vehicles",
-      "subcategory": "cars"
-    },
-    "exchangeLocation": {
-      "coordinates": [11.581981, 48.135124],
-      "_id": { "$oid": "5eee8625d836d34976705dad" },
-      "type": "Point"
-    },
-    "creatorId": { "$oid": "5ee245bbdedc1468ff6e3221" },
-    "creatorName": "Mohamed",
-    "createdAt": "2020-06-20T21:56:53.039Z",
-    "updatedAt": "2020-06-20T21:56:53.039Z",
-    "__v": 0
-  },
-  {
-    "_id": { "$oid": "5ee28666de1873f021bcf471" },
-    "photos": [
-      {
-        "_id": { "$oid": "5eef818f1ca7ce3b37b3d34c" },
-        "url": "https://i.guim.co.uk/img/media/4d15e7605d06515d0bba590b3c101ba27fe5b572/606_505_3912_2347/master/3912.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=0bb8e02364449f07c83dbcc1fc0548ef",
-        "key": "1"
-      },
-      {
-        "_id": { "$oid": "5eef818f1ca7ce3b37b3d34d" },
-        "url": "https://zdnet1.cbsistatic.com/hub/i/r/2019/09/26/bc6496a5-00a5-409a-9531-ba350cdc7f87/thumbnail/770x433/d8f80e6700536aa076082b90ebbec607/iphone-11-pro-2.jpg",
-        "key": "2"
-      }
-    ],
-    "itemOwned": {
-      "_id": { "$oid": "5eee8625d836d34976705dae" },
-      "title": "iphone 10+",
-      "condition": "Used",
-      "modelYear": 2010,
-      "description": "Used in a good condition",
-      "category": "electronics",
-      "subcategory": "smartphones"
-    },
-    "itemDesired": {
-      "_id": { "$oid": "5eee8625d836d34976705daf" },
-      "title": "Samsung s9",
-      "condition": "New",
-      "modelYear": 2019,
-      "description": "Must be new",
-      "category": "electronics",
-      "subcategory": "smartphones"
-    },
-    "exchangeLocation": {
-      "coordinates": [11.581981, 48.135124],
-      "_id": { "$oid": "5eee8625d836d34976705db0" },
-      "type": "Point"
-    },
-    "creatorId": { "$oid": "5ee245bbdedc1468ff6e3221" },
-    "creatorName": "Mohamed",
-    "createdAt": "2020-06-20T21:56:53.039Z",
-    "updatedAt": "2020-06-20T21:56:53.039Z",
-    "__v": 0
-  },
-  {
-    "_id": { "$oid": "5ee2869e3d8df45c02a0f283" },
-    "photos": [
-      {
-        "_id": { "$oid": "5eef818f1ca7ce3b37b3d34e" },
-        "url": "https://www.autogazette.de/wp-content/uploads/2018/08/BMW-X3-Front.jpg",
-        "key": "1"
-      }
-    ],
-    "itemOwned": {
-      "_id": { "$oid": "5eee8625d836d34976705db1" },
-      "title": "BMW X3",
-      "condition": "Used",
-      "modelYear": 2010,
-      "description": "Used in a good condition",
-      "category": "vehicles",
-      "subcategory": "cars"
-    },
-    "itemDesired": {
-      "_id": { "$oid": "5eee8625d836d34976705db2" },
-      "title": "Audi A5",
-      "condition": "New",
-      "modelYear": 2019,
-      "description": "Must be new",
-      "category": "vehicles",
-      "subcategory": "cars"
-    },
-    "exchangeLocation": {
-      "coordinates": [11.581981, 48.135124],
-      "_id": { "$oid": "5eee8625d836d34976705db3" },
-      "type": "Point"
-    },
-    "creatorId": { "$oid": "5ee245bbdedc1468ff6e3221" },
-    "creatorName": "Mohamed",
-    "createdAt": "2020-06-20T21:56:53.039Z",
-    "updatedAt": "2020-06-20T21:56:53.039Z",
-    "__v": 0
-  },
-  {
-    "_id": { "$oid": "5ee286aa7a5ff15116a86009" },
-    "photos": [
-      {
-        "_id": { "$oid": "5eef818f1ca7ce3b37b3d350" },
-        "url": "https://cf.shopee.com.my/file/e52da687c3a11aff8959e571b3992b22",
-        "key": "1"
-      },
-      {
-        "_id": { "$oid": "5eef818f1ca7ce3b37b3d351" },
-        "url": "https://cf.shopee.com.my/file/dd6096c31c6d9c84cfa353c132ee63e2",
-        "key": "2"
-      }
-    ],
-    "itemOwned": {
-      "_id": { "$oid": "5eee8625d836d34976705db4" },
-      "title": "Ceramic pot",
-      "condition": "New",
-      "modelYear": 2010,
-      "description": "Non stick brand new",
-      "category": "kitchenware",
-      "subcategory": "utensils"
-    },
-    "itemDesired": {
-      "_id": { "$oid": "5eee8625d836d34976705db5" },
-      "title": "Adidas sneakers",
-      "condition": "Used",
-      "modelYear": 2019,
-      "description": "Prefered to be in a good condition",
-      "category": "other",
-      "subcategory": null
-    },
-    "exchangeLocation": {
-      "coordinates": [11.581981, 48.135124],
-      "_id": { "$oid": "5eee8625d836d34976705db6" },
-      "type": "Point"
-    },
-    "creatorId": { "$oid": "5ee245bbdedc1468ff6e3221" },
-    "creatorName": "Mohamed",
-    "createdAt": "2020-06-20T21:56:53.039Z",
-    "updatedAt": "2020-06-20T21:56:53.039Z",
-    "__v": 0
-  }
+    {
+        "_id": {"$oid": "5ee286aa7a5ff15116a86009"},
+        "photos": [
+            {
+                "_id": {"$oid": "5eef818f1ca7ce3b37b3d350"},
+                "url": "https://cf.shopee.com.my/file/e52da687c3a11aff8959e571b3992b22",
+                "key": "1"
+            },
+            {
+                "_id": {"$oid": "5eef818f1ca7ce3b37b3d351"},
+                "url": "https://cf.shopee.com.my/file/dd6096c31c6d9c84cfa353c132ee63e2",
+                "key": "2"
+            }
+        ],
+        "itemOwned": {
+            "_id": {"$oid": "5eee8625d836d34976705db4"},
+            "title": "Ceramic pot",
+            "condition": "New",
+            "modelYear": 2010,
+            "description": "Non stick brand new",
+            "category": "kitchenware",
+            "subcategory": "utensils"
+        },
+        "itemDesired": {
+            "_id": {"$oid": "5eee8625d836d34976705db5"},
+            "title": "Adidas sneakers",
+            "condition": "Used",
+            "modelYear": 2019,
+            "description": "Prefered to be in a good condition",
+            "category": "other",
+            "subcategory": null
+        },
+        "exchangeLocation": {
+            "coordinates": [11.581981, 48.135124],
+            "_id": {"$oid": "5eee8625d836d34976705db6"},
+            "type": "Point"
+        },
+        "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
+        "creatorName": "Mohamed",
+        "createdAt": "2020-06-20T21:56:53.039Z",
+        "updatedAt": "2020-06-20T21:56:53.039Z",
+        "__v": 0
+    }
 ]

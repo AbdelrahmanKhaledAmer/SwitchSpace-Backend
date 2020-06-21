@@ -9,18 +9,13 @@ const UserController = require("../controllers/user");
 const ImageUploader = require("../middlewares/ImageUploader");
 
 router.put(
-  "/update",
-  logger,
-  middlewares.checkAuthentication,
-  ImageUploader.singleFileUpload,
-  UserController.updateProfile,
-  ImageUploader.deleteTmpFile
+    "/update",
+    logger,
+    middlewares.checkAuthentication,
+    ImageUploader.singleFileUpload,
+    UserController.updateProfile,
+    ImageUploader.deleteTmpFile
 );
-router.put(
-  "/subscription",
-  logger,
-  middlewares.checkAuthentication,
-  UserController.userChangeSubscription
-);
+router.put("/subscription", logger, middlewares.checkAuthentication, UserController.userChangeSubscription);
 
 module.exports = router;
