@@ -70,17 +70,17 @@ const register = async (req, res, next) => {
       .json({ message: validationVerdict.error.details[0].message });
     return next();
   }
-
+  // generate user id for database usage and image path on aws
+  const userID = ObjectID.generate();
   // create user and assign encrypted password
   let user = Object.assign(req.body, {
+    _id: userID,
     password: bcrypt.hashSync(req.body.password, 10),
   });
   // check if the user already exists
   try {
     const userExist = await UserModel.findOne({ email: user.email });
     if (userExist) {
-      console.log("here");
-      // next();
       res.status(400).json({
         message: "User exists",
       });
@@ -97,7 +97,7 @@ const register = async (req, res, next) => {
   // if profile pic exist
   if (req.file) {
     // generate file name to be stored  in datastore
-    const fileName = ObjectID.generate();
+    const fileName = userID;
     // get current file path
     const filePath = req.file.path;
     // wait for upload to be completed
