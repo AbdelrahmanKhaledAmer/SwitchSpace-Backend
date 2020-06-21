@@ -9,6 +9,10 @@ const reviewSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  reviewerName: {
+    type: String,
+    required: true,
+  },
   description: String,
   // rating for user communication
   commRate: {
@@ -32,6 +36,8 @@ const reviewSchema = new mongoose.Schema({
     max: 5,
   },
 });
+
+reviewSchema.set("timestamps", true);
 
 // Export the review schema
 // review is an an embedded document inside the user document

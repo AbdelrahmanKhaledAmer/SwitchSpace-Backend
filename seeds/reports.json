@@ -1,0 +1,9 @@
+[
+  {
+    "_id": { "$oid": "5eef50d18b1a2b856308f091" },
+    "reporterId": "5ee245bbdedc1468ff6e3222",
+    "reporterName": "test",
+    "postId": "5ee286aa7a5ff15116a86009",
+    "complaint": "This post is bad"
+  }
+]

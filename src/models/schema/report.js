@@ -9,6 +9,10 @@ const reportSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  reporterName: {
+    type: String,
+    required: true,
+  },
   postId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Post",
@@ -19,6 +23,8 @@ const reportSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+reportSchema.set("timestamps", true);
 
 // Export the report model
 module.exports = mongoose.model("Report", reportSchema);

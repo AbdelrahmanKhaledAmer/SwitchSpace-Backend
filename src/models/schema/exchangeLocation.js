@@ -13,6 +13,10 @@ const exchangeLocationSchema = new mongoose.Schema({
   coordinates: {
     type: [Number],
     required: true,
+    validate: {
+      validator: (v) => v.length == 2,
+      message: "Coordinates must be exactly two values [longitude, latitude]",
+    },
   },
 });
 

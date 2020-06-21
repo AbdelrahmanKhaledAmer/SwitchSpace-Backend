@@ -23,8 +23,7 @@ const login = async (req, res) => {
   }
   let user;
   try {
-    // This plugin (softdelete) returns an array
-    user = await UserModel.findOne({ email: req.body.email, deleted: false });
+    user = await UserModel.findOne({ email: req.body.email });
     // check if the password is valid
     const isPasswordValid = bcrypt.compareSync(
       req.body.password,
@@ -37,7 +36,7 @@ const login = async (req, res) => {
     // if user is found and password is valid
     // create a token
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { id: user._id, email: user.email, name: user.name },
       config.JwtSecret,
       {
         expiresIn: 86400, // expires in 24 hours
@@ -117,7 +116,7 @@ const register = async (req, res, next) => {
     let retUser = await UserModel.create(user);
     // create a token
     const token = jwt.sign(
-      { id: retUser._id, email: retUser.email },
+      { id: retUser._id, email: retUser.email, name: retUser.name },
       config.JwtSecret,
       {
         expiresIn: 86400, // expires in 24 hours

@@ -53,6 +53,7 @@ const checkAuthentication = (req, res, next) => {
       req.adminId = decoded.id;
     } else {
       req.userId = decoded.id;
+      req.userName = decoded.name;
     }
     next();
   });
