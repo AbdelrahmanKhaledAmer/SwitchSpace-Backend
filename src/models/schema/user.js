@@ -23,7 +23,8 @@ const userSchema = new mongoose.Schema({
   },
   // stores the image path on the server
   profilePicture: {
-    type: String,
+    url: { type: String },
+    key: { type: String },
   },
   // average rating for user communication
   commRate: {
