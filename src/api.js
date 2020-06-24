@@ -15,6 +15,7 @@ const review = require("./routes/review");
 const report = require("./routes/report");
 const trending = require("./routes/trending");
 const chat = require("./routes/chat");
+const category = require("./routes/category");
 
 const api = express();
 
@@ -41,5 +42,6 @@ api.use("/review", review);
 api.use("/report", report);
 api.use("/trending", trending);
 api.use("/chat", chat);
+api.use("/category", category);
 
 module.exports = api;
