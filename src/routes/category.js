@@ -7,6 +7,6 @@ const logger = require("../middlewares/loggerHandler");
 const categoryController = require("../controllers/category");
 
 router.get("/subcategories", logger, categoryController.getSubcategories);
-router.get("/categories", logger, categoryController.getCategories);
+router.get("/", logger, categoryController.getCategories);
 
 module.exports = router;

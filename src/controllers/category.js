@@ -7,7 +7,7 @@ const CategoryModel = require("../models/schema/category");
 
 // ********************************************************************************************************* //
 
-// Returns the top 5 trending subcategories
+// Returns all categories
 const getCategories = async (req, res) => {
     try {
         let categories = await CategoryModel.find({});
@@ -23,6 +23,7 @@ const getCategories = async (req, res) => {
 
 // ********************************************************************************************************* //
 
+// Returns all subcategories
 const getSubcategories = async (req, res) => {
     try {
         let subcategories = await SubcategoryModel.find({});
