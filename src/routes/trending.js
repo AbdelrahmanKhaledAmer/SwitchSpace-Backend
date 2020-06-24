@@ -4,9 +4,10 @@ const express = require("express");
 const router = express.Router();
 
 const logger = require("../middlewares/loggerHandler");
-const trendingController = require("../controllers/trending");
+const categoryController = require("../controllers/category");
+const postController = require("../controllers/post");
 
-router.get("/subcategories", logger, trendingController.trendingCategories);
-router.get("/posts", logger, trendingController.viewPostsByCategory);
+router.get("/subcategories", logger, categoryController.trendingCategories);
+router.get("/posts", logger, postController.viewPostsByCategory);
 
 module.exports = router;
