@@ -3,7 +3,9 @@ const bcrypt = require("bcryptjs");
 const UserModel = require("../models/schema/user");
 const updateValidator = require("../models/validations/userUpdate");
 const s3upload = require("../utils/s3Upload");
-// const ObjectID = require("bson-objectid");
+const config = require("../config");
+
+const stripe = require("stripe")(config.STRIPE_PAYMENT);
 // ********************************************************************************************************* //
 
 // update user profile
@@ -67,7 +69,7 @@ const updateProfile = async (req, res, next) => {
 };
 // ********************************************************************************************************* //
 
-// change current subscription tier of the user.
+// change current subscription tier of the user. with a payment
 const userChangeSubscription = async (req, res) => {
     if (!req.userId) {
         return res.status(403).json({
@@ -75,11 +77,50 @@ const userChangeSubscription = async (req, res) => {
         });
     }
     if (!req.body.tier) {
-        return res.json.status(400).json({message: "missing subscription tier"});
+        return res.status(400).json({message: "missing subscription tier"});
+    }
+    // payment
+    const token = req.body.stripeToken;
+    let chargeAmount = req.body.amount;
+    let expirationDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    const tier = req.body.tier;
+    let postCnt;
+    switch (tier) {
+        case "perPost":
+            chargeAmount = 99;
+            postCnt = 1;
+            expirationDate = Date.now();
+            break;
+        case "LimitedSubscription":
+            chargeAmount = 499;
+            postCnt = 8;
+
+            break;
+        case "UnlimitedSubscription":
+            chargeAmount = 799;
+            postCnt = -1; // checkin create if postcnt==0
+            break;
+        default:
+            postCnt = 0;
+    }
+    // perform payment
+    try {
+        await stripe.charges.create({
+            amount: chargeAmount,
+            currency: "eur",
+            description: req.userId + "_" + req.body.tier + "_" + expirationDate,
+            source: token,
+        });
+    } catch (err) {
+        return res.status(400).json({message: "Payment not successful, please try again "});
     }
     let user;
     try {
-        user = await UserModel.findOneAndUpdate({_id: req.userId}, {tier: req.body.tier}, {new: true, runValidators: true});
+        user = await UserModel.findOneAndUpdate(
+            {_id: req.userId},
+            {tier: req.body.tier, remainingPosts: postCnt, subscriptionExpirationDate: expirationDate},
+            {new: true, runValidators: true}
+        );
         return res.status(200).json({data: user});
     } catch (err) {
         if (!user) {
