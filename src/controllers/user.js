@@ -81,22 +81,22 @@ const userChangeSubscription = async (req, res) => {
     }
     // payment
     const token = req.body.stripeToken;
-    let chargeAmount = req.body.amount;
+    let chargeAmount;
     let expirationDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     const tier = req.body.tier;
     let postCnt;
     switch (tier) {
-        case "perPost":
+        case "Per Post":
             chargeAmount = 99;
             postCnt = 1;
             expirationDate = Date.now();
             break;
-        case "LimitedSubscription":
+        case "Limited Subscription":
             chargeAmount = 499;
             postCnt = 8;
 
             break;
-        case "UnlimitedSubscription":
+        case "Unlimited Subscription":
             chargeAmount = 799;
             postCnt = -1; // checkin create if postcnt==0
             break;
@@ -112,6 +112,7 @@ const userChangeSubscription = async (req, res) => {
             source: token,
         });
     } catch (err) {
+        console.log(err);
         return res.status(400).json({message: "Payment not successful, please try again "});
     }
     let user;
@@ -130,7 +131,17 @@ const userChangeSubscription = async (req, res) => {
     }
 };
 
+const getUserDetails = async (req, res) => {
+    const id = req.query.userId;
+    if (id) {
+        let user = await UserModel.findById(id).select("-email -password -violationsCount");
+        return res.status(200).json({data: user});
+    } else {
+        return res.status(400).json({message: " missing user Id"});
+    }
+};
 module.exports = {
     updateProfile,
     userChangeSubscription,
+    getUserDetails,
 };

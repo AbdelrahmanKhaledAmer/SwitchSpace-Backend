@@ -36,7 +36,7 @@ const login = async (req, res) => {
             expiresIn: 86400, // expires in 24 hours
         });
 
-        return res.status(200).json({data: token});
+        return res.status(200).json({token: token});
     } catch (err) {
         if (!user) {
             return res.status(404).json({
@@ -109,7 +109,7 @@ const register = async (req, res, next) => {
         const token = jwt.sign({id: retUser._id, email: retUser.email, name: retUser.name}, config.JwtSecret, {
             expiresIn: 86400, // expires in 24 hours
         });
-        res.status(200).json({data: token});
+        res.status(200).json({token: token});
         return next();
     } catch (err) {
         console.log("error saving user");

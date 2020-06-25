@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
     },
     tier: {
         type: String,
-        enum: ["PerPost", "LimitedSubscription", "UnlimitedSubscription"],
+        enum: ["Per Post", "Limited Subscription", "Unlimited Subscription"],
         default: "PerPost",
     },
     remainingPosts: {
