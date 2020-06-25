@@ -271,6 +271,24 @@ const searchPosts = async (req, res) => {
     }
 };
 
+// ********************************************************************************************************* //
+
+const viewPostsByCategory = async (req, res) => {
+    let subcategory = req.query.cat;
+    try {
+        let posts = await PostModel.find({
+            "itemDesired.subcategory": subcategory,
+        });
+        return res.status(200).json({
+            data: posts,
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal server error.",
+        });
+    }
+};
+
 module.exports = {
     create,
     ViewPostDetails,
@@ -278,4 +296,5 @@ module.exports = {
     remove,
     ViewAll,
     searchPosts,
+    viewPostsByCategory,
 };
