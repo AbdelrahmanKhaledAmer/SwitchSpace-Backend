@@ -134,7 +134,7 @@ const userChangeSubscription = async (req, res) => {
 const getUserDetails = async (req, res) => {
     const id = req.query.userId;
     if (id) {
-        let user = await UserModel.findById(id).select(" -password -violationsCount");
+        let user = await UserModel.findById(id).select("-email -password -violationsCount");
         return res.status(200).json({data: user});
     } else {
         return res.status(400).json({message: " missing user Id"});
