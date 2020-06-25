@@ -9,8 +9,10 @@ const upload = multer({dest: "public/images/postsGallery"});
 const type = upload.array("photos");
 const middlewares = require("../middlewares/middlewares");
 const PostController = require("../controllers/post");
+// multer for multiple file upload
+const ImageUploader = require("../middlewares/ImageUploader");
 
-router.post("/create", logger, middlewares.checkAuthentication, type, PostController.create);
+router.post("/create", logger, ImageUploader.multiFileUpload, middlewares.checkAuthentication, type, PostController.create);
 router.get("/view", logger, PostController.ViewPostDetails);
 router.put("/update", logger, middlewares.checkAuthentication, type, PostController.update);
 router.delete("/delete", logger, middlewares.checkAuthentication, PostController.remove);

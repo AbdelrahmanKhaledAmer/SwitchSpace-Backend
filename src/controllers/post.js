@@ -5,6 +5,8 @@
 //const type = upload.array("photos");
 //const fs = require("fs");
 const Mongoose = require("mongoose");
+const s3upload = require("../utils/s3Upload");
+const ObjectID = require("bson-objectid");
 const PostModel = require("../models/schema/post");
 const subcategorySchema = require("../models/schema/subcategory");
 const subcategoryModel = Mongoose.model("Subcategory", subcategorySchema);
@@ -15,7 +17,7 @@ const MAX_VIOLATIONS = 3;
 // ********************************************************************************************************* //
 
 // cretae a post
-const create = async (req, res) => {
+const create = async (req, res, next) => {
     if (!req.userId) {
         return res.status(403).json({
             message: "You need to be a regular user to create a post.",
@@ -30,6 +32,28 @@ const create = async (req, res) => {
         return res.status(400).json({
             message: validationVerdict.error.details[0].message,
         });
+    }
+    const image1Id = ObjectID.generate();
+    const image2Id = ObjectID.generate();
+    const image3Id = ObjectID.generate();
+    if (req.file) {
+        // generate file names to be stored  in datastore
+        const filesName = [image1Id, image2Id, image3Id];
+        // get current files path
+        const filesPath = req.file.path;
+        // wait for upload to be completed
+        let images = [];
+        try {
+            images[0] = await s3upload.uploadPhoto(filesPath[0], "postPics", filesName[0]);
+            images[1] = await s3upload.uploadPhoto(filesPath[1], "postPics", filesName[1]);
+            images[2] = await s3upload.uploadPhoto(filesPath[2], "postPics", filesName[2]);
+        } catch (err) {
+            console.log("upload error");
+            console.log(err);
+            res.status(500).json({message: "Internal server error"});
+            return next();
+        }
+        req.body.photos = images;
     }
 
     // create post with its complete attributes if the user still has remaining posts
@@ -46,6 +70,7 @@ const create = async (req, res) => {
                 });
             }
         }
+
         let post = await PostModel.create(req.body);
         user.remainingPosts -= 1;
         user.save();
