@@ -28,12 +28,11 @@ const singleUpload = multer({
     fileFilter: imageFilter,
 }).single("profilePicture");
 
-// TODO: construct multiupload here
 const multiUpload = multer({
     dest: "uploads/post",
-    limits: {fileSize: 2097152, files: 3}, // file size 2mbs,only 1 file is allowed
+    limits: {fileSize: 2097152, files: 3}, // file size 2mbs,only 3 file are allowed
     fileFilter: imageFilter,
-}).single("postPicture");
+}).array("postPicture", 3);
 
 const singleFileUpload = function (req, res, next) {
     singleUpload(req, res, function (err) {
@@ -60,7 +59,5 @@ const multiFileUpload = function (req, res, next) {
         }
     });
 };
-
-// TODO: do multifile upload here and export it
 
 module.exports = {singleFileUpload, multiFileUpload, deleteTmpFile};

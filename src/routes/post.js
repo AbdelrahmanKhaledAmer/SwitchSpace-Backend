@@ -14,7 +14,7 @@ const ImageUploader = require("../middlewares/ImageUploader");
 
 router.post("/create", logger, ImageUploader.multiFileUpload, middlewares.checkAuthentication, type, PostController.create);
 router.get("/view", logger, PostController.ViewPostDetails);
-router.put("/update", logger, middlewares.checkAuthentication, type, PostController.update);
+router.put("/update", logger, ImageUploader.multiFileUpload, middlewares.checkAuthentication, type, PostController.update);
 router.delete("/delete", logger, middlewares.checkAuthentication, PostController.remove);
 router.get("/view/all", logger, middlewares.checkAuthentication, PostController.ViewAll);
 router.get("/search", logger, PostController.searchPosts);

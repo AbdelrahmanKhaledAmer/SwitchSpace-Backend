@@ -10,14 +10,15 @@ const ObjectID = require("bson-objectid");
 const PostModel = require("../models/schema/post");
 const subcategorySchema = require("../models/schema/subcategory");
 const subcategoryModel = Mongoose.model("Subcategory", subcategorySchema);
-const PostValidator = require("../models/validations/post");
+const PostCreationValidator = require("../models/validations/postCreation");
+const PostUpdateValidator = require("../models/validations/postUpdate");
 const UserModel = require("../models/schema/user");
 const MAX_VIOLATIONS = 3;
 
 // ********************************************************************************************************* //
 
 // cretae a post
-const create = async (req, res, next) => {
+const create = async (req, res) => {
     if (!req.userId) {
         return res.status(403).json({
             message: "You need to be a regular user to create a post.",
@@ -26,16 +27,17 @@ const create = async (req, res, next) => {
     req.body.creatorId = req.userId;
     req.body.creatorName = req.userName;
     // validate the post form
-    const validationVerdict = PostValidator.validate(req.body);
+    const validationVerdict = PostCreationValidator.validate(req.body);
     // check whether the form is incomplete
     if (validationVerdict.error) {
         return res.status(400).json({
             message: validationVerdict.error.details[0].message,
         });
     }
-    const image1Id = ObjectID.generate();
-    const image2Id = ObjectID.generate();
-    const image3Id = ObjectID.generate();
+    const postId = ObjectID.generate();
+    const image1Id = postId.concat("1");
+    const image2Id = postId.concat("2");
+    const image3Id = postId.concat("3");
     if (req.file) {
         // generate file names to be stored  in datastore
         const filesName = [image1Id, image2Id, image3Id];
@@ -43,17 +45,34 @@ const create = async (req, res, next) => {
         const filesPath = req.file.path;
         // wait for upload to be completed
         let images = [];
-        try {
-            images[0] = await s3upload.uploadPhoto(filesPath[0], "postPics", filesName[0]);
-            images[1] = await s3upload.uploadPhoto(filesPath[1], "postPics", filesName[1]);
-            images[2] = await s3upload.uploadPhoto(filesPath[2], "postPics", filesName[2]);
-        } catch (err) {
+        const imagePromises = [
+            s3upload.uploadPhoto(filesPath[0], "postPics", filesName[0]),
+            s3upload.uploadPhoto(filesPath[1], "postPics", filesName[1]),
+            s3upload.uploadPhoto(filesPath[2], "postPics", filesName[2]),
+        ];
+        Promise.all(imagePromises).then(images => {
+            images[0] = s3upload.uploadPhoto(filesPath[0], "postPics", filesName[0]);
+            images[1] = s3upload.uploadPhoto(filesPath[1], "postPics", filesName[1]);
+            images[2] = s3upload.uploadPhoto(filesPath[2], "postPics", filesName[2]);
+        });
+        Promise.all(imagePromises).catch(err => {
             console.log("upload error");
             console.log(err);
-            res.status(500).json({message: "Internal server error"});
-            return next();
-        }
+            return res.status(500).json({message: "Internal server error"});
+        });
+
+        // try {
+        //     images[0] = await s3upload.uploadPhoto(filesPath[0], "postPics", filesName[0]);
+        //     images[1] = await s3upload.uploadPhoto(filesPath[1], "postPics", filesName[1]);
+        //     images[2] = await s3upload.uploadPhoto(filesPath[2], "postPics", filesName[2]);
+        // } catch (err) {
+        //     console.log("upload error");
+        //     console.log(err);
+        //     res.status(500).json({message: "Internal server error"});
+        //     return next();
+        // }
         req.body.photos = images;
+        req.body.body._id = postId;
     }
 
     // create post with its complete attributes if the user still has remaining posts
@@ -119,20 +138,23 @@ const update = async (req, res) => {
             message: "You need to be a regular user to edit your post.",
         });
     }
+    console.log(req.body);
     req.body.creatorId = req.userId;
     req.body.creatorName = req.userName;
     let postId = req.body.postId;
     delete req.body.postId;
     // validate post form
-    const validationVerdict = PostValidator.validate(req.body);
+    const validationVerdict = PostUpdateValidator.validate(req.body);
     // check whether the form is incomplete
     if (validationVerdict.error) {
+        console.log("validation error");
         return res.status(400).json({
             message: validationVerdict.error.details[0].message,
         });
     }
     // check that there's a post of this onwer
     try {
+        console.log(postId);
         let ownerPost = await PostModel.findOne({
             creatorId: req.userId,
             _id: postId,
@@ -142,6 +164,41 @@ const update = async (req, res) => {
                 message: "Unauthorized action",
             });
         } else {
+            if (req.file) {
+                // generate file names to be stored  in datastore
+                const filesName = [postId.concat("1"), postId.concat("2"), postId.concat("3")];
+                // get current files path
+                const filesPath = req.file.path;
+                // wait for upload to be completed
+                let images = [];
+                const imagePromises = [
+                    s3upload.uploadPhoto(filesPath[0], "postPics", filesName[0]),
+                    s3upload.uploadPhoto(filesPath[1], "postPics", filesName[1]),
+                    s3upload.uploadPhoto(filesPath[2], "postPics", filesName[2]),
+                ];
+                Promise.all(imagePromises).then(images => {
+                    images[0] = s3upload.uploadPhoto(filesPath[0], "postPics", filesName[0]);
+                    images[1] = s3upload.uploadPhoto(filesPath[1], "postPics", filesName[1]);
+                    images[2] = s3upload.uploadPhoto(filesPath[2], "postPics", filesName[2]);
+                });
+                Promise.all(imagePromises).catch(err => {
+                    console.log("upload error");
+                    console.log(err);
+                    return res.status(500).json({message: "Internal server error"});
+                });
+
+                // try {
+                //     images[0] = await s3upload.uploadPhoto(filesPath[0], "postPics", filesName[0]);
+                //     images[1] = await s3upload.uploadPhoto(filesPath[1], "postPics", filesName[1]);
+                //     images[2] = await s3upload.uploadPhoto(filesPath[2], "postPics", filesName[2]);
+                // } catch (err) {
+                //     console.log("upload error");
+                //     console.log(err);
+                //     res.status(500).json({message: "Internal server error"});
+                //     return next();
+                // }
+                req.body.photos = images;
+            }
             // update the trending score of the subcategory
             let subcategory = ownerPost.itemDesired.subcategory;
             if (subcategory) {
