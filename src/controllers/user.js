@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 
 const UserModel = require("../models/schema/user");
 const updateValidator = require("../models/validations/userUpdate");
+const tierChangeValidator = require("../models/validations/tierChange");
 const s3upload = require("../utils/s3Upload");
 const config = require("../config");
 
@@ -76,11 +77,16 @@ const userChangeSubscription = async (req, res) => {
             message: "You need to be a regular user to change your subscription tier.",
         });
     }
-    if (!req.body.tier) {
-        return res.status(400).json({message: "missing subscription tier"});
+    const validationVerdict = tierChangeValidator.validate(req.body);
+    // check whether the form is incomplete
+    if (validationVerdict.error) {
+        return res.status(400).json({message: validationVerdict.error.details[0].message});
     }
+
     // payment
     const token = req.body.stripeToken;
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
     let chargeAmount;
     let expirationDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     const tier = req.body.tier;
@@ -108,7 +114,7 @@ const userChangeSubscription = async (req, res) => {
         await stripe.charges.create({
             amount: chargeAmount,
             currency: "eur",
-            description: req.userId + "_" + req.body.tier + "_" + expirationDate,
+            description: req.userId + "_" + req.body.tier + "_" + expirationDate + "_" + firstname + "_" + lastname,
             source: token,
         });
     } catch (err) {
