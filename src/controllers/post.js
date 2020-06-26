@@ -67,7 +67,10 @@ const create = async (req, res, next) => {
                 res.status(500).json({message: "Internal server error"});
                 return next();
             }
-            req.body.photos = images;
+            req.body = Object.assign(req.body, {
+                _id: postId,
+                photos: images,
+            });
         }
 
         let post = await PostModel.create(req.body);
@@ -158,7 +161,9 @@ const update = async (req, res, next) => {
                     res.status(500).json({message: "Internal server error"});
                     return next();
                 }
-                req.body.photos = images;
+                req.body = Object.assign(req.body, {
+                    photos: images,
+                });
             }
             // update the trending score of the subcategory
             let subcategory = ownerPost.itemDesired.subcategory;
