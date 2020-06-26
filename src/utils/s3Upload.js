@@ -30,7 +30,6 @@ const uploadPhoto = async (filePath, category, fileName) => {
     // this function throws an exception if the promise is not met
     // returns the URL of the image if all is ok
     const val = await s3.upload(params).promise();
-    console.log(val);
     return {url: val.Location, key: val.key};
 };
 // delete a photo with a certain key: complete path saved in db as key attribute in img file

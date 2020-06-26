@@ -10,7 +10,7 @@ const UserAuthController = require("../controllers/userAuth");
 const ImageUploader = require("../middlewares/ImageUploader");
 
 router.post("/login", logger, UserAuthController.login);
-router.post("/register", logger, ImageUploader.singleFileUpload, UserAuthController.register, ImageUploader.deleteTmpFile);
+router.post("/register", logger, ImageUploader.singleFileUpload, UserAuthController.register, ImageUploader.deleteTmpFiles);
 router.get("/logout", logger, middlewares.checkAuthentication, UserAuthController.logout);
 
 module.exports = router;

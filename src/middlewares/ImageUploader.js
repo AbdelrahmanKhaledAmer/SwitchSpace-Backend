@@ -11,14 +11,31 @@ const imageFilter = function (req, file, cb) {
     cb(null, true);
 };
 // delete tmp file if exists
-const deleteTmpFile = async function (req) {
-    console.log("deleting tmp file");
-    if (req.file) {
+const deleteTmpFiles = async function (req) {
+    let deletePromises = [];
+    if (req.files) {
+        for (let i = 0; i < req.files.length; i++) {
+            const filePath = req.files[i].path;
+            deletePromises.push(
+                fs.unlink(filePath, function (err) {
+                    if (err) throw err;
+                    //TODO: Log the err
+                })
+            );
+        }
+    } else if (req.file) {
         const filePath = req.file.path;
-        await fs.unlink(filePath, function (err) {
-            if (err) throw err;
-            // if no error, file has been deleted successfully
-        });
+        deletePromises.push(
+            fs.unlink(filePath, function (err) {
+                if (err) throw err;
+                //TODO: Log the err
+            })
+        );
+    }
+    try {
+        await Promise.all(deletePromises);
+    } catch (err) {
+        console.log(err);
     }
 };
 // define single file constraints and its attributes
@@ -60,4 +77,4 @@ const multiFileUpload = function (req, res, next) {
     });
 };
 
-module.exports = {singleFileUpload, multiFileUpload, deleteTmpFile};
+module.exports = {singleFileUpload, multiFileUpload, deleteTmpFiles};
