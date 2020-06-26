@@ -52,28 +52,34 @@ const create = async (req, res, next) => {
                 return next();
             }
         }
-        if (req.files) {
-            // wait for upload to be completed
-            let images = [];
-            const imagePromises = [];
-            for (let i = 0; i < req.files.length; i++) {
-                imagePromises[i] = s3upload.uploadPhoto(req.files[i].path, "postPics", postId.concat("_").concat(i));
-            }
-            try {
-                images = await Promise.all(imagePromises);
-            } catch (err) {
-                console.log("upload error");
-                console.log(err);
-                res.status(500).json({message: "Internal server error"});
-                return next();
-            }
-            req.body = Object.assign(req.body, {
-                _id: postId,
-                photos: images,
+        if (!req.files) {
+            return res.status(400).json({
+                message: "Request should have images",
             });
         }
 
-        let post = await PostModel.create(req.body);
+        // wait for upload to be completed
+        let images = [];
+        const imagePromises = [];
+        for (let i = 0; i < req.files.length; i++) {
+            imagePromises[i] = s3upload.uploadPhoto(req.files[i].path, "postPics", postId.concat("_").concat(i));
+        }
+        try {
+            images = await Promise.all(imagePromises);
+        } catch (err) {
+            console.log("upload error");
+            console.log(err);
+            res.status(500).json({message: "Internal server error"});
+            return next();
+        }
+
+        let post = Object.assign(req.body, {
+            _id: postId,
+            photos: images,
+        });
+        console.log(req.body._id);
+        console.log(req.body);
+        let createdPost = await PostModel.create(post);
         user.remainingPosts -= 1;
         user.save();
         let subcategory = post.itemDesired.subcategory;
@@ -84,10 +90,11 @@ const create = async (req, res, next) => {
             subcategory.save();
         }
         res.status(201).json({
-            data: post,
+            data: createdPost,
         });
         return next();
     } catch (err) {
+        console.log(err);
         res.status(500).json({
             message: "Internal server error",
         });
