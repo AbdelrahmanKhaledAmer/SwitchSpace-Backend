@@ -3,7 +3,7 @@ const Joi = require("@hapi/joi");
 const itemSchemaValidator = require("./item");
 const exchangeLocationShemaValidator = require("./exchangeLocation");
 
-const postUpdateSchemaValidation = Joi.object({
+const postUpdateValidator = Joi.object({
     creatorId: Joi.string().alphanum(),
     creatorName: Joi.string().alphanum().min(2).max(50),
     itemOwned: itemSchemaValidator,
@@ -13,4 +13,4 @@ const postUpdateSchemaValidation = Joi.object({
     postId: Joi.string().alphanum(),
 });
 
-module.exports = postUpdateSchemaValidation;
+module.exports = postUpdateValidator;
