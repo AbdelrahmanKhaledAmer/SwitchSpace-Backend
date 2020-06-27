@@ -250,7 +250,7 @@ const remove = async (req, res) => {
     // admin is deleting the post
     if (req.adminId) {
         try {
-            let post = await PostModel.findOne({_id: req.headers.id});
+            let post = await PostModel.findOne({_id: req.params["id"]});
             let creatorId = post.creatorId;
             let user = await UserModel.findOne({_id: creatorId});
             if (user) {
