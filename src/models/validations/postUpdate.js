@@ -9,7 +9,7 @@ const postUpdateValidator = Joi.object({
     itemOwned: itemSchemaValidator,
     itemDesired: itemSchemaValidator,
     exchangeLocation: exchangeLocationShemaValidator,
-    photos: Joi.array().items(Joi.object()).required(),
+    photos: Joi.array().items(Joi.object()),
     postId: Joi.string().alphanum(),
 });
 
