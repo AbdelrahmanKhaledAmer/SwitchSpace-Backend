@@ -14,7 +14,7 @@ router.put(
     middlewares.checkAuthentication,
     ImageUploader.singleFileUpload,
     UserController.updateProfile,
-    ImageUploader.deleteTmpFile
+    ImageUploader.deleteTmpFiles
 );
 router.put("/subscription", logger, middlewares.checkAuthentication, UserController.userChangeSubscription);
 router.get("/user/", logger, UserController.getUserDetails);

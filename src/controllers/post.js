@@ -5,17 +5,20 @@
 //const type = upload.array("photos");
 //const fs = require("fs");
 const Mongoose = require("mongoose");
+const s3upload = require("../utils/s3Upload");
+const ObjectID = require("bson-objectid");
 const PostModel = require("../models/schema/post");
 const subcategorySchema = require("../models/schema/subcategory");
 const subcategoryModel = Mongoose.model("Subcategory", subcategorySchema);
-const PostValidator = require("../models/validations/post");
+const PostCreationValidator = require("../models/validations/postCreation");
+const PostUpdateValidator = require("../models/validations/postUpdate");
 const UserModel = require("../models/schema/user");
 const MAX_VIOLATIONS = 3;
 
 // ********************************************************************************************************* //
 
 // cretae a post
-const create = async (req, res) => {
+const create = async (req, res, next) => {
     if (!req.userId) {
         return res.status(403).json({
             message: "You need to be a regular user to create a post.",
@@ -24,29 +27,59 @@ const create = async (req, res) => {
     req.body.creatorId = req.userId;
     req.body.creatorName = req.userName;
     // validate the post form
-    const validationVerdict = PostValidator.validate(req.body);
+    const validationVerdict = PostCreationValidator.validate(req.body);
     // check whether the form is incomplete
     if (validationVerdict.error) {
         return res.status(400).json({
             message: validationVerdict.error.details[0].message,
         });
     }
+    const postId = ObjectID.generate();
 
     // create post with its complete attributes if the user still has remaining posts
     try {
         let user = await UserModel.findById(req.body.creatorId);
         if (!user) {
-            return res.status(404).json({
+            res.status(404).json({
                 message: "User not found",
             });
+            return next();
         } else {
             if (user.remainingPosts == 0) {
-                return res.status(403).json({
+                res.status(403).json({
                     message: "User doesn't have sufficient credit to create a post",
                 });
+                return next();
             }
         }
-        let post = await PostModel.create(req.body);
+        if (!req.files) {
+            return res.status(400).json({
+                message: "Request should have images",
+            });
+        }
+
+        // wait for upload to be completed
+        let images = [];
+        const imagePromises = [];
+        for (let i = 0; i < req.files.length; i++) {
+            imagePromises[i] = s3upload.uploadPhoto(req.files[i].path, "postPics", postId.concat("_").concat(i));
+        }
+        try {
+            images = await Promise.all(imagePromises);
+        } catch (err) {
+            console.log("upload error");
+            console.log(err);
+            res.status(500).json({message: "Internal server error"});
+            return next();
+        }
+
+        let post = Object.assign(req.body, {
+            _id: postId,
+            photos: images,
+        });
+        console.log(req.body._id);
+        console.log(req.body);
+        let createdPost = await PostModel.create(post);
         user.remainingPosts -= 1;
         user.save();
         let subcategory = post.itemDesired.subcategory;
@@ -56,13 +89,16 @@ const create = async (req, res) => {
             subcategory.trendingScore += 1;
             subcategory.save();
         }
-        return res.status(201).json({
-            data: post,
+        res.status(201).json({
+            data: createdPost,
         });
+        return next();
     } catch (err) {
-        return res.status(500).json({
+        console.log(err);
+        res.status(500).json({
             message: "Internal server error",
         });
+        return next();
     }
 };
 
@@ -88,7 +124,7 @@ const ViewPostDetails = async (req, res) => {
 // ********************************************************************************************************* //
 
 // update a post
-const update = async (req, res) => {
+const update = async (req, res, next) => {
     if (!req.userId) {
         return res.status(403).json({
             message: "You need to be a regular user to edit your post.",
@@ -99,12 +135,13 @@ const update = async (req, res) => {
     let postId = req.body.postId;
     delete req.body.postId;
     // validate post form
-    const validationVerdict = PostValidator.validate(req.body);
+    const validationVerdict = PostUpdateValidator.validate(req.body);
     // check whether the form is incomplete
     if (validationVerdict.error) {
-        return res.status(400).json({
+        res.status(400).json({
             message: validationVerdict.error.details[0].message,
         });
+        return next();
     }
     // check that there's a post of this onwer
     try {
@@ -113,10 +150,28 @@ const update = async (req, res) => {
             _id: postId,
         });
         if (!ownerPost) {
-            return res.status(403).json({
+            res.status(403).json({
                 message: "Unauthorized action",
             });
+            return next();
         } else {
+            if (req.files) {
+                // wait for upload to be completed
+                let images = [];
+                const imagePromises = [];
+                for (let i = 0; i < req.files.length; i++) {
+                    imagePromises[i] = s3upload.uploadPhoto(req.files[i].path, "postPics", postId.concat("_").concat(i));
+                }
+                try {
+                    images = await Promise.all(imagePromises);
+                } catch (err) {
+                    res.status(500).json({message: "Internal server error"});
+                    return next();
+                }
+                req.body = Object.assign(req.body, {
+                    photos: images,
+                });
+            }
             // update the trending score of the subcategory
             let subcategory = ownerPost.itemDesired.subcategory;
             if (subcategory) {
@@ -134,14 +189,17 @@ const update = async (req, res) => {
                 subcategory.trendingScore += 1;
                 subcategory.save();
             }
-            return res.status(200).json({
+            res.status(200).json({
                 data: post,
             });
+            return next();
         }
     } catch (err) {
-        return res.status(500).json({
+        //console.log(err);
+        res.status(500).json({
             message: "Internal server error",
         });
+        return next();
     }
 };
 
