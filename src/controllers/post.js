@@ -273,11 +273,16 @@ const remove = async (req, res) => {
 // View all posts made by a certain user
 const ViewAll = async (req, res) => {
     try {
-        let posts = await PostModel.find({creatorId: req.userId});
-        if (!posts)
+        // userId is retrieved from query parameter instead of request object, to allow other users
+        // to view the posts of a user when visiting his/her profile
+        let userId = req.query.userId;
+        let user = await UserModel.findById(userId);
+        if (!user) {
             return res.status(404).json({
-                message: "Posts not found",
+                message: `No user found with id: ${userId}`,
             });
+        }
+        let posts = await PostModel.find({creatorId: userId});
         return res.status(200).json({data: posts});
     } catch (err) {
         return res.status(500).json({
