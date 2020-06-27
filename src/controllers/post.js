@@ -130,11 +130,7 @@ const update = async (req, res, next) => {
             message: "You need to be a regular user to edit your post.",
         });
     }
-    if (!req.params["id"]) {
-        return res.status(400).json({
-            message: "Cannot delete a post without its ID.",
-        });
-    }
+
     req.body.creatorId = req.userId;
     req.body.creatorName = req.userName;
     let postId = req.params["id"];
