@@ -16,7 +16,7 @@ router.post("/create", logger, middlewares.checkAuthentication, ImageUploader.mu
 router.get("/view", logger, PostController.ViewPostDetails);
 router.put("/update", logger, middlewares.checkAuthentication, ImageUploader.multiFileUpload, PostController.update, ImageUploader.deleteTmpFiles);
 router.delete("/delete", logger, middlewares.checkAuthentication, PostController.remove);
-router.get("/view/all", logger, middlewares.checkAuthentication, PostController.ViewAll);
+router.get("/", logger, PostController.ViewAll);
 router.get("/search", logger, PostController.searchPosts);
 
 module.exports = router;
