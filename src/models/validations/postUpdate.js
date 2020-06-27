@@ -4,13 +4,13 @@ const itemSchemaValidator = require("./item");
 const exchangeLocationShemaValidator = require("./exchangeLocation");
 
 const postUpdateValidator = Joi.object({
-    creatorId: Joi.string().alphanum(),
+    creatorId: Joi.string().alphanum().required(),
     creatorName: Joi.string().alphanum().min(2).max(50),
     itemOwned: itemSchemaValidator,
     itemDesired: itemSchemaValidator,
     exchangeLocation: exchangeLocationShemaValidator,
     photos: Joi.array().items(Joi.object()),
-    postId: Joi.string().alphanum(),
+    postId: Joi.string().alphanum().required(),
 });
 
 module.exports = postUpdateValidator;

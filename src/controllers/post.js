@@ -131,14 +131,14 @@ const update = async (req, res, next) => {
         });
     }
     if (!req.params["id"]) {
-        return res.status(402).json({
+        return res.status(400).json({
             message: "Cannot delete a post without its ID.",
         });
     }
     req.body.creatorId = req.userId;
     req.body.creatorName = req.userName;
     let postId = req.params["id"];
-    delete req.body.postId;
+    req.body.postId = postId;
     // validate post form
     const validationVerdict = PostUpdateValidator.validate(req.body);
     // check whether the form is incomplete
@@ -213,7 +213,7 @@ const update = async (req, res, next) => {
 // delete a post
 const remove = async (req, res) => {
     if (!req.params["id"]) {
-        return res.status(402).json({
+        return res.status(400).json({
             message: "Cannot delete a post without its ID.",
         });
     }
