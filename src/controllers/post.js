@@ -105,9 +105,9 @@ const create = async (req, res, next) => {
 // ********************************************************************************************************* //
 
 // view a specific post
-const ViewPostDetails = async (req, res) => {
+const viewPostDetails = async (req, res) => {
     try {
-        let post = await PostModel.findById(req.headers.id);
+        let post = await PostModel.findById(req.params["id"]);
         if (!post)
             return res.status(404).json({
                 message: "Post not found",
@@ -130,10 +130,11 @@ const update = async (req, res, next) => {
             message: "You need to be a regular user to edit your post.",
         });
     }
+
     req.body.creatorId = req.userId;
     req.body.creatorName = req.userName;
-    let postId = req.body.postId;
-    delete req.body.postId;
+    let postId = req.params["id"];
+    req.body.postId = postId;
     // validate post form
     const validationVerdict = PostUpdateValidator.validate(req.body);
     // check whether the form is incomplete
@@ -207,8 +208,8 @@ const update = async (req, res, next) => {
 
 // delete a post
 const remove = async (req, res) => {
-    if (!req.headers.id) {
-        return res.status(402).json({
+    if (!req.params["id"]) {
+        return res.status(400).json({
             message: "Cannot delete a post without its ID.",
         });
     }
@@ -218,7 +219,7 @@ const remove = async (req, res) => {
         try {
             let ownerPost = await PostModel.findOne({
                 creatorId: req.userId,
-                _id: req.headers.id,
+                _id: req.params["id"],
             });
             if (!ownerPost) {
                 return res.status(403).json({
@@ -245,7 +246,7 @@ const remove = async (req, res) => {
     // admin is deleting the post
     if (req.adminId) {
         try {
-            let post = await PostModel.findOne({_id: req.headers.id});
+            let post = await PostModel.findOne({_id: req.params["id"]});
             let creatorId = post.creatorId;
             let user = await UserModel.findOne({_id: creatorId});
             if (user) {
@@ -271,7 +272,7 @@ const remove = async (req, res) => {
 // ********************************************************************************************************* //
 
 // View all posts made by a certain user
-const ViewAll = async (req, res) => {
+const viewAll = async (req, res) => {
     try {
         // userId is retrieved from query parameter instead of request object, to allow other users
         // to view the posts of a user when visiting his/her profile
@@ -354,10 +355,10 @@ const viewPostsByCategory = async (req, res) => {
 
 module.exports = {
     create,
-    ViewPostDetails,
+    viewPostDetails,
     update,
     remove,
-    ViewAll,
+    viewAll,
     searchPosts,
     viewPostsByCategory,
 };
