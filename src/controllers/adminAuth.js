@@ -24,7 +24,7 @@ const login = async (req, res) => {
         // check if the password is valid
         const isPasswordValid = bcrypt.compareSync(req.body.password, admin.password);
         if (!isPasswordValid) {
-            return res.status(401).json({message: "Invalid Password", token: null});
+            return res.status(400).json({message: "Invalid Password", token: null});
         }
 
         // if user is found and password is valid
@@ -33,7 +33,7 @@ const login = async (req, res) => {
             expiresIn: 86400, // expires in 24 hours
         });
 
-        return res.status(200).json({data: token});
+        return res.status(200).json({token: token});
     } catch (err) {
         if (!admin) {
             return res.status(404).json({
