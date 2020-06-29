@@ -1,16 +1,38 @@
 [
     {
         "_id": {"$oid": "5ee245bbdedc1468ff6e3221"},
-        "commRate": 0,
-        "conditionRate": 0,
-        "descriptionRate": 0,
+        "commRate": 4,
+        "conditionRate": 4.5,
+        "descriptionRate": 4,
         "tier": "Per Post",
         "violationsCount": 0,
         "remainingPosts": 200,
         "password": "$2y$10$9LUVPLcVuq34H9F8MQs.V.JrfXpJlIN4QU9uRREgWxlEgM7G1uVsO",
         "name": "mohamed",
         "email": "mohamed@gmail.com",
-        "reviews": []
+        "reviews": 
+        [
+            {
+                "_id": {"$oid": "5ef8fab2bd79081b2b374d4a"},
+                "reviewerId": {"$oid": "5ee245bbdedc1468ff6e3222"},
+                "description": "best person to exchange with!",
+                "commRate": 4,
+                "conditionRate": 4.5,
+                "descriptionRate": 4,
+                "createdAt": "2020-06-28T19:46:07.504Z",
+                "updatedAt": "2020-06-28T19:46:07.504Z"
+            },
+            {
+                "_id": {"$oid": "5ef8fab2bd79081b2b374d4b"},
+                "reviewerId": {"$oid": "5ee245bbdedc1468ff6e3223"},
+                "description": "smooth experience with him!",
+                "commRate": 4,
+                "conditionRate": 4.5,
+                "descriptionRate": 4,
+                "createdAt": "2020-06-28T19:46:07.504Z",
+                "updatedAt": "2020-06-28T19:46:07.504Z"
+            }
+        ]
     },
     {
         "_id": {"$oid": "5ee245bbdedc1468ff6e3220"},
@@ -35,6 +57,10 @@
         "remainingPosts": 1000,
         "password": "$2y$10$L9DVvXUhQ31GY0lkLK2XOeXM28JpoSNhdOY0CzgmXUS.stHXGUD4e",
         "name": "test",
+        "profilePicture": {
+            "url": "https://pbs.twimg.com/profile_images/957446833583767552/gsTB6uZT_400x400.jpg",
+            "key": "awsKey"
+        },
         "email": "test@gmail.com",
         "reviews": []
     },
