@@ -9,10 +9,6 @@ const reviewSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    reviewerName: {
-        type: String,
-        required: true,
-    },
     description: String,
     // rating for user communication
     commRate: {
