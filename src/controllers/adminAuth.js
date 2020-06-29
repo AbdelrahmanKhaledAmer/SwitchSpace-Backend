@@ -33,7 +33,7 @@ const login = async (req, res) => {
             expiresIn: 86400, // expires in 24 hours
         });
 
-        return res.status(200).json({data: token});
+        return res.status(200).json({token: token});
     } catch (err) {
         if (!admin) {
             return res.status(404).json({
