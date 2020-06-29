@@ -13,7 +13,10 @@ const itemSchema = new mongoose.Schema({
         required: true,
         enum: ["New", "Used"],
     },
-    modelYear: Date,
+    modelYear: {
+        type: Number,
+        min: 1900,
+    },
     description: String,
     category: {
         type: String,
