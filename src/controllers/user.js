@@ -138,12 +138,14 @@ const userChangeSubscription = async (req, res) => {
 };
 
 const getUserDetails = async (req, res) => {
-    const id = req.query.userId;
-    if (id) {
-        let user = await UserModel.findById(id).select("-email -password -violationsCount");
+    const userId = req.params.id;
+    try {
+        // find the user excluding his email, password and violationsCount
+        // and populate the reviewer in reviews selecting only his name and profilePicture
+        const user = await UserModel.findById(userId, "-email -password -violationsCount").populate("reviews.reviewerId", "name profilePicture");
         return res.status(200).json({data: user});
-    } else {
-        return res.status(400).json({message: " missing user Id"});
+    } catch (err) {
+        return res.status(500).json({message: "Internal server error"});
     }
 };
 module.exports = {
