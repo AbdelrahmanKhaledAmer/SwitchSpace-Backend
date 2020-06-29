@@ -49,7 +49,7 @@ const multiUpload = multer({
     dest: "uploads/post",
     limits: {fileSize: 2097152, files: 3}, // file size 2mbs,only 3 file are allowed
     fileFilter: imageFilter,
-}).array("postPicture", 3);
+}).any();
 
 const singleFileUpload = function (req, res, next) {
     singleUpload(req, res, function (err) {

@@ -9,7 +9,7 @@ const postCreationValidator = Joi.object({
     itemOwned: itemSchemaValidator.required(),
     itemDesired: itemSchemaValidator.required(),
     exchangeLocation: exchangeLocationShemaValidator.required(),
-    photos: Joi.array().items(Joi.object()).required(),
+    // photos: Joi.array().items(Joi.object()).required(),
 });
 
 module.exports = postCreationValidator;

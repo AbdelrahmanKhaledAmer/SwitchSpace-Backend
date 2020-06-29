@@ -26,12 +26,24 @@ const create = async (req, res, next) => {
     }
     req.body.creatorId = req.userId;
     req.body.creatorName = req.userName;
+    req.body.itemOwned = JSON.parse(req.body.itemOwned);
+    req.body.itemDesired = JSON.parse(req.body.itemDesired);
+    req.body.exchangeLocation = JSON.parse(req.body.exchangeLocation);
+
     // validate the post form
     const validationVerdict = PostCreationValidator.validate(req.body);
     // check whether the form is incomplete
     if (validationVerdict.error) {
         return res.status(400).json({
             message: validationVerdict.error.details[0].message,
+        });
+    }
+    if (
+        (req.body.itemOwned.category != "other" && !req.body.itemOwned.subcategory) ||
+        (req.body.itemDesired.category != "other" && !req.body.itemDesired.subcategory)
+    ) {
+        return res.status(400).json({
+            message: "Missing subcategory",
         });
     }
     const postId = ObjectID.generate();
