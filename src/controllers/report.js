@@ -13,8 +13,10 @@ const reportPost = async (req, res) => {
     }
     // Retrieve reporter Id from token
     let reporterId = req.userId;
+    let reporterName = req.userName;
     // Validate report
     req.body.reporterId = reporterId;
+    req.body.reporterName = reporterName;
     let valid = reportValidator.validate(req.body);
     // If report is not valid, then user needs to enter valid data.
     if (valid.error) {
