@@ -56,7 +56,7 @@
         "violationsCount": 3,
         "remainingPosts": 1000,
         "password": "$2y$10$L9DVvXUhQ31GY0lkLK2XOeXM28JpoSNhdOY0CzgmXUS.stHXGUD4e",
-        "name": "test",
+        "name": "Frodo",
         "profilePicture": {
             "url": "https://pbs.twimg.com/profile_images/957446833583767552/gsTB6uZT_400x400.jpg",
             "key": "awsKey"
@@ -73,7 +73,7 @@
         "violationsCount": 0,
         "remainingPosts": 0,
         "password": "$2y$10$EWozjpDp5o/hEW2QbHuTqub/rXDtXZCU0a5EtGlj3N/6AGSYHTEp6",
-        "name": "test2",
+        "name": "Sam",
         "email": "test2@gmail.com",
         "reviews": []
     },
