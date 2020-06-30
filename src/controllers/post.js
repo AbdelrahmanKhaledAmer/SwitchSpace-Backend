@@ -119,7 +119,7 @@ const create = async (req, res, next) => {
 // view a specific post
 const viewPostDetails = async (req, res) => {
     try {
-        let post = await PostModel.findById(req.params["id"]);
+        let post = await PostModel.findById(req.params["id"]).populate("creatorId", "name profilePicture commRate descriptionRate conditionRate");
         if (!post)
             return res.status(404).json({
                 message: "Post not found",
