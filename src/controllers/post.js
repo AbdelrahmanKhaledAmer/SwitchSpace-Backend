@@ -314,11 +314,12 @@ const searchPosts = async (req, res) => {
     let itemOwned = req.query.io ? req.query.io : "";
     let itemWantedCategory = req.query.iwCat ? req.query.iwCat : "";
     let itemOwnedCategory = req.query.ioCat ? req.query.ioCat : "";
-    let lon = req.query.lon ? req.query.lon : 0;
+    let lng = req.query.lng ? req.query.lng : 0;
     let lat = req.query.lat ? req.query.lat : 0;
+    // let condition = req.query.condition ? req.query.condition : "";
     let location = {
         type: "Point",
-        coordinates: [lon, lat],
+        coordinates: [lng, lat],
     };
     let radius = req.query.radius ? req.query.radius : 1e5 * 1000; // convert radius to km
     try {
@@ -331,10 +332,11 @@ const searchPosts = async (req, res) => {
             "itemDesired.title": {$regex: itemOwned, $options: "i"},
             "itemDesired.category": {$regex: itemOwnedCategory, $options: "i"},
             exchangeLocation: {
-                $nearSphere: {
-                    $geometry: location,
-                    $maxDistance: radius,
-                },
+                $geoWithin: {$centerSphere: [location.coordinates, radius / 6371]},
+                // $nearSphere: {
+                //     $geometry: location,
+                //     $maxDistance: radius,
+                // },
             },
         });
         return res.status(200).json({
