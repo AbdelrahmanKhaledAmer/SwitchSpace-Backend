@@ -5,25 +5,11 @@ const router = express.Router();
 const logger = require("../middlewares/loggerHandler");
 
 const middlewares = require("../middlewares/middlewares");
-const adminController = require("../controllers/admin");
+const reportController = require("../controllers/report");
+const postController = require("../controllers/post");
 
-router.get(
-  "/report",
-  logger,
-  middlewares.checkAuthentication,
-  adminController.viewAllReports
-);
-router.delete(
-  "/report",
-  logger,
-  middlewares.checkAuthentication,
-  adminController.deleteReport
-);
-router.delete(
-  "/post",
-  logger,
-  middlewares.checkAuthentication,
-  adminController.deletePost
-);
+router.get("/report", logger, middlewares.checkAuthentication, reportController.viewAllReports);
+router.delete("/report/:reportId", logger, middlewares.checkAuthentication, reportController.deleteReport);
+router.delete("/post", logger, middlewares.checkAuthentication, postController.remove);
 
 module.exports = router;

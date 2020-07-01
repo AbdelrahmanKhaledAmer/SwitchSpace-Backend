@@ -4,22 +4,25 @@ const mongoose = require("mongoose");
 
 // Define the item schema
 const itemSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  condition: {
-    type: String,
-    required: true,
-    enum: ["New", "Used"],
-  },
-  modelYear: Date,
-  description: String,
-  category: {
-    type: String,
-    required: true,
-  },
-  subcategory: String,
+    title: {
+        type: String,
+        required: true,
+    },
+    condition: {
+        type: String,
+        required: true,
+        enum: ["New", "Used"],
+    },
+    modelYear: {
+        type: Number,
+        min: 1900,
+    },
+    description: String,
+    category: {
+        type: String,
+        required: true,
+    },
+    subcategory: String,
 });
 
 // Export the item schema

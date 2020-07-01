@@ -4,16 +4,16 @@ const mongoose = require("mongoose");
 
 // Define the subcategory schema
 const subcategorySchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  trendingScore: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
+    title: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    trendingScore: {
+        type: Number,
+        required: true,
+        default: 0,
+    },
 });
 
 // Export the subcategory schema

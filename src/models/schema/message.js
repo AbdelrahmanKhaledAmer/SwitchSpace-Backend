@@ -4,15 +4,15 @@ const mongoose = require("mongoose");
 
 // Define the message schema
 const messageSchema = new mongoose.Schema({
-  senderId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
+    senderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    content: {
+        type: String,
+        required: true,
+    },
 });
 
 messageSchema.set("timestamps", true);

@@ -1,72 +1,93 @@
 [
-  {
-    "_id": { "$oid": "5ee245bbdedc1468ff6e3221" },
-    "commRate": 0,
-    "conditionRate": 0,
-    "descriptionRate": 0,
-    "tier": "PerPost",
-    "violationsCount": 0,
-    "password": "$2y$10$9LUVPLcVuq34H9F8MQs.V.JrfXpJlIN4QU9uRREgWxlEgM7G1uVsO",
-    "name": "mohamed",
-    "email": "mohamed@gmail.com",
-    "reviews": [],
-    "deleted": false,
-    "deletedAt": null
-  },
-  {
-    "_id": { "$oid": "5ee245bbdedc1468ff6e3220" },
-    "commRate": 0,
-    "conditionRate": 0,
-    "descriptionRate": 0,
-    "tier": "PerPost",
-    "violationsCount": 4,
-    "password": "$2y$10$9LUVPLcVuq34H9F8MQs.V.JrfXpJlIN4QU9uRREgWxlEgM7G1uVsO",
-    "name": "mohamed",
-    "email": "mohamed2@gmail.com",
-    "reviews": [],
-    "deleted": true,
-    "deletedAt": "2020-06-12T19:10:26.079Z"
-  },
-  {
-    "_id": { "$oid": "5ee245bbdedc1468ff6e3222" },
-    "commRate": 0,
-    "conditionRate": 0,
-    "descriptionRate": 0,
-    "tier": "PerPost",
-    "violationsCount": 0,
-    "password": "$2y$10$L9DVvXUhQ31GY0lkLK2XOeXM28JpoSNhdOY0CzgmXUS.stHXGUD4e",
-    "name": "test",
-    "email": "test@gmail.com",
-    "reviews": [],
-    "deleted": false,
-    "deletedAt": null
-  },
-  {
-    "_id": { "$oid": "5ee245bbdedc1468ff6e3223" },
-    "commRate": 0,
-    "conditionRate": 0,
-    "descriptionRate": 0,
-    "tier": "PerPost",
-    "violationsCount": 0,
-    "password": "$2y$10$EWozjpDp5o/hEW2QbHuTqub/rXDtXZCU0a5EtGlj3N/6AGSYHTEp6",
-    "name": "test2",
-    "email": "test2@gmail.com",
-    "reviews": [],
-    "deleted": false,
-    "deletedAt": null
-  },
-  {
-    "_id": { "$oid": "5ee245bbdedc1468ff6e3224" },
-    "commRate": 0,
-    "conditionRate": 0,
-    "descriptionRate": 0,
-    "tier": "PerPost",
-    "violationsCount": 0,
-    "password": "$2y$10$A5/qiaMcwUtjwDTMvXnLZ.yIg09vTore3Rt8dQTl1078ev0TdwTtm",
-    "name": "test3",
-    "email": "test3@gmail.com",
-    "reviews": [],
-    "deleted": false,
-    "deletedAt": null
-  }
+    {
+        "_id": {"$oid": "5ee245bbdedc1468ff6e3221"},
+        "commRate": 4,
+        "conditionRate": 4.5,
+        "descriptionRate": 4,
+        "tier": "Per Post",
+        "violationsCount": 0,
+        "remainingPosts": 200,
+        "password": "$2y$10$9LUVPLcVuq34H9F8MQs.V.JrfXpJlIN4QU9uRREgWxlEgM7G1uVsO",
+        "name": "mohamed",
+        "email": "mohamed@gmail.com",
+        "reviews": 
+        [
+            {
+                "_id": {"$oid": "5ef8fab2bd79081b2b374d4a"},
+                "reviewerId": {"$oid": "5ee245bbdedc1468ff6e3222"},
+                "description": "best person to exchange with!",
+                "commRate": 4,
+                "conditionRate": 4.5,
+                "descriptionRate": 4,
+                "createdAt": "2020-06-28T19:46:07.504Z",
+                "updatedAt": "2020-06-28T19:46:07.504Z"
+            },
+            {
+                "_id": {"$oid": "5ef8fab2bd79081b2b374d4b"},
+                "reviewerId": {"$oid": "5ee245bbdedc1468ff6e3223"},
+                "description": "smooth experience with him!",
+                "commRate": 4,
+                "conditionRate": 4.5,
+                "descriptionRate": 4,
+                "createdAt": "2020-06-28T19:46:07.504Z",
+                "updatedAt": "2020-06-28T19:46:07.504Z"
+            }
+        ]
+    },
+    {
+        "_id": {"$oid": "5ee245bbdedc1468ff6e3220"},
+        "commRate": 0,
+        "conditionRate": 0,
+        "descriptionRate": 0,
+        "tier": "Per Post",
+        "violationsCount": 4,
+        "remainingPosts": 3,
+        "password": "$2y$10$9LUVPLcVuq34H9F8MQs.V.JrfXpJlIN4QU9uRREgWxlEgM7G1uVsO",
+        "name": "mohamed",
+        "email": "mohamed2@gmail.com",
+        "reviews": []
+    },
+    {
+        "_id": {"$oid": "5ee245bbdedc1468ff6e3222"},
+        "commRate": 0,
+        "conditionRate": 0,
+        "descriptionRate": 0,
+        "tier": "Per Post",
+        "violationsCount": 3,
+        "remainingPosts": 1000,
+        "password": "$2y$10$L9DVvXUhQ31GY0lkLK2XOeXM28JpoSNhdOY0CzgmXUS.stHXGUD4e",
+        "name": "Frodo",
+        "profilePicture": {
+            "url": "https://pbs.twimg.com/profile_images/957446833583767552/gsTB6uZT_400x400.jpg",
+            "key": "awsKey"
+        },
+        "email": "test@gmail.com",
+        "reviews": []
+    },
+    {
+        "_id": {"$oid": "5ee245bbdedc1468ff6e3223"},
+        "commRate": 0,
+        "conditionRate": 0,
+        "descriptionRate": 0,
+        "tier": "Per Post",
+        "violationsCount": 0,
+        "remainingPosts": 0,
+        "password": "$2y$10$EWozjpDp5o/hEW2QbHuTqub/rXDtXZCU0a5EtGlj3N/6AGSYHTEp6",
+        "name": "Sam",
+        "email": "test2@gmail.com",
+        "reviews": []
+    },
+    {
+        "_id": {"$oid": "5ee245bbdedc1468ff6e3224"},
+        "commRate": 0,
+        "conditionRate": 0,
+        "descriptionRate": 0,
+        "tier": "Per Post",
+        "violationsCount": 0,
+        "remainingPosts": 0,
+        "password": "$2y$10$A5/qiaMcwUtjwDTMvXnLZ.yIg09vTore3Rt8dQTl1078ev0TdwTtm",
+        "name": "test3",
+        "email": "test3@gmail.com",
+        "reviews": []
+    }
 ]

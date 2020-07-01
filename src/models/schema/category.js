@@ -5,12 +5,12 @@ const subcategorySchema = require("./subcategory");
 
 // Define the category schema
 const categorySchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  subcategories: [subcategorySchema],
+    title: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    subcategories: [subcategorySchema],
 });
 
 // Export the category model
