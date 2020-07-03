@@ -147,6 +147,18 @@ const update = async (req, res, next) => {
     req.body.creatorName = req.userName;
     let postId = req.params["id"];
     req.body.postId = postId;
+    if (req.body.itemOwned) {
+        req.body.itemOwned = JSON.parse(req.body.itemOwned);
+        delete req.body.itemOwned._id;
+    }
+    if (req.body.itemDesired) {
+        req.body.itemDesired = JSON.parse(req.body.itemDesired);
+        delete req.body.itemDesired._id;
+    }
+    if (req.body.exchangeLocation) {
+        req.body.exchangeLocation = JSON.parse(req.body.exchangeLocation);
+        delete req.body.exchangeLocation._id;
+    }
     // validate post form
     const validationVerdict = PostUpdateValidator.validate(req.body);
     // check whether the form is incomplete
@@ -168,7 +180,7 @@ const update = async (req, res, next) => {
             });
             return next();
         } else {
-            if (req.files) {
+            if (req.files && req.files.length > 0) {
                 // wait for upload to be completed
                 let images = [];
                 const imagePromises = [];
@@ -208,7 +220,6 @@ const update = async (req, res, next) => {
             return next();
         }
     } catch (err) {
-        //console.log(err);
         res.status(500).json({
             message: "Internal server error",
         });
