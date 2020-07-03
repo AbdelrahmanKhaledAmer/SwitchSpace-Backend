@@ -325,6 +325,8 @@ const searchPosts = async (req, res) => {
     let itemOwned = req.query.io ? req.query.io : "";
     let itemWantedCategory = req.query.iwCat ? req.query.iwCat : "";
     let itemOwnedCategory = req.query.ioCat ? req.query.ioCat : "";
+    let itemWantedCondition = req.query.iwCon ? req.query.iwCon : "";
+    let itemOwnedCondition = req.query.ioCon ? req.query.ioCon : "";
     let lng = req.query.lng ? req.query.lng : 0;
     let lat = req.query.lat ? req.query.lat : 0;
     // let condition = req.query.condition ? req.query.condition : "";
@@ -340,8 +342,10 @@ const searchPosts = async (req, res) => {
                 $options: "i",
             },
             "itemOwned.category": {$regex: itemWantedCategory, $options: "i"},
+            "itemOwned.condition": {$regex: itemWantedCondition, $options: "i"},
             "itemDesired.title": {$regex: itemOwned, $options: "i"},
             "itemDesired.category": {$regex: itemOwnedCategory, $options: "i"},
+            "itemDesired.condition": {$regex: itemOwnedCondition, $options: "i"},
             exchangeLocation: {
                 $geoWithin: {$centerSphere: [location.coordinates, radius / 6371]},
                 // $nearSphere: {
