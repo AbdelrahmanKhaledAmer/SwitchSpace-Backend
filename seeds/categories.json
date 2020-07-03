@@ -1,29 +1,91 @@
 [
     {
-        "_id": {"$oid": "5ee25a9d5a40da2bfb58efe3"},
-        "title": "electronics",
+        "_id": {"$oid": "5ee25ac32dcdec84ec0c502a"},
+        "title": "Accessories",
         "subcategories": [
             {
-                "_id": {"$oid": "5ee25c6da091caad8bcfaa78"},
-                "title": "smartphones"
+                "_id": {"$oid": "5ee25cb8968eb13d70915c78"},
+                "title": "Watches"
             },
             {
-                "_id": {"$oid": "5ee25c96a4ffb3b2b77cdc52"},
-                "title": "tablets"
+                "_id": {"$oid": "5ee25ccfd63c5e2a1abf914c"},
+                "title": "Bracelets"
+            },
+            {
+                "_id": {"$oid": "5eff80471940a22fe5e35c9b"},
+                "title": "Glasses"
             }
         ]
     },
     {
-        "_id": {"$oid": "5ee25ac32dcdec84ec0c502a"},
-        "title": "furniture",
+        "_id": {"$oid": "5ee25b18a24138977e9be4a0"},
+        "title": "Clothing",
         "subcategories": [
             {
-                "_id": {"$oid": "5ee25cb8968eb13d70915c78"},
-                "title": "chairs"
+                "_id": {"$oid": "5ee25d689cb6b4deed51f7e1"},
+                "title": "Shoes"
             },
             {
-                "_id": {"$oid": "5ee25ccfd63c5e2a1abf914c"},
-                "title": "tables"
+                "_id": {"$oid": "5ee25d94c2e1a734702c2157"},
+                "title": "Shirts"
+            }
+        ]
+    },
+    {
+        "_id": {"$oid": "5ee25a9d5a40da2bfb58efe3"},
+        "title": "Electronics",
+        "subcategories": [
+            {
+                "_id": {"$oid": "5ee25c6da091caad8bcfaa78"},
+                "title": "Smartphones"
+            },
+            {
+                "_id": {"$oid": "5ee25c96a4ffb3b2b77cdc52"},
+                "title": "Tablets"
+            },
+            {
+                "_id": {"$oid": "5eff7e36114ad00a2c2ec1f6"},
+                "title": "Computers"
+            },
+            {
+                "_id": {"$oid": "5eff7eee2e7b0b28ec37663d"},
+                "title": "Tvs"
+            },
+            {
+                "_id": {"$oid": "5eff7fb1f815a34916552332"},
+                "title": "Game Consoles"
+            }
+        ]
+    },
+    {
+        "_id": {"$oid": "5eff8256f46f3eca05951470"},
+        "title": "Media",
+        "subcategories": [
+            {
+                "_id": {"$oid": "5eff81ecc4587ca5a8f1c420"},
+                "title": "Games"
+            },
+            {
+                "_id": {"$oid": "5eff81f03fb5be3e980c586a"},
+                "title": "Music"
+            },
+            {
+                "_id": {"$oid": "5eff81f60d5118678b87dc0c"},
+                "title": "Movies"
+            }
+        ]
+    },
+    {
+        "_id": {"$oid": "5eff826850e89618b4490eaf"},
+        "title": "Sport Equipment",
+        "subcategories": [
+            {
+                "_id": {"$oid": "5eff8270ab451ae3669fef6f"},
+                "title": "Rackets"
+            },
+            {
+                "_id": {"$oid": "5eff82749eba0a60b3f6ba1b"},
+                "title": "Gym Equipment"
             }
         ]
     },
@@ -33,25 +95,15 @@
         "subcategories": [
             {
                 "_id": {"$oid": "5ee25ceb9bdbba8b5f36a8ad"},
-                "title": "cars"
+                "title": "Scooters"
             },
             {
                 "_id": {"$oid": "5ee25cf9a57a5643a1cf1760"},
-                "title": "bikes"
-            }
-        ]
-    },
-    {
-        "_id": {"$oid": "5ee25b18a24138977e9be4a0"},
-        "title": "kitchenware",
-        "subcategories": [
-            {
-                "_id": {"$oid": "5ee25d689cb6b4deed51f7e1"},
-                "title": "microwaves"
+                "title": "Mountain Bikes"
             },
             {
-                "_id": {"$oid": "5ee25d94c2e1a734702c2157"},
-                "title": "utensils"
+                "_id": {"$oid": "5eff82cbaaa9c47db5df1de5"},
+                "title": "Speed Bikes"
             }
         ]
     },

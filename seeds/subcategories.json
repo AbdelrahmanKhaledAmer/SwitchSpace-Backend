@@ -1,42 +1,92 @@
 [
     {
         "_id": {"$oid": "5ee25c6da091caad8bcfaa78"},
-        "title": "smartphones",
+        "title": "Smartphones",
         "trendingScore": 2
     },
     {
         "_id": {"$oid": "5ee25c96a4ffb3b2b77cdc52"},
-        "title": "tablets",
+        "title": "Tablets",
+        "trendingScore": 0
+    },
+    {
+        "_id": {"$oid": "5eff7e36114ad00a2c2ec1f6"},
+        "title": "Computers",
+        "trendingScore": 0
+    },
+    {
+        "_id": {"$oid": "5eff7eee2e7b0b28ec37663d"},
+        "title": "Tvs",
+        "trendingScore": 0
+    },
+    {
+        "_id": {"$oid": "5eff7fb1f815a34916552332"},
+        "title": "Game Consoles",
         "trendingScore": 0
     },
     {
         "_id": {"$oid": "5ee25cb8968eb13d70915c78"},
-        "title": "chairs",
+        "title": "Watches",
         "trendingScore": 0
     },
     {
         "_id": {"$oid": "5ee25ccfd63c5e2a1abf914c"},
-        "title": "tables",
+        "title": "Bracelets",
         "trendingScore": 0
     },
     {
-        "_id": {"$oid": "5ee25ceb9bdbba8b5f36a8ad"},
-        "title": "cars",
-        "trendingScore": 2
-    },
-    {
-        "_id": {"$oid": "5ee25cf9a57a5643a1cf1760"},
-        "title": "bikes",
+        "_id": {"$oid": "5eff80471940a22fe5e35c9b"},
+        "title": "Glasses",
         "trendingScore": 0
     },
     {
         "_id": {"$oid": "5ee25d689cb6b4deed51f7e1"},
-        "title": "microwaves",
+        "title": "Shoes",
         "trendingScore": 0
     },
     {
         "_id": {"$oid": "5ee25d94c2e1a734702c2157"},
-        "title": "utensils",
+        "title": "Shirts",
+        "trendingScore": 0
+    },
+    {
+        "_id": {"$oid": "5eff81ecc4587ca5a8f1c420"},
+        "title": "Games",
+        "trendingScore": 0
+    },
+    {
+        "_id": {"$oid": "5eff81f03fb5be3e980c586a"},
+        "title": "Music",
+        "trendingScore": 0
+    },
+    {
+        "_id": {"$oid": "5eff81f60d5118678b87dc0c"},
+        "title": "Movies",
+        "trendingScore": 0
+    },
+    {
+        "_id": {"$oid": "5eff8270ab451ae3669fef6f"},
+        "title": "Rackets",
+        "trendingScore": 0
+    },
+    {
+        "_id": {"$oid": "5eff82749eba0a60b3f6ba1b"},
+        "title": "Gym Equipment",
+        "trendingScore": 0
+    },
+    {
+        "_id": {"$oid": "5ee25ceb9bdbba8b5f36a8ad"},
+        "title": "Scooters",
+        "trendingScore": 0
+    },
+    {
+        "_id": {"$oid": "5ee25cf9a57a5643a1cf1760"},
+        "title": "Mountain Bikes",
+        "trendingScore": 0
+    },
+    {
+        "_id": {"$oid": "5eff82cbaaa9c47db5df1de5"},
+        "title": "Speed Bikes",
         "trendingScore": 0
     }
 ]

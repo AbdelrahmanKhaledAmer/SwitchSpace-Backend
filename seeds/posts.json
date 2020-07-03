@@ -24,8 +24,8 @@
             "condition": "Used",
             "modelYear": 2010,
             "description": "Used in a good condition",
-            "category": "electronics",
-            "subcategory": "smartphones"
+            "category": "Electronics",
+            "subcategory": "Smartphones"
         },
         "itemDesired": {
             "_id": {"$oid": "5eee8625d836d34976705da9"},
@@ -33,55 +33,12 @@
             "condition": "New",
             "modelYear": 2019,
             "description": "Must be new",
-            "category": "electronics",
-            "subcategory": "smartphones"
+            "category": "Electronics",
+            "subcategory": "Smartphones"
         },
         "exchangeLocation": {
             "coordinates": [11.581981, 48.135124],
             "_id": {"$oid": "5eee8625d836d34976705daa"},
-            "type": "Point"
-        },
-        "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
-        "creatorName": "Mohamed",
-        "createdAt": "2020-06-20T21:56:53.039Z",
-        "updatedAt": "2020-06-20T21:56:53.039Z",
-        "__v": 0
-    },
-    {
-        "_id": {"$oid": "5ee2869e3d8df45c02a0f382"},
-        "photos": [
-            {
-                "_id": {"$oid": "5eef818f1ca7ce3b37b3d34a"},
-                "url": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2020-bmw-x3-mmp-1-1570552516.jpg",
-                "key": "1"
-            },
-            {
-                "_id": {"$oid": "5eef818f1ca7ce3b37b3d34b"},
-                "url": "https://www.autozeitung.de/assets/field/image/bmw-x3-01.jpg",
-                "key": "2"
-            }
-        ],
-        "itemOwned": {
-            "_id": {"$oid": "5eee8625d836d34976705dab"},
-            "title": "BMW X3",
-            "condition": "Used",
-            "modelYear": 2010,
-            "description": "Used in a good condition",
-            "category": "vehicles",
-            "subcategory": "cars"
-        },
-        "itemDesired": {
-            "_id": {"$oid": "5eee8625d836d34976705dac"},
-            "title": "Audi A5",
-            "condition": "New",
-            "modelYear": 2019,
-            "description": "Must be new",
-            "category": "vehicles",
-            "subcategory": "cars"
-        },
-        "exchangeLocation": {
-            "coordinates": [11.581981, 48.135124],
-            "_id": {"$oid": "5eee8625d836d34976705dad"},
             "type": "Point"
         },
         "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
@@ -110,8 +67,8 @@
             "condition": "Used",
             "modelYear": 2010,
             "description": "Used in a good condition",
-            "category": "electronics",
-            "subcategory": "smartphones"
+            "category": "Electronics",
+            "subcategory": "Smartphones"
         },
         "itemDesired": {
             "_id": {"$oid": "5eee8625d836d34976705daf"},
@@ -119,93 +76,12 @@
             "condition": "New",
             "modelYear": 2019,
             "description": "Must be new",
-            "category": "electronics",
-            "subcategory": "smartphones"
+            "category": "Electronics",
+            "subcategory": "Smartphones"
         },
         "exchangeLocation": {
             "coordinates": [11.581981, 48.135124],
             "_id": {"$oid": "5eee8625d836d34976705db0"},
-            "type": "Point"
-        },
-        "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
-        "creatorName": "Mohamed",
-        "createdAt": "2020-06-20T21:56:53.039Z",
-        "updatedAt": "2020-06-20T21:56:53.039Z",
-        "__v": 0
-    },
-    {
-        "_id": {"$oid": "5ee2869e3d8df45c02a0f283"},
-        "photos": [
-            {
-                "_id": {"$oid": "5eef818f1ca7ce3b37b3d34e"},
-                "url": "https://www.autogazette.de/wp-content/uploads/2018/08/BMW-X3-Front.jpg",
-                "key": "1"
-            }
-        ],
-        "itemOwned": {
-            "_id": {"$oid": "5eee8625d836d34976705db1"},
-            "title": "BMW X3",
-            "condition": "Used",
-            "modelYear": 2010,
-            "description": "Used in a good condition",
-            "category": "vehicles",
-            "subcategory": "cars"
-        },
-        "itemDesired": {
-            "_id": {"$oid": "5eee8625d836d34976705db2"},
-            "title": "Audi A5",
-            "condition": "New",
-            "modelYear": 2019,
-            "description": "Must be new",
-            "category": "vehicles",
-            "subcategory": "cars"
-        },
-        "exchangeLocation": {
-            "coordinates": [11.581981, 48.135124],
-            "_id": {"$oid": "5eee8625d836d34976705db3"},
-            "type": "Point"
-        },
-        "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
-        "creatorName": "Mohamed",
-        "createdAt": "2020-06-20T21:56:53.039Z",
-        "updatedAt": "2020-06-20T21:56:53.039Z",
-        "__v": 0
-    },
-    {
-        "_id": {"$oid": "5ee286aa7a5ff15116a86009"},
-        "photos": [
-            {
-                "_id": {"$oid": "5eef818f1ca7ce3b37b3d350"},
-                "url": "https://cf.shopee.com.my/file/e52da687c3a11aff8959e571b3992b22",
-                "key": "1"
-            },
-            {
-                "_id": {"$oid": "5eef818f1ca7ce3b37b3d351"},
-                "url": "https://cf.shopee.com.my/file/dd6096c31c6d9c84cfa353c132ee63e2",
-                "key": "2"
-            }
-        ],
-        "itemOwned": {
-            "_id": {"$oid": "5eee8625d836d34976705db4"},
-            "title": "Ceramic pot",
-            "condition": "New",
-            "modelYear": 2010,
-            "description": "Non stick brand new",
-            "category": "kitchenware",
-            "subcategory": "utensils"
-        },
-        "itemDesired": {
-            "_id": {"$oid": "5eee8625d836d34976705db5"},
-            "title": "Adidas sneakers",
-            "condition": "Used",
-            "modelYear": 2019,
-            "description": "Prefered to be in a good condition",
-            "category": "other",
-            "subcategory": null
-        },
-        "exchangeLocation": {
-            "coordinates": [11.581981, 48.135124],
-            "_id": {"$oid": "5eee8625d836d34976705db6"},
             "type": "Point"
         },
         "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
