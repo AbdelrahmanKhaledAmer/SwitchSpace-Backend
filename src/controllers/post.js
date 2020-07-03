@@ -325,7 +325,7 @@ const searchPosts = async (req, res) => {
     let itemOwned = req.query.io ? req.query.io : "";
     let itemWantedCategory = req.query.iwCat ? req.query.iwCat : "";
     let itemOwnedCategory = req.query.ioCat ? req.query.ioCat : "";
-    let itemWantedCondition = req.query.iwCon ? req.query.iwiwCon : "";
+    let itemWantedCondition = req.query.iwCon ? req.query.iwCon : "";
     let itemOwnedCondition = req.query.ioCon ? req.query.ioCon : "";
     let lng = req.query.lng ? req.query.lng : 0;
     let lat = req.query.lat ? req.query.lat : 0;
