@@ -336,7 +336,7 @@ const searchPosts = async (req, res) => {
         type: "Point",
         coordinates: [lng, lat],
     };
-    let radius = req.query.radius ? req.query.radius : 1e5 * 1000; // convert radius to km
+    let radius = req.query.radius ? req.query.radius * 1000 : 1e5 * 1000; // convert radius to km
     try {
         let posts = await PostModel.find({
             "itemOwned.title": {
