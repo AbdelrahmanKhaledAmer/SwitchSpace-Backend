@@ -324,7 +324,9 @@ const searchPosts = async (req, res) => {
     let itemWanted = req.query.iw ? req.query.iw : "";
     let itemOwned = req.query.io ? req.query.io : "";
     let itemWantedCategory = req.query.iwCat ? req.query.iwCat : "";
+    let itemWantedSubcategory = req.query.iwSubCat ? req.query.iwSubCat : "";
     let itemOwnedCategory = req.query.ioCat ? req.query.ioCat : "";
+    let itemOwnedSubcategory = req.query.ioSubCat ? req.query.ioSubCat : "";
     let itemWantedCondition = req.query.iwCon ? req.query.iwCon : "";
     let itemOwnedCondition = req.query.ioCon ? req.query.ioCon : "";
     let lng = req.query.lng ? req.query.lng : 0;
@@ -342,9 +344,11 @@ const searchPosts = async (req, res) => {
                 $options: "i",
             },
             "itemOwned.category": {$regex: itemWantedCategory, $options: "i"},
+            "itemOwned.subcategory": {$regex: itemWantedSubcategory, $options: "i"},
             "itemOwned.condition": {$regex: itemWantedCondition, $options: "i"},
             "itemDesired.title": {$regex: itemOwned, $options: "i"},
             "itemDesired.category": {$regex: itemOwnedCategory, $options: "i"},
+            "itemDesired.subcategory": {$regex: itemOwnedSubcategory, $options: "i"},
             "itemDesired.condition": {$regex: itemOwnedCondition, $options: "i"},
             exchangeLocation: {
                 $geoWithin: {$centerSphere: [location.coordinates, radius / 6371]},
