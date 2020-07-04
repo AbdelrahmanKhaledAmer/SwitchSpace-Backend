@@ -91,7 +91,7 @@
     },
     {
         "_id": {"$oid": "5ee25ae2c0640a3a353181a3"},
-        "title": "vehicles",
+        "title": "Vehicles",
         "subcategories": [
             {
                 "_id": {"$oid": "5ee25ceb9bdbba8b5f36a8ad"},
