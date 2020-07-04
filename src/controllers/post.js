@@ -324,9 +324,9 @@ const searchPosts = async (req, res) => {
     let itemWanted = req.query.iw ? req.query.iw : "";
     let itemOwned = req.query.io ? req.query.io : "";
     let itemWantedCategory = req.query.iwCat ? req.query.iwCat : "";
-    let itemWantedSubcategory = req.query.iwSubCat ? req.query.iwSubCat : "";
+    let itemWantedSubcategory = req.query.iwSubCat ? req.query.iwSubcat : "";
     let itemOwnedCategory = req.query.ioCat ? req.query.ioCat : "";
-    let itemOwnedSubcategory = req.query.ioSubCat ? req.query.ioSubCat : "";
+    let itemOwnedSubcategory = req.query.ioSubCat ? req.query.ioSubcat : "";
     let itemWantedCondition = req.query.iwCon ? req.query.iwCon : "";
     let itemOwnedCondition = req.query.ioCon ? req.query.ioCon : "";
     let lng = req.query.lng ? req.query.lng : 0;
