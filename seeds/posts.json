@@ -22,10 +22,10 @@
             "_id": {"$oid": "5eee8625d836d34976705da8"},
             "title": "iphone 10+",
             "condition": "Used",
-            "modelYear": 2010,
+            "modelYear": 2019,
             "description": "Used in a good condition",
-            "category": "electronics",
-            "subcategory": "smartphones"
+            "category": "Electronics",
+            "subcategory": "Smartphones"
         },
         "itemDesired": {
             "_id": {"$oid": "5eee8625d836d34976705da9"},
@@ -33,8 +33,8 @@
             "condition": "New",
             "modelYear": 2019,
             "description": "Must be new",
-            "category": "electronics",
-            "subcategory": "smartphones"
+            "category": "Electronics",
+            "subcategory": "Smartphones"
         },
         "exchangeLocation": {
             "coordinates": [11.581981, 48.135124],
@@ -48,83 +48,40 @@
         "__v": 0
     },
     {
-        "_id": {"$oid": "5ee2869e3d8df45c02a0f382"},
-        "photos": [
-            {
-                "_id": {"$oid": "5eef818f1ca7ce3b37b3d34a"},
-                "url": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2020-bmw-x3-mmp-1-1570552516.jpg",
-                "key": "1"
-            },
-            {
-                "_id": {"$oid": "5eef818f1ca7ce3b37b3d34b"},
-                "url": "https://www.autozeitung.de/assets/field/image/bmw-x3-01.jpg",
-                "key": "2"
-            }
-        ],
-        "itemOwned": {
-            "_id": {"$oid": "5eee8625d836d34976705dab"},
-            "title": "BMW X3",
-            "condition": "Used",
-            "modelYear": 2010,
-            "description": "Used in a good condition",
-            "category": "vehicles",
-            "subcategory": "cars"
-        },
-        "itemDesired": {
-            "_id": {"$oid": "5eee8625d836d34976705dac"},
-            "title": "Audi A5",
-            "condition": "New",
-            "modelYear": 2019,
-            "description": "Must be new",
-            "category": "vehicles",
-            "subcategory": "cars"
-        },
-        "exchangeLocation": {
-            "coordinates": [11.581981, 48.135124],
-            "_id": {"$oid": "5eee8625d836d34976705dad"},
-            "type": "Point"
-        },
-        "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
-        "creatorName": "Mohamed",
-        "createdAt": "2020-06-20T21:56:53.039Z",
-        "updatedAt": "2020-06-20T21:56:53.039Z",
-        "__v": 0
-    },
-    {
         "_id": {"$oid": "5ee28666de1873f021bcf471"},
         "photos": [
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d34c"},
-                "url": "https://i.guim.co.uk/img/media/4d15e7605d06515d0bba590b3c101ba27fe5b572/606_505_3912_2347/master/3912.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=0bb8e02364449f07c83dbcc1fc0548ef",
+                "url": "https://cdn.pocket-lint.com/r/s/970x/assets/images/138763-games-review-sony-ps4-pro-review-image1-gcolf3ytme-jpg.webp",
                 "key": "1"
             },
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d34d"},
-                "url": "https://zdnet1.cbsistatic.com/hub/i/r/2019/09/26/bc6496a5-00a5-409a-9531-ba350cdc7f87/thumbnail/770x433/d8f80e6700536aa076082b90ebbec607/iphone-11-pro-2.jpg",
+                "url": "https://labo.fnac.com/wp-content/uploads/2016/12/test-sony-playstation-4-pro_1.jpg",
                 "key": "2"
             }
         ],
         "itemOwned": {
-            "_id": {"$oid": "5eee8625d836d34976705dae"},
-            "title": "iphone 10+",
+            "_id": {"$oid": "5f00c50a721f243347c5adda"},
+            "title": "PlayStation 4 Pro",
             "condition": "Used",
-            "modelYear": 2010,
-            "description": "Used in a good condition",
-            "category": "electronics",
-            "subcategory": "smartphones"
+            "modelYear": 2013,
+            "description": "The PlayStation 4 (officially abbreviated as PS4) is an eighth-generation home video game console developed by Sony Computer Entertainment. Announced as the successor to the PlayStation 3 in February 2013, it was launched on November 15 in North America, November 29 in Europe, South America and Australia, and on February 22, 2014 in Japan. It competes with Microsoft's Xbox One and Nintendo's Wii U and Switch.",
+            "category": "Electronics",
+            "subcategory": "Game Consoles"
         },
         "itemDesired": {
-            "_id": {"$oid": "5eee8625d836d34976705daf"},
-            "title": "Samsung s9",
-            "condition": "New",
-            "modelYear": 2019,
-            "description": "Must be new",
-            "category": "electronics",
-            "subcategory": "smartphones"
+            "_id": {"$oid": "5f00c514aa1a103ea527504e"},
+            "title": "Xbox One",
+            "condition": "Used",
+            "modelYear": 2013,
+            "description": "The Xbox One is an eighth-generation home video game console developed by Microsoft. Announced in May 2013, it is the successor to Xbox 360 and the third console in the Xbox series of video game consoles. It was first released in North America, parts of Europe, Australia, and South America in November 2013, and in Japan, China, and other European countries in September 2014. It is the first Xbox game console to be released in China, specifically in the Shanghai Free-Trade Zone. Microsoft marketed the device as an \"all-in-one entertainment system\", hence the name 'Xbox One'. The Xbox One mainly competes against Sony's PlayStation 4 and Nintendo's Wii U and Switch.",
+            "category": "Electronics",
+            "subcategory": "Game Consoles"
         },
         "exchangeLocation": {
             "coordinates": [11.581981, 48.135124],
-            "_id": {"$oid": "5eee8625d836d34976705db0"},
+            "_id": {"$oid": "5f00c5205ad5f1791393936c"},
             "type": "Point"
         },
         "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
@@ -134,35 +91,33 @@
         "__v": 0
     },
     {
-        "_id": {"$oid": "5ee2869e3d8df45c02a0f283"},
+        "_id": {"$oid": "5f00c87af8aefa6d18510b3a"},
         "photos": [
             {
-                "_id": {"$oid": "5eef818f1ca7ce3b37b3d34e"},
-                "url": "https://www.autogazette.de/wp-content/uploads/2018/08/BMW-X3-Front.jpg",
+                "_id": {"$oid": "5f00c5a56d4631df3faa1ea7"},
+                "url": "https://www.troc-velo.com/images/bikes/img0n2682300.jpg",
                 "key": "1"
             }
         ],
         "itemOwned": {
-            "_id": {"$oid": "5eee8625d836d34976705db1"},
-            "title": "BMW X3",
+            "_id": {"$oid": "5f00c5ab9e82a554be0020e8"},
+            "title": "Speed Bike 2010 model",
             "condition": "Used",
             "modelYear": 2010,
-            "description": "Used in a good condition",
-            "category": "vehicles",
-            "subcategory": "cars"
+            "description": "I've been using this bike for almost 10 years now, and it's still pretty good. I had to repair it a few times. You can get a chance to test it if you want.",
+            "category": "Vehicles",
+            "subcategory": "Speed Bikes"
         },
         "itemDesired": {
-            "_id": {"$oid": "5eee8625d836d34976705db2"},
-            "title": "Audi A5",
-            "condition": "New",
-            "modelYear": 2019,
-            "description": "Must be new",
-            "category": "vehicles",
-            "subcategory": "cars"
+            "_id": {"$oid": "5f00c5aea12454a20ea0d85c"},
+            "title": "Wrist Watch",
+            "condition": "Used",
+            "category": "Accessories",
+            "subcategory": "Watches"
         },
         "exchangeLocation": {
             "coordinates": [11.581981, 48.135124],
-            "_id": {"$oid": "5eee8625d836d34976705db3"},
+            "_id": {"$oid": "5f00c64f9b0b74f52f039951"},
             "type": "Point"
         },
         "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
@@ -172,44 +127,37 @@
         "__v": 0
     },
     {
-        "_id": {"$oid": "5ee286aa7a5ff15116a86009"},
+        "_id": {"$oid": "5f00c871b2691b35fa86fd59"},
         "photos": [
             {
-                "_id": {"$oid": "5eef818f1ca7ce3b37b3d350"},
-                "url": "https://cf.shopee.com.my/file/e52da687c3a11aff8959e571b3992b22",
+                "_id": {"$oid": "5f00c8d282c9c6b2245149b9"},
+                "url": "https://di2ponv0v5otw.cloudfront.net/posts/2017/12/18/5a389c12b7f72b11cd0142b2/m_5a389c1b36b9de3cc5014623.jpg",
                 "key": "1"
-            },
-            {
-                "_id": {"$oid": "5eef818f1ca7ce3b37b3d351"},
-                "url": "https://cf.shopee.com.my/file/dd6096c31c6d9c84cfa353c132ee63e2",
-                "key": "2"
             }
         ],
         "itemOwned": {
-            "_id": {"$oid": "5eee8625d836d34976705db4"},
-            "title": "Ceramic pot",
-            "condition": "New",
-            "modelYear": 2010,
-            "description": "Non stick brand new",
-            "category": "kitchenware",
-            "subcategory": "utensils"
+            "_id": {"$oid": "5f00c8d6c01c352e605c5b27"},
+            "title": "RayBan Sunglasses",
+            "condition": "Used",
+            "description": "These sunglasses are really cool.",
+            "category": "Accessories",
+            "subcategory": "Glasses"
         },
         "itemDesired": {
-            "_id": {"$oid": "5eee8625d836d34976705db5"},
-            "title": "Adidas sneakers",
+            "_id": {"$oid": "5f00c8dc46273fa8516d88c0"},
+            "title": "Dumbbells 10KG",
             "condition": "Used",
-            "modelYear": 2019,
-            "description": "Prefered to be in a good condition",
-            "category": "other",
-            "subcategory": null
+            "description": "I will accept 5KG dumbbells as well.",
+            "category": "Sport Equipment",
+            "subcategory": "Gym Equipment"
         },
         "exchangeLocation": {
-            "coordinates": [11.581981, 48.135124],
-            "_id": {"$oid": "5eee8625d836d34976705db6"},
+            "coordinates": [11.581981, 52.135124],
+            "_id": {"$oid": "5f00c8e8e1c6487b3e018311"},
             "type": "Point"
         },
-        "creatorId": {"$oid": "5ee245bbdedc1468ff6e3221"},
-        "creatorName": "Mohamed",
+        "creatorId": {"$oid": "5ee245bbdedc1468ff6e3222"},
+        "creatorName": "Frodo",
         "createdAt": "2020-06-20T21:56:53.039Z",
         "updatedAt": "2020-06-20T21:56:53.039Z",
         "__v": 0
