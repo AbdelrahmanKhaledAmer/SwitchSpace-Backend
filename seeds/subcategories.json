@@ -2,7 +2,7 @@
     {
         "_id": {"$oid": "5ee25c6da091caad8bcfaa78"},
         "title": "Smartphones",
-        "trendingScore": 2
+        "trendingScore": 1
     },
     {
         "_id": {"$oid": "5ee25c96a4ffb3b2b77cdc52"},
@@ -22,12 +22,12 @@
     {
         "_id": {"$oid": "5eff7fb1f815a34916552332"},
         "title": "Game Consoles",
-        "trendingScore": 0
+        "trendingScore": 1
     },
     {
         "_id": {"$oid": "5ee25cb8968eb13d70915c78"},
         "title": "Watches",
-        "trendingScore": 0
+        "trendingScore": 1
     },
     {
         "_id": {"$oid": "5ee25ccfd63c5e2a1abf914c"},
@@ -72,7 +72,7 @@
     {
         "_id": {"$oid": "5eff82749eba0a60b3f6ba1b"},
         "title": "Gym Equipment",
-        "trendingScore": 0
+        "trendingScore": 1
     },
     {
         "_id": {"$oid": "5ee25ceb9bdbba8b5f36a8ad"},
