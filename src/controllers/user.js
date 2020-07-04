@@ -5,6 +5,7 @@ const updateValidator = require("../models/validations/userUpdate");
 const tierChangeValidator = require("../models/validations/tierChange");
 const s3upload = require("../utils/s3Upload");
 const config = require("../config");
+const jwt = require("jsonwebtoken");
 
 const stripe = require("stripe")(config.STRIPE_PAYMENT);
 // ********************************************************************************************************* //
@@ -57,7 +58,11 @@ const updateProfile = async (req, res, next) => {
             new: true,
             runValidators: true,
         });
-        res.status(200).json({data: user});
+        // new token if all succeed
+        const token = jwt.sign({id: user._id, email: user.email, name: user.name}, config.JwtSecret, {
+            expiresIn: 86400, // expires in 24 hours
+        });
+        res.status(200).json({token: token, data: user});
         return next();
     } catch (err) {
         if (!user) {
