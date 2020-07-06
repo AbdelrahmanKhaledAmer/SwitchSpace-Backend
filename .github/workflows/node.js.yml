@@ -45,7 +45,7 @@ jobs:
             - run: npm install
             - run: ./node_modules/node-mongo-seeds/bin/seed --seeds-folder seeds
     publish: #publish image to dockerhub
-        needs: [build, test]
+        needs: [build, populate]
         runs-on: ubuntu-latest
         env:
             IMAGE_NAME: mohamedazab/switchspace-server
