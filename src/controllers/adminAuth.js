@@ -24,7 +24,7 @@ const login = async (req, res) => {
         // check if the password is valid
         const isPasswordValid = bcrypt.compareSync(req.body.password, admin.password);
         if (!isPasswordValid) {
-            return res.status(401).json({message: "Invalid Password", token: null});
+            return res.status(403).json({message: "Invalid Password", token: null});
         }
 
         // if user is found and password is valid

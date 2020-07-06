@@ -17,7 +17,7 @@ const updateValidator = Joi.object({
 
     repeatPassword: Joi.ref("password"),
 
-    name: Joi.string().alphanum().min(2).max(50),
+    name: Joi.string().min(2).max(50),
     email: Joi.any().forbidden(), //forbidden changes not necessary just to double check
     tier: Joi.any().forbidden(), //forbidden changes not necessary just to double check
 }).with("password", "repeatPassword");

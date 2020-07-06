@@ -20,31 +20,49 @@ const MAX_VIOLATIONS = 3;
 // cretae a post
 const create = async (req, res, next) => {
     if (!req.userId) {
-        return res.status(403).json({
+        res.status(403).json({
             message: "You need to be a regular user to create a post.",
         });
+        return next();
     }
     req.body.creatorId = req.userId;
     req.body.creatorName = req.userName;
-    req.body.itemOwned = JSON.parse(req.body.itemOwned);
-    req.body.itemDesired = JSON.parse(req.body.itemDesired);
-    req.body.exchangeLocation = JSON.parse(req.body.exchangeLocation);
+
+    // validate if the request have files
+    if (!req.files) {
+        return res.status(400).json({
+            message: "People need to see what you offer!",
+        });
+    }
+
+    // request have files
+
+    try {
+        req.body.itemOwned = JSON.parse(req.body.itemOwned);
+        req.body.itemDesired = JSON.parse(req.body.itemDesired);
+        req.body.exchangeLocation = JSON.parse(req.body.exchangeLocation);
+    } catch (err) {
+        res.status(400).json({message: "invalid request format"});
+        return next();
+    }
 
     // validate the post form
     const validationVerdict = PostCreationValidator.validate(req.body);
     // check whether the form is incomplete
     if (validationVerdict.error) {
-        return res.status(400).json({
+        res.status(400).json({
             message: validationVerdict.error.details[0].message,
         });
+        return next();
     }
     if (
         (req.body.itemOwned.category != "other" && !req.body.itemOwned.subcategory) ||
         (req.body.itemDesired.category != "other" && !req.body.itemDesired.subcategory)
     ) {
-        return res.status(400).json({
+        res.status(400).json({
             message: "Missing subcategory",
         });
+        return next();
     }
     const postId = ObjectID.generate();
 
@@ -63,11 +81,6 @@ const create = async (req, res, next) => {
                 });
                 return next();
             }
-        }
-        if (!req.files) {
-            return res.status(400).json({
-                message: "Request should have images",
-            });
         }
 
         // wait for upload to be completed
@@ -138,27 +151,34 @@ const viewPostDetails = async (req, res) => {
 // update a post
 const update = async (req, res, next) => {
     if (!req.userId) {
-        return res.status(403).json({
+        res.status(403).json({
             message: "You need to be a regular user to edit your post.",
         });
+        return next();
     }
 
     req.body.creatorId = req.userId;
     req.body.creatorName = req.userName;
     let postId = req.params["id"];
     req.body.postId = postId;
-    if (req.body.itemOwned) {
-        req.body.itemOwned = JSON.parse(req.body.itemOwned);
-        delete req.body.itemOwned._id;
+    try {
+        if (req.body.itemOwned) {
+            req.body.itemOwned = JSON.parse(req.body.itemOwned);
+            delete req.body.itemOwned._id;
+        }
+        if (req.body.itemDesired) {
+            req.body.itemDesired = JSON.parse(req.body.itemDesired);
+            delete req.body.itemDesired._id;
+        }
+        if (req.body.exchangeLocation) {
+            req.body.exchangeLocation = JSON.parse(req.body.exchangeLocation);
+            delete req.body.exchangeLocation._id;
+        }
+    } catch (err) {
+        res.status(400).json({message: "invalid request format"});
+        return next();
     }
-    if (req.body.itemDesired) {
-        req.body.itemDesired = JSON.parse(req.body.itemDesired);
-        delete req.body.itemDesired._id;
-    }
-    if (req.body.exchangeLocation) {
-        req.body.exchangeLocation = JSON.parse(req.body.exchangeLocation);
-        delete req.body.exchangeLocation._id;
-    }
+
     // validate post form
     const validationVerdict = PostUpdateValidator.validate(req.body);
     // check whether the form is incomplete

@@ -4,43 +4,66 @@
 name: Node.js CI
 
 on:
-  push:
-  pull_request:
-    branches: [master]
+    push:
+    pull_request:
+        branches: [master]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x]
+        strategy:
+            matrix:
+                node-version: [12.x]
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run build --if-present
-  #     - run: npm test
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - run: npm ci
+            - run: npm run lint
+            - run: npm run build --if-present
+    #     - run: npm test
 
-  populate:
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
+    seed: # test if the seeds are good and valid
+        runs-on: ubuntu-latest
+        timeout-minutes: 3
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: mongo-action
-        uses: DigiPie/mongo-action@v1.0.0
-      - run: npm install
-      - run: ./node_modules/node-mongo-seeds/bin/seed --seeds-folder seeds
+        strategy:
+            matrix:
+                node-version: [12.x]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: mongo-action
+              uses: DigiPie/mongo-action@v1.0.0
+            - run: npm install
+            - run: ./node_modules/node-mongo-seeds/bin/seed --seeds-folder seeds
+    publish: #publish image to dockerhub runs only on master branch
+        needs: [build, seed]
+        if: github.ref == 'refs/heads/master'
+        runs-on: ubuntu-latest
+        env:
+            IMAGE_NAME: mohamedazab/switchspace-server
+        steps:
+            # checkout my repo so that workflow can access it
+            # repository param default is github.repository
+            - uses: actions/checkout@v2
+            # build docker image for the server
+            - name: build Docker image
+              run: docker build -t $IMAGE_NAME:latest .
+
+            # login to dockerhub
+            - name: login to  Docker Hub
+              run: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASS
+              env:
+                  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+                  DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
+            # publish to image dockerhub
+            - name: publish to Docker Hub
+              run: docker push $IMAGE_NAME:latest
