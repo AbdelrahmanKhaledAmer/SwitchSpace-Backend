@@ -153,8 +153,31 @@ const getUserDetails = async (req, res) => {
         return res.status(404).json({message: "User not found"});
     }
 };
+
+const deactivateAccount = async (req, res) => {
+    console.log(req.userId);
+    if (!req.userId) {
+        return res.status(403).json({
+            message: "You need to be a loggedin to deactivate your account",
+        });
+    }
+    try {
+        await UserModel.deleteOne({_id: req.userId});
+        // delete photos from s3
+        await s3upload.deletePhoto("profilePics/" + req.userId);
+        return res.status(200).json({
+            message: "User deactivated succesfully, Sorry to see you go :( ",
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal server error, please try again!",
+        });
+    }
+};
+
 module.exports = {
     updateProfile,
     userChangeSubscription,
     getUserDetails,
+    deactivateAccount,
 };

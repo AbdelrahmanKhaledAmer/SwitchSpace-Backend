@@ -18,5 +18,5 @@ router.put(
 );
 router.put("/subscription", logger, middlewares.checkAuthentication, UserController.userChangeSubscription);
 router.get("/user/:id", logger, UserController.getUserDetails);
-
+router.delete("/user/", logger, middlewares.checkAuthentication, UserController.deactivateAccount);
 module.exports = router;
