@@ -21,7 +21,7 @@ const registerValidator = Joi.object({
 
     repeatPassword: Joi.ref("password"),
 
-    name: Joi.string().alphanum().min(2).max(50).required(),
+    name: Joi.string().min(2).max(50).required(),
 }).with("password", "repeatPassword");
 
 module.exports = registerValidator;

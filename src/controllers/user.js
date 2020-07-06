@@ -150,7 +150,7 @@ const getUserDetails = async (req, res) => {
         const user = await UserModel.findById(userId, "-email -password -violationsCount").populate("reviews.reviewerId", "name profilePicture");
         return res.status(200).json({data: user});
     } catch (err) {
-        return res.status(500).json({message: "Internal server error"});
+        return res.status(404).json({message: "User not found"});
     }
 };
 module.exports = {
