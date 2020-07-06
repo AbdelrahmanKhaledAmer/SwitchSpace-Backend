@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 
 const UserModel = require("../models/schema/user");
+const PostModel = require("../models/schema/post");
 const updateValidator = require("../models/validations/userUpdate");
 const tierChangeValidator = require("../models/validations/tierChange");
 const s3upload = require("../utils/s3Upload");
@@ -161,7 +162,11 @@ const deactivateAccount = async (req, res) => {
             message: "You need to be a loggedin to deactivate your account",
         });
     }
+
     try {
+        //delete posts
+        await PostModel.deleteMany({creatorId: req.userId});
+        // delete user
         await UserModel.deleteOne({_id: req.userId});
         // delete photos from s3
         await s3upload.deletePhoto("profilePics/" + req.userId);
