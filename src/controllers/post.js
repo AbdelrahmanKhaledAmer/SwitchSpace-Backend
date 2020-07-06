@@ -296,7 +296,11 @@ const remove = async (req, res) => {
                 user.violationsCount += 1;
                 // user violations exceeded => automatically remove user
                 if (user.violationsCount > MAX_VIOLATIONS) {
+                    // remove all his posts
+                    await PostModel.deleteMany({creatorId: creatorId});
+                    // remove user
                     await user.remove();
+                    //delete posts
                 }
             }
             await post.remove();
