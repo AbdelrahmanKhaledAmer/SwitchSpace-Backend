@@ -34,7 +34,7 @@ const getChatList = async (req, res) => {
             resData.push({
                 otherUserId: otherUserId,
                 otherUserName: otherUser.name,
-                otherUserProfilePicture: otherUser.profilePicture,
+                otherUserPicture: otherUser.profilePicture,
                 lastMessage: lastMessage,
             });
         }
@@ -72,8 +72,8 @@ const getChatHistory = async (req, res) => {
         res.status(200).json({
             data: {
                 otherUserName: otherUser.name,
-                otherUserProfilePicture: otherUser.profilePicture,
-                chatMessages: chatMessages,
+                otherUserPicture: otherUser.profilePicture,
+                messages: chatMessages,
             },
         });
     } catch (error) {
