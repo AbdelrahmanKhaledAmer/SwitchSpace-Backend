@@ -4,17 +4,17 @@
         "photos": [
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d348"},
-                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5ee28666de1873f021bcf563_0",
+                "url": "https://switchspace-datastore.s3.eu-central-1.amazonaws.com/postPics/5ee28666de1873f021bcf563_0",
                 "key": "postPics/5ee28666de1873f021bcf563_0"
             },
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d349"},
-                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5ee28666de1873f021bcf563_1",
+                "url": "https://switchspace-datastore.s3.eu-central-1.amazonaws.com/postPics/5ee28666de1873f021bcf563_1",
                 "key": "postPics/5ee28666de1873f021bcf563_1"
             },
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d369"},
-                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5ee28666de1873f021bcf563_2",
+                "url": "https://switchspace-datastore.s3.eu-central-1.amazonaws.com/postPics/5ee28666de1873f021bcf563_2",
                 "key": "postPics/5ee28666de1873f021bcf563_2"
             }
         ],
@@ -52,12 +52,12 @@
         "photos": [
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d34c"},
-                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5ee28666de1873f021bcf471_0",
+                "url": "https://switchspace-datastore.s3.eu-central-1.amazonaws.com/postPics/5ee28666de1873f021bcf471_0",
                 "key": "postPics/5ee28666de1873f021bcf471_0"
             },
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d34d"},
-                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5ee28666de1873f021bcf471_1",
+                "url": "https://switchspace-datastore.s3.eu-central-1.amazonaws.com/postPics/5ee28666de1873f021bcf471_1",
                 "key": "postPics/5ee28666de1873f021bcf471_1"
             }
         ],
@@ -95,7 +95,7 @@
         "photos": [
             {
                 "_id": {"$oid": "5f00c5a56d4631df3faa1ea7"},
-                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5f00c87af8aefa6d18510b3a_0",
+                "url": "https://switchspace-datastore.s3.eu-central-1.amazonaws.com/postPics/5f00c87af8aefa6d18510b3a_0",
                 "key": "postPics/5f00c87af8aefa6d18510b3a_0"
             }
         ],
@@ -131,7 +131,7 @@
         "photos": [
             {
                 "_id": {"$oid": "5f00c8d282c9c6b2245149b9"},
-                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5f00c871b2691b35fa86fd59_0",
+                "url": "https://switchspace-datastore.s3.eu-central-1.amazonaws.com/postPics/5f00c871b2691b35fa86fd59_0",
                 "key": "postPics/5f00c871b2691b35fa86fd59_0"
             }
         ],
