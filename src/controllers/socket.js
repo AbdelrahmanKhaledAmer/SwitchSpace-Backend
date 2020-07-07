@@ -35,9 +35,6 @@ const socketController = io => {
                         message: "No user found with id: " + receiverId,
                     });
                 }
-                // send the message to the room which contains the receiver
-                // TODO: if the receiving socket is offline, then have a mechanism to notify him with unread messages when he is online again
-                io.to(data.receiverId).emit("chat message", data.content);
 
                 // check if there is already an existing chat between the 2 participants
                 const chat = await ChatModel.findOne({
@@ -54,6 +51,11 @@ const socketController = io => {
                         messages: [message],
                     });
                 }
+
+                // send the message to the room which contains the receiver
+                // TODO: if the receiving socket is offline, then have a mechanism to notify him with unread messages when he is online again
+                io.to(data.receiverId).emit("chat message", message);
+
                 return callback({
                     success: true,
                 });
