@@ -60,7 +60,7 @@ const checkAuthentication = (req, res, next) => {
 };
 
 const socketAuthentication = (socket, next) => {
-    let token = socket.handshake.headers.token;
+    let token = socket.handshake.query.token;
     // check if token exists
     if (!token) {
         return next(new Error("Unauthorized: No token provided"));
