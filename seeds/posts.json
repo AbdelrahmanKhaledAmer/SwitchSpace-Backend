@@ -4,18 +4,18 @@
         "photos": [
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d348"},
-                "url": "https://static.toiimg.com/photo/61654288.cms",
-                "key": "1"
+                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5ee28666de1873f021bcf563_0",
+                "key": "postPics/5ee28666de1873f021bcf563_0"
             },
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d349"},
-                "url": "https://i.gadgets360cdn.com/large/iphone_11_pro_max_afp_new_1568185633865.jpg",
-                "key": "2"
+                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5ee28666de1873f021bcf563_1",
+                "key": "postPics/5ee28666de1873f021bcf563_1"
             },
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d369"},
-                "url": "https://cdn.cultofmac.com/wp-content/uploads/2019/08/210BCC3A-98B1-41D4-A98D-E4BDD34B5DC3.jpg",
-                "key": "3"
+                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5ee28666de1873f021bcf563_2",
+                "key": "postPics/5ee28666de1873f021bcf563_2"
             }
         ],
         "itemOwned": {
@@ -52,13 +52,13 @@
         "photos": [
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d34c"},
-                "url": "https://cdn.pocket-lint.com/r/s/970x/assets/images/138763-games-review-sony-ps4-pro-review-image1-gcolf3ytme-jpg.webp",
-                "key": "1"
+                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5ee28666de1873f021bcf471_0",
+                "key": "postPics/5ee28666de1873f021bcf471_0"
             },
             {
                 "_id": {"$oid": "5eef818f1ca7ce3b37b3d34d"},
-                "url": "https://labo.fnac.com/wp-content/uploads/2016/12/test-sony-playstation-4-pro_1.jpg",
-                "key": "2"
+                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5ee28666de1873f021bcf471_1",
+                "key": "postPics/5ee28666de1873f021bcf471_1"
             }
         ],
         "itemOwned": {
@@ -95,8 +95,8 @@
         "photos": [
             {
                 "_id": {"$oid": "5f00c5a56d4631df3faa1ea7"},
-                "url": "https://www.troc-velo.com/images/bikes/img0n2682300.jpg",
-                "key": "1"
+                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5f00c87af8aefa6d18510b3a_0",
+                "key": "postPics/5f00c87af8aefa6d18510b3a_0"
             }
         ],
         "itemOwned": {
@@ -131,8 +131,8 @@
         "photos": [
             {
                 "_id": {"$oid": "5f00c8d282c9c6b2245149b9"},
-                "url": "https://di2ponv0v5otw.cloudfront.net/posts/2017/12/18/5a389c12b7f72b11cd0142b2/m_5a389c1b36b9de3cc5014623.jpg",
-                "key": "1"
+                "url": "https://switchspace-datastore.s3.amazonaws.com/postPics/5f00c871b2691b35fa86fd59_0",
+                "key": "postPics/5f00c871b2691b35fa86fd59_0"
             }
         ],
         "itemOwned": {
