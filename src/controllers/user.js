@@ -156,27 +156,43 @@ const getUserDetails = async (req, res) => {
 };
 
 const deactivateAccount = async (req, res) => {
-    console.log(req.userId);
     if (!req.userId) {
         return res.status(403).json({
             message: "You need to be a loggedin to deactivate your account",
         });
     }
 
+    let deletedPhotos = [];
     try {
-        //delete posts
+        //get posts
+        let posts = await PostModel.find({creatorId: req.userId});
+        //put profile picture
+        deletedPhotos.push("profilePics/" + req.userId);
+        // push pictures for posts
+        for (let i = 0; i < posts.length; i++) {
+            for (let j = 0; j < posts[i].photos.length; j++) {
+                deletedPhotos.push(posts[i].photos[j].key);
+            }
+        }
         await PostModel.deleteMany({creatorId: req.userId});
         // delete user
         await UserModel.deleteOne({_id: req.userId});
-        // delete photos from s3
-        await s3upload.deletePhoto("profilePics/" + req.userId);
-        return res.status(200).json({
+
+        res.status(200).json({
             message: "User deactivated succesfully, Sorry to see you go :( ",
         });
     } catch (err) {
-        return res.status(500).json({
+        res.status(500).json({
             message: "Internal server error, please try again!",
         });
+    }
+
+    // delete all photos
+    try {
+        await s3upload.deletePhotos(deletedPhotos);
+    } catch (err) {
+        // logger.log
+        console.log(err);
     }
 };
 
