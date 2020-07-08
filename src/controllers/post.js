@@ -13,6 +13,7 @@ const subcategoryModel = Mongoose.model("Subcategory", subcategorySchema);
 const PostCreationValidator = require("../models/validations/postCreation");
 const PostUpdateValidator = require("../models/validations/postUpdate");
 const UserModel = require("../models/schema/user");
+const ReportModel = require("../models/schema/report");
 const MAX_VIOLATIONS = 3;
 
 // ********************************************************************************************************* //
@@ -256,11 +257,19 @@ const remove = async (req, res) => {
             message: "Cannot delete a post without its ID.",
         });
     }
-    // delete respective pictures of this post
     let photosToDelete = [];
-    let post = await PostModel.findOne({_id: req.params["id"]});
-    for (let i = 0; i < post.photos.length; i++) {
-        photosToDelete.push(post.photos[i].key);
+    let post = undefined;
+    try {
+        // get respective pictures of this post
+        photosToDelete = [];
+        post = await PostModel.findOne({_id: req.params["id"]});
+        for (let i = 0; i < post.photos.length; i++) {
+            photosToDelete.push(post.photos[i].key);
+        }
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal server error",
+        });
     }
 
     // user is deleting the post
@@ -295,9 +304,8 @@ const remove = async (req, res) => {
         }
     }
     // admin is deleting the post
-    if (req.adminId) {
+    else if (req.adminId) {
         try {
-            let post = await PostModel.findOne({_id: req.params["id"]});
             let creatorId = post.creatorId;
             let user = await UserModel.findOne({_id: creatorId});
             if (user) {
@@ -313,7 +321,7 @@ const remove = async (req, res) => {
             }
             await post.remove();
             res.status(200).json({
-                data: {message: "Post deleted successfully"},
+                message: "Post deleted successfully",
             });
         } catch (err) {
             console.log(err);
@@ -327,6 +335,14 @@ const remove = async (req, res) => {
         await s3upload.deletePhotos(photosToDelete);
     } catch (err) {
         // logger.log
+        console.log(err);
+    }
+
+    // delete respective reports of this post
+    try {
+        await ReportModel.deleteMany({postId: req.params["id"]});
+    } catch (err) {
+        //logger.log
         console.log(err);
     }
 };
