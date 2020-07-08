@@ -256,10 +256,16 @@ const remove = async (req, res) => {
             message: "Cannot delete a post without its ID.",
         });
     }
+    // delete respective pictures of this post
+    let photosToDelete = [];
+    let post = await PostModel.findOne({_id: req.params["id"]});
+    for (let i = 0; i < post.photos.length; i++) {
+        photosToDelete.push(post.photos[i].key);
+    }
+
     // user is deleting the post
     if (req.userId) {
         // check that there's a post of this onwer
-        let photosToDelete = [];
         try {
             let ownerPost = await PostModel.findOne({
                 creatorId: req.userId,
@@ -277,27 +283,15 @@ const remove = async (req, res) => {
                     subcategory.save();
                 }
                 ownerPost.remove();
-                // delete respective pictures of this post
-
-                for (let i = 0; i < ownerPost.photos.length; i++) {
-                    photosToDelete.push(ownerPost.photos[i].key);
-                }
 
                 res.status(200).json({
                     message: "Deleted successfully",
                 });
             }
         } catch (err) {
-            res.status(500).json({
+            return res.status(500).json({
                 message: "Internal server error",
             });
-        }
-        // delete all photos
-        try {
-            await s3upload.deletePhotos(photosToDelete);
-        } catch (err) {
-            // logger.log
-            console.log(err);
         }
     }
     // admin is deleting the post
@@ -318,7 +312,7 @@ const remove = async (req, res) => {
                 }
             }
             await post.remove();
-            return res.status(200).json({
+            res.status(200).json({
                 data: {message: "Post deleted successfully"},
             });
         } catch (err) {
@@ -327,6 +321,13 @@ const remove = async (req, res) => {
                 message: "Internal server error.",
             });
         }
+    }
+    // delete all photos
+    try {
+        await s3upload.deletePhotos(photosToDelete);
+    } catch (err) {
+        // logger.log
+        console.log(err);
     }
 };
 
