@@ -296,9 +296,6 @@ const remove = async (req, res) => {
         try {
             await s3upload.deletePhotos(photosToDelete);
         } catch (err) {
-            res.status(500).json({
-                message: "Internal server error",
-            });
             // logger.log
             console.log(err);
         }
