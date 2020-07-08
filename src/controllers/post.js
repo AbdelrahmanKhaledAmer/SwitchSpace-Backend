@@ -14,6 +14,7 @@ const PostCreationValidator = require("../models/validations/postCreation");
 const PostUpdateValidator = require("../models/validations/postUpdate");
 const UserModel = require("../models/schema/user");
 const ReportModel = require("../models/schema/report");
+
 const MAX_VIOLATIONS = 3;
 
 // ********************************************************************************************************* //
@@ -304,7 +305,7 @@ const remove = async (req, res) => {
         }
     }
     // admin is deleting the post
-    else if (req.adminId) {
+    if (req.adminId) {
         try {
             let creatorId = post.creatorId;
             let user = await UserModel.findOne({_id: creatorId});
@@ -330,19 +331,18 @@ const remove = async (req, res) => {
             });
         }
     }
+    // delete respective reports of this post
+    try {
+        await ReportModel.deleteOne({postId: req.params["id"]});
+    } catch (err) {
+        //logger.log
+        console.log(err);
+    }
     // delete all photos
     try {
         await s3upload.deletePhotos(photosToDelete);
     } catch (err) {
         // logger.log
-        console.log(err);
-    }
-
-    // delete respective reports of this post
-    try {
-        await ReportModel.deleteMany({postId: req.params["id"]});
-    } catch (err) {
-        //logger.log
         console.log(err);
     }
 };
