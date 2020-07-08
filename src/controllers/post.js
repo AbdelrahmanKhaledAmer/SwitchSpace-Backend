@@ -259,6 +259,7 @@ const remove = async (req, res) => {
     // user is deleting the post
     if (req.userId) {
         // check that there's a post of this onwer
+        let photosToDelete = [];
         try {
             let ownerPost = await PostModel.findOne({
                 creatorId: req.userId,
@@ -276,14 +277,30 @@ const remove = async (req, res) => {
                     subcategory.save();
                 }
                 ownerPost.remove();
-                return res.status(200).json({
+                // delete respective pictures of this post
+
+                for (let i = 0; i < ownerPost.photos.length; i++) {
+                    photosToDelete.push(ownerPost.photos[i].key);
+                }
+
+                res.status(200).json({
                     message: "Deleted successfully",
                 });
             }
         } catch (err) {
-            return res.status(500).json({
+            res.status(500).json({
                 message: "Internal server error",
             });
+        }
+        // delete all photos
+        try {
+            await s3upload.deletePhotos(photosToDelete);
+        } catch (err) {
+            res.status(500).json({
+                message: "Internal server error",
+            });
+            // logger.log
+            console.log(err);
         }
     }
     // admin is deleting the post
