@@ -333,7 +333,7 @@ const remove = async (req, res) => {
     }
     // delete respective reports of this post
     try {
-        await ReportModel.deleteOne({postId: req.params["id"]});
+        await ReportModel.deleteMany({postId: req.params["id"]});
     } catch (err) {
         //logger.log
         console.log(err);
