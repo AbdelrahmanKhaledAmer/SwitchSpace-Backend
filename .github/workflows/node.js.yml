@@ -25,7 +25,6 @@ jobs:
             - run: npm ci
             - run: npm run lint
             - run: npm run build --if-present
-    #     - run: npm test
 
     seed: # test if the seeds are good and valid
         runs-on: ubuntu-latest
@@ -44,6 +43,7 @@ jobs:
               uses: DigiPie/mongo-action@v1.0.0
             - run: npm install
             - run: ./node_modules/node-mongo-seeds/bin/seed --seeds-folder seeds
+#             - run: npm test
     publish: #publish image to dockerhub runs only on master branch
         needs: [build, seed]
         if: github.ref == 'refs/heads/master'
