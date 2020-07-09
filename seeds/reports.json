@@ -3,7 +3,7 @@
         "_id": {"$oid": "5eef50d18b1a2b856308f091"},
         "reporterId": "5ee245bbdedc1468ff6e3222",
         "reporterName": "test",
-        "postId": "5ee28666de1873f021bcf563",
+        "postId": {"$oid": "5ee28666de1873f021bcf563"},
         "complaint": "This post is bad"
     }
 ]
