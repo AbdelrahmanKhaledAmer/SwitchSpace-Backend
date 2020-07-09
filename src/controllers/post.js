@@ -13,6 +13,8 @@ const subcategoryModel = Mongoose.model("Subcategory", subcategorySchema);
 const PostCreationValidator = require("../models/validations/postCreation");
 const PostUpdateValidator = require("../models/validations/postUpdate");
 const UserModel = require("../models/schema/user");
+const ReportModel = require("../models/schema/report");
+
 const MAX_VIOLATIONS = 3;
 
 // ********************************************************************************************************* //
@@ -20,31 +22,49 @@ const MAX_VIOLATIONS = 3;
 // cretae a post
 const create = async (req, res, next) => {
     if (!req.userId) {
-        return res.status(403).json({
+        res.status(403).json({
             message: "You need to be a regular user to create a post.",
         });
+        return next();
     }
     req.body.creatorId = req.userId;
     req.body.creatorName = req.userName;
-    req.body.itemOwned = JSON.parse(req.body.itemOwned);
-    req.body.itemDesired = JSON.parse(req.body.itemDesired);
-    req.body.exchangeLocation = JSON.parse(req.body.exchangeLocation);
+
+    // validate if the request have files
+    if (!req.files) {
+        return res.status(400).json({
+            message: "People need to see what you offer!",
+        });
+    }
+
+    // request have files
+
+    try {
+        req.body.itemOwned = JSON.parse(req.body.itemOwned);
+        req.body.itemDesired = JSON.parse(req.body.itemDesired);
+        req.body.exchangeLocation = JSON.parse(req.body.exchangeLocation);
+    } catch (err) {
+        res.status(400).json({message: "invalid request format"});
+        return next();
+    }
 
     // validate the post form
     const validationVerdict = PostCreationValidator.validate(req.body);
     // check whether the form is incomplete
     if (validationVerdict.error) {
-        return res.status(400).json({
+        res.status(400).json({
             message: validationVerdict.error.details[0].message,
         });
+        return next();
     }
     if (
         (req.body.itemOwned.category != "other" && !req.body.itemOwned.subcategory) ||
         (req.body.itemDesired.category != "other" && !req.body.itemDesired.subcategory)
     ) {
-        return res.status(400).json({
+        res.status(400).json({
             message: "Missing subcategory",
         });
+        return next();
     }
     const postId = ObjectID.generate();
 
@@ -63,11 +83,6 @@ const create = async (req, res, next) => {
                 });
                 return next();
             }
-        }
-        if (!req.files) {
-            return res.status(400).json({
-                message: "Request should have images",
-            });
         }
 
         // wait for upload to be completed
@@ -119,7 +134,7 @@ const create = async (req, res, next) => {
 // view a specific post
 const viewPostDetails = async (req, res) => {
     try {
-        let post = await PostModel.findById(req.params["id"]);
+        let post = await PostModel.findById(req.params["id"]).populate("creatorId", "name profilePicture commRate descriptionRate conditionRate");
         if (!post)
             return res.status(404).json({
                 message: "Post not found",
@@ -138,15 +153,34 @@ const viewPostDetails = async (req, res) => {
 // update a post
 const update = async (req, res, next) => {
     if (!req.userId) {
-        return res.status(403).json({
+        res.status(403).json({
             message: "You need to be a regular user to edit your post.",
         });
+        return next();
     }
 
     req.body.creatorId = req.userId;
     req.body.creatorName = req.userName;
     let postId = req.params["id"];
     req.body.postId = postId;
+    try {
+        if (req.body.itemOwned) {
+            req.body.itemOwned = JSON.parse(req.body.itemOwned);
+            delete req.body.itemOwned._id;
+        }
+        if (req.body.itemDesired) {
+            req.body.itemDesired = JSON.parse(req.body.itemDesired);
+            delete req.body.itemDesired._id;
+        }
+        if (req.body.exchangeLocation) {
+            req.body.exchangeLocation = JSON.parse(req.body.exchangeLocation);
+            delete req.body.exchangeLocation._id;
+        }
+    } catch (err) {
+        res.status(400).json({message: "invalid request format"});
+        return next();
+    }
+
     // validate post form
     const validationVerdict = PostUpdateValidator.validate(req.body);
     // check whether the form is incomplete
@@ -168,7 +202,7 @@ const update = async (req, res, next) => {
             });
             return next();
         } else {
-            if (req.files) {
+            if (req.files && req.files.length > 0) {
                 // wait for upload to be completed
                 let images = [];
                 const imagePromises = [];
@@ -208,7 +242,6 @@ const update = async (req, res, next) => {
             return next();
         }
     } catch (err) {
-        //console.log(err);
         res.status(500).json({
             message: "Internal server error",
         });
@@ -225,6 +258,21 @@ const remove = async (req, res) => {
             message: "Cannot delete a post without its ID.",
         });
     }
+    let photosToDelete = [];
+    let post = undefined;
+    try {
+        // get respective pictures of this post
+        photosToDelete = [];
+        post = await PostModel.findOne({_id: req.params["id"]});
+        for (let i = 0; i < post.photos.length; i++) {
+            photosToDelete.push(post.photos[i].key);
+        }
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal server error",
+        });
+    }
+
     // user is deleting the post
     if (req.userId) {
         // check that there's a post of this onwer
@@ -245,7 +293,8 @@ const remove = async (req, res) => {
                     subcategory.save();
                 }
                 ownerPost.remove();
-                return res.status(200).json({
+
+                res.status(200).json({
                     message: "Deleted successfully",
                 });
             }
@@ -258,19 +307,22 @@ const remove = async (req, res) => {
     // admin is deleting the post
     if (req.adminId) {
         try {
-            let post = await PostModel.findOne({_id: req.params["id"]});
             let creatorId = post.creatorId;
             let user = await UserModel.findOne({_id: creatorId});
             if (user) {
                 user.violationsCount += 1;
                 // user violations exceeded => automatically remove user
                 if (user.violationsCount > MAX_VIOLATIONS) {
+                    // remove all his posts
+                    await PostModel.deleteMany({creatorId: creatorId});
+                    // remove user
                     await user.remove();
+                    //delete posts
                 }
             }
             await post.remove();
-            return res.status(200).json({
-                data: {message: "Post deleted successfully"},
+            res.status(200).json({
+                message: "Post deleted successfully",
             });
         } catch (err) {
             console.log(err);
@@ -278,6 +330,20 @@ const remove = async (req, res) => {
                 message: "Internal server error.",
             });
         }
+    }
+    // delete respective reports of this post
+    try {
+        await ReportModel.deleteMany({postId: req.params["id"]});
+    } catch (err) {
+        //logger.log
+        console.log(err);
+    }
+    // delete all photos
+    try {
+        await s3upload.deletePhotos(photosToDelete);
+    } catch (err) {
+        // logger.log
+        console.log(err);
     }
 };
 
@@ -313,14 +379,19 @@ const searchPosts = async (req, res) => {
     let itemWanted = req.query.iw ? req.query.iw : "";
     let itemOwned = req.query.io ? req.query.io : "";
     let itemWantedCategory = req.query.iwCat ? req.query.iwCat : "";
+    let itemWantedSubcategory = req.query.iwSubcat ? req.query.iwSubcat : "";
     let itemOwnedCategory = req.query.ioCat ? req.query.ioCat : "";
-    let lon = req.query.lon ? req.query.lon : 0;
+    let itemOwnedSubcategory = req.query.ioSubcat ? req.query.ioSubcat : "";
+    let itemWantedCondition = req.query.iwCon ? req.query.iwCon : "";
+    let itemOwnedCondition = req.query.ioCon ? req.query.ioCon : "";
+    let lng = req.query.lng ? req.query.lng : 0;
     let lat = req.query.lat ? req.query.lat : 0;
+    // let condition = req.query.condition ? req.query.condition : "";
     let location = {
         type: "Point",
-        coordinates: [lon, lat],
+        coordinates: [lng, lat],
     };
-    let radius = req.query.radius ? req.query.radius : 1e5 * 1000; // convert radius to km
+    let radius = req.query.radius ? req.query.radius * 1000 : 1e5 * 1000; // convert radius to km
     try {
         let posts = await PostModel.find({
             "itemOwned.title": {
@@ -328,13 +399,18 @@ const searchPosts = async (req, res) => {
                 $options: "i",
             },
             "itemOwned.category": {$regex: itemWantedCategory, $options: "i"},
+            "itemOwned.subcategory": {$regex: itemWantedSubcategory, $options: "i"},
+            "itemOwned.condition": {$regex: itemWantedCondition, $options: "i"},
             "itemDesired.title": {$regex: itemOwned, $options: "i"},
             "itemDesired.category": {$regex: itemOwnedCategory, $options: "i"},
+            "itemDesired.subcategory": {$regex: itemOwnedSubcategory, $options: "i"},
+            "itemDesired.condition": {$regex: itemOwnedCondition, $options: "i"},
             exchangeLocation: {
-                $nearSphere: {
-                    $geometry: location,
-                    $maxDistance: radius,
-                },
+                $geoWithin: {$centerSphere: [location.coordinates, radius / 6371]},
+                // $nearSphere: {
+                //     $geometry: location,
+                //     $maxDistance: radius,
+                // },
             },
         });
         return res.status(200).json({

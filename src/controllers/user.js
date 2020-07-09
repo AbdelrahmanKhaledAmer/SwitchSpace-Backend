@@ -1,10 +1,12 @@
 const bcrypt = require("bcryptjs");
 
 const UserModel = require("../models/schema/user");
+const PostModel = require("../models/schema/post");
 const updateValidator = require("../models/validations/userUpdate");
 const tierChangeValidator = require("../models/validations/tierChange");
 const s3upload = require("../utils/s3Upload");
 const config = require("../config");
+const jwt = require("jsonwebtoken");
 
 const stripe = require("stripe")(config.STRIPE_PAYMENT);
 // ********************************************************************************************************* //
@@ -57,7 +59,11 @@ const updateProfile = async (req, res, next) => {
             new: true,
             runValidators: true,
         });
-        res.status(200).json({data: user});
+        // new token if all succeed
+        const token = jwt.sign({id: user._id, email: user.email, name: user.name}, config.JwtSecret, {
+            expiresIn: 86400, // expires in 24 hours
+        });
+        res.status(200).json({token: token, data: user});
         return next();
     } catch (err) {
         if (!user) {
@@ -145,11 +151,54 @@ const getUserDetails = async (req, res) => {
         const user = await UserModel.findById(userId, "-email -password -violationsCount").populate("reviews.reviewerId", "name profilePicture");
         return res.status(200).json({data: user});
     } catch (err) {
-        return res.status(500).json({message: "Internal server error"});
+        return res.status(404).json({message: "User not found"});
     }
 };
+
+const deactivateAccount = async (req, res) => {
+    if (!req.userId) {
+        return res.status(403).json({
+            message: "You need to be a loggedin to deactivate your account",
+        });
+    }
+
+    let deletedPhotos = [];
+    try {
+        //get posts
+        let posts = await PostModel.find({creatorId: req.userId});
+        //put profile picture
+        deletedPhotos.push("profilePics/" + req.userId);
+        // push pictures for posts
+        for (let i = 0; i < posts.length; i++) {
+            for (let j = 0; j < posts[i].photos.length; j++) {
+                deletedPhotos.push(posts[i].photos[j].key);
+            }
+        }
+        await PostModel.deleteMany({creatorId: req.userId});
+        // delete user
+        await UserModel.deleteOne({_id: req.userId});
+
+        res.status(200).json({
+            message: "User deactivated succesfully, Sorry to see you go :( ",
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: "Internal server error, please try again!",
+        });
+    }
+
+    // delete all photos
+    try {
+        await s3upload.deletePhotos(deletedPhotos);
+    } catch (err) {
+        // logger.log
+        console.log(err);
+    }
+};
+
 module.exports = {
     updateProfile,
     userChangeSubscription,
     getUserDetails,
+    deactivateAccount,
 };

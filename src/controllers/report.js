@@ -13,8 +13,10 @@ const reportPost = async (req, res) => {
     }
     // Retrieve reporter Id from token
     let reporterId = req.userId;
+    let reporterName = req.userName;
     // Validate report
     req.body.reporterId = reporterId;
+    req.body.reporterName = reporterName;
     let valid = reportValidator.validate(req.body);
     // If report is not valid, then user needs to enter valid data.
     if (valid.error) {
@@ -78,13 +80,13 @@ const deleteReport = async (req, res) => {
             message: "Only admins are allowed to delete reports.",
         });
     }
-    if (!req.headers.reportId) {
+    if (!req.params.reportId) {
         return res.status(402).json({
             message: "Cannot delete a report without its ID.",
         });
     }
     try {
-        await ReportModel.deleteOne({_id: req.body.reportId});
+        await ReportModel.deleteOne({_id: req.params.reportId});
         return res.status(200).json({
             message: "Report deleted successfully",
         });

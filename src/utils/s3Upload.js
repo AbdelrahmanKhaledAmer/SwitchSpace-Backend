@@ -32,10 +32,20 @@ const uploadPhoto = async (filePath, category, fileName) => {
     const val = await s3.upload(params).promise();
     return {url: val.Location, key: val.key};
 };
-// delete a photo with a certain key: complete path saved in db as key attribute in img file
-const deletePhoto = async function (photoKey) {
-    const resp = await s3.deleteObject({Key: photoKey, Bucket: BUCKET_NAME}).promise();
-    return resp;
+
+const deletePhotos = async function (photoKeys) {
+    const deletePromises = [];
+    for (let i = 0; i < photoKeys.length; i++) {
+        deletePromises.push(s3.deleteObject({Key: photoKeys[i], Bucket: BUCKET_NAME}).promise());
+    }
+    try {
+        const resp = await Promise.all(deletePromises);
+        return resp;
+    } catch (err) {
+        // log error here
+        console.log(err);
+        return err;
+    }
 };
 
-module.exports = {uploadPhoto, deletePhoto};
+module.exports = {uploadPhoto, deletePhotos};

@@ -21,7 +21,7 @@ const writeReview = async (req, res) => {
     // If review is not valid, then user needs to enter valid data.
     if (valid.error) {
         return res.status(400).json({
-            message: "Incorrect data. Ratings must be a value between one and 5.",
+            message: valid.error.details[0].message,
         });
     }
     // Retrieve user to be reviewed
