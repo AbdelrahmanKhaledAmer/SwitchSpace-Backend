@@ -5,15 +5,25 @@ const messageSchema = require("./message");
 
 // Define the chat schema
 const chatSchema = new mongoose.Schema({
-    participantsId: {
-        // 1st element in the array is the post owner id
-        // 2nd element in the array is the other interested user id
-        type: [{type: mongoose.Schema.Types.ObjectId, ref: "User", required: true}],
+    postOwnerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
-        validate: {
-            validator: v => v.length == 2,
-            message: "There must be exactly 2 participants in a chat",
-        },
+    },
+    interestedUserId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    // number of unread messages by post owner
+    postOwnerUnread: {
+        type: Number,
+        default: 0,
+    },
+    // number of unread messages by the interested user
+    interestedUserUnread: {
+        type: Number,
+        default: 0,
     },
     messages: {
         type: [messageSchema],
