@@ -69,6 +69,10 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now(),
     },
+    unreadMessages: {
+        type: Number,
+        default: 0,
+    },
 });
 
 // Export the user model
