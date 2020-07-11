@@ -28,7 +28,7 @@ const socketController = io => {
                     content: content,
                 };
                 // check if a user exists with the receiverId
-                const receiver = await UserModel.findById(receiverId);
+                let receiver = await UserModel.findById(receiverId);
                 if (!receiver) {
                     return callback({
                         success: false,
@@ -37,8 +37,11 @@ const socketController = io => {
                 }
 
                 // check if there is already an existing chat between the 2 participants
-                const chat = await ChatModel.findOne({
-                    participantsId: {$all: [receiverId, senderId]},
+                let chat = await ChatModel.findOne({
+                    $or: [
+                        {$and: [{postOwnerId: senderId}, {interestedUserId: receiverId}]},
+                        {$and: [{postOwnerId: receiverId}, {interestedUserId: senderId}]},
+                    ],
                 });
                 if (chat) {
                     // if there is an existing chat, then push the new message
@@ -46,20 +49,35 @@ const socketController = io => {
                     await chat.save();
                 } else {
                     // if there is no existing chat, then create a new one and push the new message
-                    await ChatModel.create({
-                        participantsId: [receiverId, senderId],
+                    // the sender of the first message in the chat is alwyas the interestedUser
+                    chat = await ChatModel.create({
+                        interestedUserId: senderId,
+                        postOwnerId: receiverId,
                         messages: [message],
                     });
                 }
 
-                // send the message to the room which contains the receiver
-                // TODO: if the receiving socket is offline, then have a mechanism to notify him with unread messages when he is online again
-                io.to(data.receiverId).emit("chat message", message);
+                // check if the receiver is offline -- no room found for the receiverId
+                if (!io.sockets.adapter.rooms[data.receiverId]) {
+                    // increment unread messages in the receiver user
+                    receiver.unreadMessages += 1;
+                    await receiver.save();
+                    // increment unread messages in the chat
+                    if (receiverId === chat.postOwnerId.toHexString()) {
+                        chat.postOwnerUnread += 1;
+                    } else {
+                        chat.interestedUserUnread += 1;
+                    }
+                    await chat.save();
+                } else {
+                    // send the message to the room which contains the receiver
+                    io.to(data.receiverId).emit("chat message", message);
+                }
 
                 return callback({
                     success: true,
                 });
-            } catch (error) {
+            } catch (err) {
                 return callback({
                     success: false,
                     message: "Internal server error",
