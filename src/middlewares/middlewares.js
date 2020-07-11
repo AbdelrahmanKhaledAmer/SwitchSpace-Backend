@@ -43,8 +43,8 @@ const checkAuthentication = (req, res, next) => {
     jwt.verify(token, config.JwtSecret, (err, decoded) => {
         if (err) {
             return res.status(401).json({
-                error: "Unauthorized",
                 message: "Failed to authenticate token.",
+                token: null,
             });
         }
         // if everything is good, save to request for use in other routes
