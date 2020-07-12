@@ -99,23 +99,32 @@ npm run devstart
 npm start
 ```
 
+**Env File specifications**
+
+you will need the following variables in your env file
+
+-   for server tokens and the specific port to run the server on
+
+    ```
+    PORT=3000
+    JWT_SECRET=
+    ```
+
+-   Your DB URL
+    `MONGODB_URI=`
+
+*   media server (S3 object storage)
+    ````AWSAccessKeyId=
+    AWSSecretKey=```
+    ````
+
 **Deployment on GCP**
 
-If you intend to use Kubernetes
+If you intend to use Kubernetes in GCP
 
 -   create GKE cluster and open cloud shell
 
 -   copy your .env file to the server
-
-    -   you will need the following variables in your file
-
-        ```PORT=3000
-        MONGODB_URI=
-        JWT_SECRET=
-        AWSAccessKeyId=
-        AWSSecretKey=
-        STRIPE_PAYMENT=
-        ```
 
 -   create a secret from your env file (myenv is the name of the secret)
 
@@ -145,7 +154,7 @@ other helpful commands:
 -   `kubectl get services --all-namespaces`
 -   `kubectl scale deployment <deployment_name> --replicas=<replicaNumber>`
 
-Other References:
+Helpful References:
 
 -   https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf
 -   https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets
