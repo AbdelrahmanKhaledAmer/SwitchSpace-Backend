@@ -1,0 +1,6 @@
+logs
+seeds
+node_modules
+uploads
+seed.js
+.env
