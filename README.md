@@ -144,3 +144,10 @@ other helpful commands:
 -   `kubectl get deployments --all-namespaces`
 -   `kubectl get services --all-namespaces`
 -   `kubectl scale deployment <deployment_name> --replicas=<replicaNumber>`
+
+Other References:
+
+-   https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf
+-   https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets
+-   https://cloud.google.com/kubernetes-engine/docs/concepts/secret#from_files
+-   https://medium.com/@tszumowski/how-to-inject-environment-variables-into-kubernetes-pods-after-deployment-489306fff1a8
