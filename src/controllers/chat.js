@@ -104,8 +104,37 @@ const getUnreadChats = async (req, res) => {
     }
 };
 
+// ********************************************************************************************************* //
+
+// a helper function to delete chats of a user
+// It is used in the following controllers:
+// 1. user: deactivateAccount function
+// 2. post: remove function -- in case user exceeded max violations, so he/she is being removed from the platform
+const deleteChats = async userId => {
+    try {
+        const chats = await ChatModel.find({
+            $or: [{postOwnerId: userId}, {interestedUserId: userId}],
+        });
+
+        for (const chat of chats) {
+            // decrement the number of unread chats of the other user in case he had unread messages in the chat to be deleted
+            if (userId === chat.postOwnerId.toHexString() && chat.interestedUserUnread > 0) {
+                await UserModel.findByIdAndUpdate(chat.interestedUserId, {$inc: {unreadChats: -1}});
+            } else if (userId === chat.interestedUserId.toHexString() && chat.postOwnerUnread > 0) {
+                await UserModel.findByIdAndUpdate(chat.postOwnerId, {$inc: {unreadChats: -1}});
+            }
+        }
+        await ChatModel.deleteMany({
+            $or: [{postOwnerId: userId}, {interestedUserId: userId}],
+        });
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
 module.exports = {
     getChatList,
     getChatHistory,
     getUnreadChats,
+    deleteChats,
 };
