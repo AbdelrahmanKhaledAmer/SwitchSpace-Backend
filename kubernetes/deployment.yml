@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: switchspace-server
+    labels:
+        app: server
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: server
+    template:
+        metadata:
+            labels:
+                app: server
+        spec:
+            containers:
+                - name: switchspace-server
+                  image: mohamedazab/switchspace-server:latest
+                  ports:
+                      - containerPort: 3000
