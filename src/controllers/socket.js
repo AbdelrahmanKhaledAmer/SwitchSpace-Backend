@@ -59,13 +59,21 @@ const socketController = io => {
 
                 // check if the receiver is offline -- no room found for the receiverId
                 if (!io.sockets.adapter.rooms[data.receiverId]) {
-                    // increment unread messages in the receiver user
-                    receiver.unreadMessages += 1;
-                    await receiver.save();
-                    // increment unread messages in the chat
                     if (receiverId === chat.postOwnerId.toHexString()) {
+                        // increment unread chats for the post owner if this is the first unread message
+                        if (chat.postOwnerUnread === 0) {
+                            receiver.unreadChats += 1;
+                            await receiver.save();
+                        }
+                        // increment unread messages in the chat for the post owner
                         chat.postOwnerUnread += 1;
                     } else {
+                        // increment unread chats for the interested user if this is the first unread message
+                        if (chat.interestedUserUnread === 0) {
+                            receiver.unreadChats += 1;
+                            await receiver.save();
+                        }
+                        // increment unread messages in the chat for the interested user
                         chat.interestedUserUnread += 1;
                     }
                     await chat.save();
