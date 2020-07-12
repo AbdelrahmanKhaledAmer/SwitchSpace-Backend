@@ -1,7 +1,7 @@
 [
     {
         "_id": {"$oid": "5ee245bbdedc1468ff6e3221"},
-        "unreadMessages": 0,
+        "unreadChats": 0,
         "commRate": 4,
         "conditionRate": 4.5,
         "descriptionRate": 4,
@@ -37,7 +37,7 @@
     },
     {
         "_id": {"$oid": "5ee245bbdedc1468ff6e3220"},
-        "unreadMessages": 0,
+        "unreadChats": 0,
         "commRate": 0,
         "conditionRate": 0,
         "descriptionRate": 0,
@@ -51,7 +51,7 @@
     },
     {
         "_id": {"$oid": "5ee245bbdedc1468ff6e3222"},
-        "unreadMessages": 0,
+        "unreadChats": 0,
         "commRate": 0,
         "conditionRate": 0,
         "descriptionRate": 0,
@@ -69,7 +69,7 @@
     },
     {
         "_id": {"$oid": "5ee245bbdedc1468ff6e3223"},
-        "unreadMessages": 0,
+        "unreadChats": 0,
         "commRate": 0,
         "conditionRate": 0,
         "descriptionRate": 0,
@@ -83,7 +83,7 @@
     },
     {
         "_id": {"$oid": "5ee245bbdedc1468ff6e3224"},
-        "unreadMessages": 0,
+        "unreadChats": 0,
         "commRate": 0,
         "conditionRate": 0,
         "descriptionRate": 0,

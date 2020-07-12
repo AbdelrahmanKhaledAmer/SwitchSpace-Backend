@@ -71,9 +71,10 @@ const getChatHistory = async (req, res) => {
                 chat.interestedUserUnread = 0;
             }
             await chat.save();
-            // decrement unread messages for the user who just retrieved the chat history
-            const unreadNegated = -1 * unread;
-            await UserModel.findByIdAndUpdate(req.userId, {$inc: {unreadMessages: unreadNegated}});
+            // In case there were unread messages, decrement unread chats for the user who just retrieved the chat history
+            if (unread > 0) {
+                await UserModel.findByIdAndUpdate(req.userId, {$inc: {unreadChats: -1}});
+            }
         }
         res.status(200).json({
             data: {
@@ -89,13 +90,13 @@ const getChatHistory = async (req, res) => {
 
 // ********************************************************************************************************* //
 
-// get the number of unread messages
-const getUnreadMessages = async (req, res) => {
+// get the number of chats which have unread messages
+const getUnreadChats = async (req, res) => {
     try {
-        const user = await UserModel.findById(req.userId, "unreadMessages");
+        const user = await UserModel.findById(req.userId, "unreadChats");
         return res.status(200).json({
             data: {
-                unreadMessages: user.unreadMessages,
+                unreadChats: user.unreadChats,
             },
         });
     } catch (err) {
@@ -106,5 +107,5 @@ const getUnreadMessages = async (req, res) => {
 module.exports = {
     getChatList,
     getChatHistory,
-    getUnreadMessages,
+    getUnreadChats,
 };
