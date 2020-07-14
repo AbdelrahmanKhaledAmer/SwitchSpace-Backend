@@ -69,7 +69,8 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now(),
     },
-    unreadMessages: {
+    // number of chats which have unread messages
+    unreadChats: {
         type: Number,
         default: 0,
     },

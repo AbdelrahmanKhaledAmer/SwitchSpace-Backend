@@ -14,6 +14,7 @@ const PostCreationValidator = require("../models/validations/postCreation");
 const PostUpdateValidator = require("../models/validations/postUpdate");
 const UserModel = require("../models/schema/user");
 const ReportModel = require("../models/schema/report");
+const chatController = require("./chat");
 
 const MAX_VIOLATIONS = 3;
 
@@ -315,6 +316,8 @@ const remove = async (req, res) => {
                 if (user.violationsCount > MAX_VIOLATIONS) {
                     // remove all his posts
                     await PostModel.deleteMany({creatorId: creatorId});
+                    // remove chats of the user
+                    await chatController.deleteChats(creatorId);
                     // remove user
                     await user.remove();
                     //delete posts

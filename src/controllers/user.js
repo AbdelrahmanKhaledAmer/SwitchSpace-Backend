@@ -4,6 +4,7 @@ const UserModel = require("../models/schema/user");
 const PostModel = require("../models/schema/post");
 const updateValidator = require("../models/validations/userUpdate");
 const tierChangeValidator = require("../models/validations/tierChange");
+const chatController = require("./chat");
 const s3upload = require("../utils/s3Upload");
 const config = require("../config");
 const jwt = require("jsonwebtoken");
@@ -175,6 +176,8 @@ const deactivateAccount = async (req, res) => {
             }
         }
         await PostModel.deleteMany({creatorId: req.userId});
+        // delete chats of the user
+        await chatController.deleteChats(req.userId);
         // delete user
         await UserModel.deleteOne({_id: req.userId});
 
