@@ -315,6 +315,17 @@ const remove = async (req, res) => {
                 // user violations exceeded => automatically remove user
                 if (user.violationsCount > MAX_VIOLATIONS) {
                     // remove all his posts
+                    //get posts
+                    let posts = await PostModel.find({creatorId: creatorId});
+                    photosToDelete = [];
+                    //put profile picture
+                    photosToDelete.push("profilePics/" + creatorId);
+                    // push pictures for posts
+                    for (let i = 0; i < posts.length; i++) {
+                        for (let j = 0; j < posts[i].photos.length; j++) {
+                            photosToDelete.push(posts[i].photos[j].key);
+                        }
+                    }
                     await PostModel.deleteMany({creatorId: creatorId});
                     // remove chats of the user
                     await chatController.deleteChats(creatorId);
