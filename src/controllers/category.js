@@ -42,7 +42,7 @@ const getSubcategories = async (req, res) => {
 // Returns the top 5 trending subcategories
 const trendingCategories = async (req, res) => {
     try {
-        let subcategories = await SubcategoryModel.find({}).limit(5).sort("-trendingScore");
+        let subcategories = await SubcategoryModel.find({}).limit(10).sort("-trendingScore");
         return res.status(200).json({
             data: subcategories,
         });
