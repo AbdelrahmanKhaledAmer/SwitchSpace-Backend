@@ -17,6 +17,6 @@ router.put(
     ImageUploader.deleteTmpFiles
 );
 router.put("/subscription", logger, middlewares.checkAuthentication, UserController.userChangeSubscription);
-router.get("/user/:id", logger, UserController.getUserDetails);
+router.get("/user/:id", logger, middlewares.checkAuthentication, UserController.getUserDetails);
 router.delete("/user/", logger, middlewares.checkAuthentication, UserController.deactivateAccount);
 module.exports = router;

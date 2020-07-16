@@ -2,6 +2,7 @@
 
 const ReportModel = require("../models/schema/report");
 const reportValidator = require("../models/validations/report");
+const objectIdValidator = require("../models/validations/objectId");
 
 // ********************************************************************************************************* //
 
@@ -80,9 +81,10 @@ const deleteReport = async (req, res) => {
             message: "Only admins are allowed to delete reports.",
         });
     }
-    if (!req.params.reportId) {
-        return res.status(402).json({
-            message: "Cannot delete a report without its ID.",
+    const validationVerdict = objectIdValidator.validate({id: req.params.reportId});
+    if (validationVerdict.error) {
+        return res.status(400).json({
+            message: validationVerdict.error.details[0].message,
         });
     }
     try {
