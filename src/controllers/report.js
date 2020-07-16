@@ -3,6 +3,7 @@
 const ReportModel = require("../models/schema/report");
 const reportValidator = require("../models/validations/report");
 const objectIdValidator = require("../models/validations/objectId");
+const loggerHandlers = require("../utils/logger/loggerHandlers");
 
 // ********************************************************************************************************* //
 
@@ -44,6 +45,7 @@ const reportPost = async (req, res) => {
             data: report,
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error",
         });
@@ -53,7 +55,6 @@ const reportPost = async (req, res) => {
 // ********************************************************************************************************* //
 
 // Get all reports if admin
-// TODO: with pagination
 const viewAllReports = async (req, res) => {
     if (!req.adminId) {
         return res.status(403).json({
@@ -66,6 +67,7 @@ const viewAllReports = async (req, res) => {
             data: reports,
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error.",
         });
@@ -93,6 +95,7 @@ const deleteReport = async (req, res) => {
             message: "Report deleted successfully",
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error.",
         });
