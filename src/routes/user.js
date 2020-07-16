@@ -10,13 +10,13 @@ const ImageUploader = require("../middlewares/ImageUploader");
 
 router.put(
     "/update",
-    logger,
+    logger.infoHandler,
     middlewares.checkAuthentication,
     ImageUploader.singleFileUpload,
     UserController.updateProfile,
     ImageUploader.deleteTmpFiles
 );
-router.put("/subscription", logger, middlewares.checkAuthentication, UserController.userChangeSubscription);
-router.get("/user/:id", logger, middlewares.checkAuthentication, UserController.getUserDetails);
-router.delete("/user/", logger, middlewares.checkAuthentication, UserController.deactivateAccount);
+router.put("/subscription", logger.infoHandler, middlewares.checkAuthentication, UserController.userChangeSubscription);
+router.get("/user/:id", logger.infoHandler, middlewares.checkAuthentication, UserController.getUserDetails);
+router.delete("/user/", logger.infoHandler, middlewares.checkAuthentication, UserController.deactivateAccount);
 module.exports = router;
