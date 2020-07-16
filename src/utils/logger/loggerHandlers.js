@@ -1,4 +1,4 @@
-const logger = require("./logger")
+const logger = require("./logger");
 
 // handle logging informations works as a Middleware
 const infoHandler = async (req, res) => {
@@ -14,9 +14,7 @@ const infoHandler = async (req, res) => {
 };
 
 // handle logging errors
-const errorHandler = async (err) => {
-    
+const errorHandler = async err => {
     logger.error(`message - ${err.message}, stack trace - ${err.stack}`);
-    
 };
-module.exports = {infoHandler,errorHandler};
+module.exports = {infoHandler, errorHandler};

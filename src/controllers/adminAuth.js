@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const config = require("../config");
 const adminModel = require("../models/schema/admin");
 const loginValidator = require("../models/validations/login");
-const loggerHandlers = require("../utils/logger/loggerHandlers")
+const loggerHandlers = require("../utils/logger/loggerHandlers");
 
 // ********************************************************************************************************* //
 
@@ -41,7 +41,7 @@ const login = async (req, res) => {
                 message: "Admin Not Found",
             });
         } else {
-            loggerHandlers.errorHandler(err)
+            loggerHandlers.errorHandler(err);
             return res.status(500).json({
                 message: "Internal Error",
             });

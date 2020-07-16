@@ -16,8 +16,7 @@ const objectIdValidator = require("../models/validations/objectId");
 const UserModel = require("../models/schema/user");
 const ReportModel = require("../models/schema/report");
 const chatController = require("./chat");
-const loggerHandlers = require("../utils/logger/loggerHandlers")
-
+const loggerHandlers = require("../utils/logger/loggerHandlers");
 
 const MAX_VIOLATIONS = 3;
 
@@ -98,7 +97,7 @@ const create = async (req, res, next) => {
         try {
             images = await Promise.all(imagePromises);
         } catch (err) {
-            loggerHandlers.errorHandler(err)
+            loggerHandlers.errorHandler(err);
             res.status(500).json({message: "Internal server error"});
             return next();
         }

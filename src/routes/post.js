@@ -12,10 +12,24 @@ const PostController = require("../controllers/post");
 // multer for multiple file upload
 const ImageUploader = require("../middlewares/ImageUploader");
 
-router.post("/", logger.infoHandler, middlewares.checkAuthentication, ImageUploader.multiFileUpload, PostController.create, ImageUploader.deleteTmpFiles);
+router.post(
+    "/",
+    logger.infoHandler,
+    middlewares.checkAuthentication,
+    ImageUploader.multiFileUpload,
+    PostController.create,
+    ImageUploader.deleteTmpFiles
+);
 router.get("/search", logger.infoHandler, PostController.searchPosts);
 router.get("/:id", logger.infoHandler, PostController.viewPostDetails);
-router.put("/:id", logger.infoHandler, middlewares.checkAuthentication, ImageUploader.multiFileUpload, PostController.update, ImageUploader.deleteTmpFiles);
+router.put(
+    "/:id",
+    logger.infoHandler,
+    middlewares.checkAuthentication,
+    ImageUploader.multiFileUpload,
+    PostController.update,
+    ImageUploader.deleteTmpFiles
+);
 router.delete("/:id", logger.infoHandler, middlewares.checkAuthentication, PostController.remove);
 router.get("/", logger.infoHandler, middlewares.checkAuthentication, PostController.viewAll);
 
