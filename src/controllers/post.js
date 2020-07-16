@@ -106,8 +106,6 @@ const create = async (req, res, next) => {
             _id: postId,
             photos: images,
         });
-        console.log(req.body._id);
-        console.log(req.body);
         let createdPost = await PostModel.create(post);
         user.remainingPosts -= 1;
         user.save();
@@ -150,6 +148,7 @@ const viewPostDetails = async (req, res) => {
 
         return res.status(200).json({data: post});
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error",
         });
@@ -220,6 +219,7 @@ const update = async (req, res, next) => {
                 try {
                     images = await Promise.all(imagePromises);
                 } catch (err) {
+                    loggerHandlers.errorHandler(err);
                     res.status(500).json({message: "Internal server error"});
                     return next();
                 }
@@ -250,6 +250,7 @@ const update = async (req, res, next) => {
             return next();
         }
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         res.status(500).json({
             message: "Internal server error",
         });
@@ -277,6 +278,7 @@ const remove = async (req, res) => {
             photosToDelete.push(post.photos[i].key);
         }
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error",
         });
@@ -308,6 +310,7 @@ const remove = async (req, res) => {
                 });
             }
         } catch (err) {
+            loggerHandlers.errorHandler(err);
             return res.status(500).json({
                 message: "Internal server error",
             });
@@ -347,7 +350,7 @@ const remove = async (req, res) => {
                 message: "Post deleted successfully",
             });
         } catch (err) {
-            console.log(err);
+            loggerHandlers.errorHandler(err);
             return res.status(500).json({
                 message: "Internal server error.",
             });
@@ -357,15 +360,13 @@ const remove = async (req, res) => {
     try {
         await ReportModel.deleteMany({postId: req.params["id"]});
     } catch (err) {
-        //logger.log
-        console.log(err);
+        loggerHandlers.errorHandler(err);
     }
     // delete all photos
     try {
         await s3upload.deletePhotos(photosToDelete);
     } catch (err) {
-        // logger.log
-        console.log(err);
+        loggerHandlers.errorHandler(err);
     }
 };
 
@@ -392,6 +393,7 @@ const viewAll = async (req, res) => {
         let posts = await PostModel.find({creatorId: userId});
         return res.status(200).json({data: posts});
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error",
         });
@@ -445,6 +447,7 @@ const searchPosts = async (req, res) => {
             data: posts,
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error.",
         });
@@ -463,6 +466,7 @@ const viewPostsByCategory = async (req, res) => {
             data: posts,
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error.",
         });
