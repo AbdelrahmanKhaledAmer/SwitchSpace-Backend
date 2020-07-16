@@ -12,6 +12,7 @@ const subcategorySchema = require("../models/schema/subcategory");
 const subcategoryModel = Mongoose.model("Subcategory", subcategorySchema);
 const PostCreationValidator = require("../models/validations/postCreation");
 const PostUpdateValidator = require("../models/validations/postUpdate");
+const objectIdValidator = require("../models/validations/objectId");
 const UserModel = require("../models/schema/user");
 const ReportModel = require("../models/schema/report");
 const chatController = require("./chat");
@@ -134,6 +135,12 @@ const create = async (req, res, next) => {
 
 // view a specific post
 const viewPostDetails = async (req, res) => {
+    const validationVerdict = objectIdValidator.validate({id: req.params["id"]});
+    if (validationVerdict.error) {
+        return res.status(400).json({
+            message: validationVerdict.error.details[0].message,
+        });
+    }
     try {
         let post = await PostModel.findById(req.params["id"]).populate("creatorId", "name profilePicture commRate descriptionRate conditionRate");
         if (!post)
@@ -254,9 +261,10 @@ const update = async (req, res, next) => {
 
 // delete a post
 const remove = async (req, res) => {
-    if (!req.params["id"]) {
+    const validationVerdict = objectIdValidator.validate({id: req.params["id"]});
+    if (validationVerdict.error) {
         return res.status(400).json({
-            message: "Cannot delete a post without its ID.",
+            message: validationVerdict.error.details[0].message,
         });
     }
     let photosToDelete = [];
@@ -369,6 +377,12 @@ const viewAll = async (req, res) => {
         // userId is retrieved from query parameter instead of request object, to allow other users
         // to view the posts of a user when visiting his/her profile
         let userId = req.query.userId;
+        const validationVerdict = objectIdValidator.validate({id: userId});
+        if (validationVerdict.error) {
+            return res.status(400).json({
+                message: validationVerdict.error.details[0].message,
+            });
+        }
         let user = await UserModel.findById(userId);
         if (!user) {
             return res.status(404).json({

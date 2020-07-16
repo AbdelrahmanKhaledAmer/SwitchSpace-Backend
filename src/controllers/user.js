@@ -4,6 +4,7 @@ const UserModel = require("../models/schema/user");
 const PostModel = require("../models/schema/post");
 const updateValidator = require("../models/validations/userUpdate");
 const tierChangeValidator = require("../models/validations/tierChange");
+const objectIdValidator = require("../models/validations/objectId");
 const chatController = require("./chat");
 const s3upload = require("../utils/s3Upload");
 const config = require("../config");
@@ -146,6 +147,12 @@ const userChangeSubscription = async (req, res) => {
 
 const getUserDetails = async (req, res) => {
     const userId = req.params.id;
+    const validationVerdict = objectIdValidator.validate({id: userId});
+    if (validationVerdict.error) {
+        return res.status(400).json({
+            message: validationVerdict.error.details[0].message,
+        });
+    }
     try {
         // find the user excluding his email, password and violationsCount
         // and populate the reviewer in reviews selecting only his name and profilePicture

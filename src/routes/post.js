@@ -17,6 +17,6 @@ router.get("/search", logger, PostController.searchPosts);
 router.get("/:id", logger, PostController.viewPostDetails);
 router.put("/:id", logger, middlewares.checkAuthentication, ImageUploader.multiFileUpload, PostController.update, ImageUploader.deleteTmpFiles);
 router.delete("/:id", logger, middlewares.checkAuthentication, PostController.remove);
-router.get("/", logger, PostController.viewAll);
+router.get("/", logger, middlewares.checkAuthentication, PostController.viewAll);
 
 module.exports = router;
