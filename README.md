@@ -4,6 +4,12 @@
 
 SwitchSpace-Frontend application can be found [here](https://github.com/AbdelrahmanKhaledAmer/SwitchSpace-Frontend)
 
+## [API Documentation](https://app.swaggerhub.com/apis-docs/AbdelrahmanKhaledAmer/SwitchSpace/0.0.1#/):
+
+There might be some minor changes between the API documentation and the latest version of the project.
+
+The API documentation can be found [here](https://app.swaggerhub.com/apis-docs/AbdelrahmanKhaledAmer/SwitchSpace/0.0.1#/).
+
 ## Prerequisites
 
 Both for the back end and front end application check
@@ -77,7 +83,7 @@ Run seed
 seed
 ```
 
-Create index on the seeded items in the db
+Create index on the seeded items in the db (optional: it should be created automatically)
 
 ```bash
 use switch_space
@@ -99,24 +105,21 @@ npm run devstart
 npm start
 ```
 
-**Env File specifications**
+**Enviroment specifications**
 
 you will need the following variables in your env file
 
 -   for server tokens and the specific port to run the server on
 
-    ```
-    PORT=3000
-    JWT_SECRET=
-    ```
+    -   `PORT=`
+    -   `JWT_SECRET`
 
 -   Your DB URL
-    `MONGODB_URI=`
+    -   `MONGODB_URI=`
 
 *   media server (S3 object storage)
-    ````AWSAccessKeyId=
-    AWSSecretKey=```
-    ````
+    -   `AWSAccessKeyId=`
+    -   `AWSSecretKey=`
 
 **Deployment on GCP**
 
