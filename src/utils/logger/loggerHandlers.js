@@ -8,7 +8,7 @@ const dateFormat = () => {
 const infoHandler = async (req, res) => {
     let log = () => {
         let state = {};
-        state.timestamp = Date.now();
+        state.timestamp = dateFormat();
         state.path = req.originalUrl;
         state.method = req.method;
         state.status = res.statusCode;
