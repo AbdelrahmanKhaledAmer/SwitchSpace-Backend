@@ -1,5 +1,6 @@
 const multer = require("multer");
 const fs = require("fs");
+const loggerHandlers = require("../utils/logger/loggerHandlers");
 
 // check images types
 const imageFilter = function (req, file, cb) {
@@ -18,8 +19,9 @@ const deleteTmpFiles = async function (req) {
             const filePath = req.files[i].path;
             deletePromises.push(
                 fs.unlink(filePath, function (err) {
-                    if (err) throw err;
-                    //TODO: Log the err
+                    if (err) {
+                        loggerHandlers.errorHandler(err);
+                    }
                 })
             );
         }
@@ -27,15 +29,16 @@ const deleteTmpFiles = async function (req) {
         const filePath = req.file.path;
         deletePromises.push(
             fs.unlink(filePath, function (err) {
-                if (err) throw err;
-                //TODO: Log the err
+                if (err) {
+                    loggerHandlers.errorHandler(err);
+                }
             })
         );
     }
     try {
         await Promise.all(deletePromises);
     } catch (err) {
-        console.log(err);
+        loggerHandlers.errorHandler(err);
     }
 };
 // define single file constraints and its attributes
@@ -55,6 +58,7 @@ const singleFileUpload = function (req, res, next) {
     singleUpload(req, res, function (err) {
         req.uploadError = err;
         if (err) {
+            loggerHandlers.errorHandler(err);
             res.status(400).json({
                 message: err.message,
             });
@@ -68,6 +72,7 @@ const multiFileUpload = function (req, res, next) {
     multiUpload(req, res, function (err) {
         req.uploadError = err;
         if (err) {
+            loggerHandlers.errorHandler(err);
             res.status(400).json({
                 message: err.message,
             });
