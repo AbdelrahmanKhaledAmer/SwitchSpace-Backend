@@ -7,6 +7,7 @@ require("dotenv").config();
 const api = require("./src/api");
 const config = require("./src/config");
 const createSocketServer = require("./src/socket");
+const loggerHandlers = require("./src/utils/logger/loggerHandlers");
 
 // set the port to the API.
 api.set("port", config.port);
@@ -24,15 +25,15 @@ mongoose
     .connect(config.mongoURI, {useNewUrlParser: true})
     .then(() => server.listen(config.port))
     .catch(err => {
-        console.log("Error connecting to the database", err.message);
+        loggerHandlers.errorHandler(err);
         process.exit(err.statusCode);
     });
 
 server.on("listening", () => {
-    console.log(`API is running in port ${config.port}`);
+    loggerHandlers.systemInfo(`API is running in port ${config.port}`);
 });
 
 server.on("error", err => {
-    console.log("Error in the server", err.message);
+    loggerHandlers.errorHandler(err);
     process.exit(err.statusCode);
 });

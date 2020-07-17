@@ -1,9 +1,5 @@
 const winston = require("winston");
 
-const dateFormat = () => {
-    return new Date(Date.now()).toLocaleString();
-};
-
 const logger = winston.createLogger({
     level: "info",
     format: winston.format.json(),
@@ -30,7 +26,7 @@ if (process.env.NODE_ENV !== "production") {
         new winston.transports.Console({
             format: winston.format.combine(
                 winston.format.printf(state => {
-                    return `(${dateFormat()}): [${state.method}] -- ${state.path} -- ${state.status}`;
+                    return JSON.stringify(state);
                 })
             ),
         })

@@ -1,7 +1,6 @@
 const fs = require("fs");
 const AWS = require("aws-sdk");
 const config = require("../config");
-const loggerHandlers = require("./logger/loggerHandlers");
 
 // Enter copied or downloaded access id and secret here
 const ID = config.AWSAccessKeyId;
