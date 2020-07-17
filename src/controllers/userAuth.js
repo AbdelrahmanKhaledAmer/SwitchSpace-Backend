@@ -8,6 +8,7 @@ const registerValidator = require("../models/validations/userRegister");
 const loginValidator = require("../models/validations/login");
 const s3upload = require("../utils/s3Upload");
 const ObjectID = require("bson-objectid");
+const loggerHandlers = require("../utils/logger/loggerHandlers");
 
 // ********************************************************************************************************* //
 
@@ -43,6 +44,7 @@ const login = async (req, res) => {
                 message: "User Not Found",
             });
         } else {
+            loggerHandlers.errorHandler(err);
             return res.status(500).json({
                 message: "Internal Error",
             });
@@ -77,7 +79,7 @@ const register = async (req, res, next) => {
             return next();
         }
     } catch (err) {
-        console.log("error user exist");
+        loggerHandlers.errorHandler(err);
         res.status(500).json({
             message: "Internal server error",
         });
@@ -95,8 +97,7 @@ const register = async (req, res, next) => {
         try {
             imgObject = await s3upload.uploadPhoto(filePath, "profilePics", fileName);
         } catch (err) {
-            console.log("upload error");
-            console.log(err);
+            loggerHandlers.errorHandler(err);
             res.status(500).json({message: "Internal server error"});
             return next();
         }
@@ -112,7 +113,7 @@ const register = async (req, res, next) => {
         res.status(200).json({token: token});
         return next();
     } catch (err) {
-        console.log("error saving user");
+        loggerHandlers.errorHandler(err);
         res.status(500).json({
             message: "last save: Internal server error",
         });
