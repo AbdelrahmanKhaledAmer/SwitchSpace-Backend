@@ -12,9 +12,11 @@ const subcategorySchema = require("../models/schema/subcategory");
 const subcategoryModel = Mongoose.model("Subcategory", subcategorySchema);
 const PostCreationValidator = require("../models/validations/postCreation");
 const PostUpdateValidator = require("../models/validations/postUpdate");
+const objectIdValidator = require("../models/validations/objectId");
 const UserModel = require("../models/schema/user");
 const ReportModel = require("../models/schema/report");
 const chatController = require("./chat");
+const loggerHandlers = require("../utils/logger/loggerHandlers");
 
 const MAX_VIOLATIONS = 3;
 
@@ -95,8 +97,7 @@ const create = async (req, res, next) => {
         try {
             images = await Promise.all(imagePromises);
         } catch (err) {
-            console.log("upload error");
-            console.log(err);
+            loggerHandlers.errorHandler(err);
             res.status(500).json({message: "Internal server error"});
             return next();
         }
@@ -105,8 +106,6 @@ const create = async (req, res, next) => {
             _id: postId,
             photos: images,
         });
-        console.log(req.body._id);
-        console.log(req.body);
         let createdPost = await PostModel.create(post);
         user.remainingPosts -= 1;
         user.save();
@@ -122,7 +121,7 @@ const create = async (req, res, next) => {
         });
         return next();
     } catch (err) {
-        console.log(err);
+        loggerHandlers.errorHandler(err);
         res.status(500).json({
             message: "Internal server error",
         });
@@ -134,6 +133,12 @@ const create = async (req, res, next) => {
 
 // view a specific post
 const viewPostDetails = async (req, res) => {
+    const validationVerdict = objectIdValidator.validate({id: req.params["id"]});
+    if (validationVerdict.error) {
+        return res.status(400).json({
+            message: validationVerdict.error.details[0].message,
+        });
+    }
     try {
         let post = await PostModel.findById(req.params["id"]).populate("creatorId", "name profilePicture commRate descriptionRate conditionRate");
         if (!post)
@@ -143,6 +148,7 @@ const viewPostDetails = async (req, res) => {
 
         return res.status(200).json({data: post});
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error",
         });
@@ -213,6 +219,7 @@ const update = async (req, res, next) => {
                 try {
                     images = await Promise.all(imagePromises);
                 } catch (err) {
+                    loggerHandlers.errorHandler(err);
                     res.status(500).json({message: "Internal server error"});
                     return next();
                 }
@@ -243,6 +250,7 @@ const update = async (req, res, next) => {
             return next();
         }
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         res.status(500).json({
             message: "Internal server error",
         });
@@ -254,9 +262,10 @@ const update = async (req, res, next) => {
 
 // delete a post
 const remove = async (req, res) => {
-    if (!req.params["id"]) {
+    const validationVerdict = objectIdValidator.validate({id: req.params["id"]});
+    if (validationVerdict.error) {
         return res.status(400).json({
-            message: "Cannot delete a post without its ID.",
+            message: validationVerdict.error.details[0].message,
         });
     }
     let photosToDelete = [];
@@ -269,6 +278,7 @@ const remove = async (req, res) => {
             photosToDelete.push(post.photos[i].key);
         }
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error",
         });
@@ -300,6 +310,7 @@ const remove = async (req, res) => {
                 });
             }
         } catch (err) {
+            loggerHandlers.errorHandler(err);
             return res.status(500).json({
                 message: "Internal server error",
             });
@@ -339,7 +350,7 @@ const remove = async (req, res) => {
                 message: "Post deleted successfully",
             });
         } catch (err) {
-            console.log(err);
+            loggerHandlers.errorHandler(err);
             return res.status(500).json({
                 message: "Internal server error.",
             });
@@ -349,15 +360,13 @@ const remove = async (req, res) => {
     try {
         await ReportModel.deleteMany({postId: req.params["id"]});
     } catch (err) {
-        //logger.log
-        console.log(err);
+        loggerHandlers.errorHandler(err);
     }
     // delete all photos
     try {
         await s3upload.deletePhotos(photosToDelete);
     } catch (err) {
-        // logger.log
-        console.log(err);
+        loggerHandlers.errorHandler(err);
     }
 };
 
@@ -369,6 +378,12 @@ const viewAll = async (req, res) => {
         // userId is retrieved from query parameter instead of request object, to allow other users
         // to view the posts of a user when visiting his/her profile
         let userId = req.query.userId;
+        const validationVerdict = objectIdValidator.validate({id: userId});
+        if (validationVerdict.error) {
+            return res.status(400).json({
+                message: validationVerdict.error.details[0].message,
+            });
+        }
         let user = await UserModel.findById(userId);
         if (!user) {
             return res.status(404).json({
@@ -378,6 +393,7 @@ const viewAll = async (req, res) => {
         let posts = await PostModel.find({creatorId: userId});
         return res.status(200).json({data: posts});
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error",
         });
@@ -431,6 +447,7 @@ const searchPosts = async (req, res) => {
             data: posts,
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error.",
         });
@@ -449,6 +466,7 @@ const viewPostsByCategory = async (req, res) => {
             data: posts,
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal server error.",
         });

@@ -1,10 +1,17 @@
 const ChatModel = require("../models/schema/chat");
 const UserModel = require("../models/schema/user");
+const objectIdValidator = require("../models/validations/objectId");
+const loggerHandlers = require("../utils/logger/loggerHandlers");
 
 // ********************************************************************************************************* //
 
 // get the list of previous chats
 const getChatList = async (req, res) => {
+    if (!req.userId) {
+        return res.status(403).json({
+            message: "You need to be a regular user to retrieve your chat list",
+        });
+    }
     try {
         const chatList = await ChatModel.find({
             $or: [{postOwnerId: req.userId}, {interestedUserId: req.userId}],
@@ -34,6 +41,7 @@ const getChatList = async (req, res) => {
         }
         res.status(200).json({data: resData});
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         res.status(500).json({message: "Internal server error"});
     }
 };
@@ -42,6 +50,17 @@ const getChatList = async (req, res) => {
 
 // get the chat history with another user
 const getChatHistory = async (req, res) => {
+    if (!req.userId) {
+        return res.status(403).json({
+            message: "You need to be a regular user to retrieve a chat history",
+        });
+    }
+    const validationVerdict = objectIdValidator.validate({id: req.params.otherUserId});
+    if (validationVerdict.error) {
+        return res.status(400).json({
+            message: validationVerdict.error.details[0].message,
+        });
+    }
     const otherUserId = req.params.otherUserId;
     try {
         // only retrieve the name and profilePicture fields of the othe user
@@ -84,6 +103,7 @@ const getChatHistory = async (req, res) => {
             },
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         res.status(500).json({message: "Internal server error"});
     }
 };
@@ -92,6 +112,11 @@ const getChatHistory = async (req, res) => {
 
 // get the number of chats which have unread messages
 const getUnreadChats = async (req, res) => {
+    if (!req.userId) {
+        return res.status(403).json({
+            message: "You need to be a regular user to retrieve number of unread chats",
+        });
+    }
     try {
         const user = await UserModel.findById(req.userId, "unreadChats");
         return res.status(200).json({
@@ -100,6 +125,7 @@ const getUnreadChats = async (req, res) => {
             },
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         res.status(500).json({message: "Internal server error"});
     }
 };

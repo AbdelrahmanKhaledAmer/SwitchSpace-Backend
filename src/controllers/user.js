@@ -4,10 +4,12 @@ const UserModel = require("../models/schema/user");
 const PostModel = require("../models/schema/post");
 const updateValidator = require("../models/validations/userUpdate");
 const tierChangeValidator = require("../models/validations/tierChange");
+const objectIdValidator = require("../models/validations/objectId");
 const chatController = require("./chat");
 const s3upload = require("../utils/s3Upload");
 const config = require("../config");
 const jwt = require("jsonwebtoken");
+const loggerHandlers = require("../utils/logger/loggerHandlers");
 
 const stripe = require("stripe")(config.STRIPE_PAYMENT);
 // ********************************************************************************************************* //
@@ -40,8 +42,7 @@ const updateProfile = async (req, res, next) => {
         try {
             imgObject = await s3upload.uploadPhoto(filePath, "profilePics", fileName);
         } catch (err) {
-            console.log("upload error");
-            console.log(err);
+            loggerHandlers.errorHandler(err);
             res.status(500).json({message: "Internal server error"});
             return next();
         }
@@ -71,6 +72,7 @@ const updateProfile = async (req, res, next) => {
             res.status(400).json({message: "user not found"});
             return next();
         }
+        loggerHandlers.errorHandler(err);
         res.status(500).json({message: "Internal server error"});
         return next();
     }
@@ -125,7 +127,7 @@ const userChangeSubscription = async (req, res) => {
             source: token,
         });
     } catch (err) {
-        console.log(err);
+        loggerHandlers.errorHandler(err);
         return res.status(400).json({message: "Payment not successful, please try again "});
     }
     let user;
@@ -140,12 +142,19 @@ const userChangeSubscription = async (req, res) => {
         if (!user) {
             return res.status(404).json({message: "user not found"});
         }
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({message: "Internal server error"});
     }
 };
 
 const getUserDetails = async (req, res) => {
     const userId = req.params.id;
+    const validationVerdict = objectIdValidator.validate({id: userId});
+    if (validationVerdict.error) {
+        return res.status(400).json({
+            message: validationVerdict.error.details[0].message,
+        });
+    }
     try {
         // find the user excluding his email, password and violationsCount
         // and populate the reviewer in reviews selecting only his name and profilePicture
@@ -185,6 +194,7 @@ const deactivateAccount = async (req, res) => {
             message: "User deactivated succesfully, Sorry to see you go :( ",
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         res.status(500).json({
             message: "Internal server error, please try again!",
         });
@@ -194,8 +204,7 @@ const deactivateAccount = async (req, res) => {
     try {
         await s3upload.deletePhotos(deletedPhotos);
     } catch (err) {
-        // logger.log
-        console.log(err);
+        loggerHandlers.errorHandler(err);
     }
 };
 
