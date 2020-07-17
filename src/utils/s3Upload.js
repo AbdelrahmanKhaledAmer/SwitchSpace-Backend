@@ -3,8 +3,8 @@ const AWS = require("aws-sdk");
 const config = require("../config");
 
 // Enter copied or downloaded access id and secret here
-const ID = config.AWSAccessKeyId;
-const SECRET = config.AWSSecretKey;
+const ID = config.AWS_ACCESS_KEY_ID;
+const SECRET = config.AWS_SECRET_KEY;
 
 const BUCKET_NAME = "switchspace-datastore";
 // Initializing S3 Interface

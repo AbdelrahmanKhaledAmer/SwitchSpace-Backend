@@ -118,8 +118,8 @@ you will need the following variables in your env file
     -   `MONGODB_URI=`
 
 *   media server (S3 object storage)
-    -   `AWSAccessKeyId=`
-    -   `AWSSecretKey=`
+    -   `AWS_ACCESS_KEY_ID=`
+    -   `AWS_SECRET_KEY=`
 
 **Deployment on GCP**
 
