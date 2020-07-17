@@ -2,6 +2,7 @@
 
 const userModel = require("../models/schema/user");
 const reviewValidator = require("../models/validations/review");
+const loggerHandlers = require("../utils/logger/loggerHandlers");
 
 // ********************************************************************************************************* //
 
@@ -80,6 +81,7 @@ const writeReview = async (req, res) => {
             body: reviewee,
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         return res.status(500).json({
             message: "Internal Server Error.",
         });

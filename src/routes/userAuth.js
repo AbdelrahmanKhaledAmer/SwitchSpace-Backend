@@ -9,8 +9,8 @@ const UserAuthController = require("../controllers/userAuth");
 // multer for single file upload
 const ImageUploader = require("../middlewares/ImageUploader");
 
-router.post("/login", logger, UserAuthController.login);
-router.post("/register", logger, ImageUploader.singleFileUpload, UserAuthController.register, ImageUploader.deleteTmpFiles);
-router.get("/logout", logger, middlewares.checkAuthentication, UserAuthController.logout);
+router.post("/login", logger.infoHandler, UserAuthController.login);
+router.post("/register", logger.infoHandler, ImageUploader.singleFileUpload, UserAuthController.register, ImageUploader.deleteTmpFiles);
+router.get("/logout", logger.infoHandler, middlewares.checkAuthentication, UserAuthController.logout);
 
 module.exports = router;

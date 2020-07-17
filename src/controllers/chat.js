@@ -1,6 +1,7 @@
 const ChatModel = require("../models/schema/chat");
 const UserModel = require("../models/schema/user");
 const objectIdValidator = require("../models/validations/objectId");
+const loggerHandlers = require("../utils/logger/loggerHandlers");
 
 // ********************************************************************************************************* //
 
@@ -40,6 +41,7 @@ const getChatList = async (req, res) => {
         }
         res.status(200).json({data: resData});
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         res.status(500).json({message: "Internal server error"});
     }
 };
@@ -101,6 +103,7 @@ const getChatHistory = async (req, res) => {
             },
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         res.status(500).json({message: "Internal server error"});
     }
 };
@@ -122,6 +125,7 @@ const getUnreadChats = async (req, res) => {
             },
         });
     } catch (err) {
+        loggerHandlers.errorHandler(err);
         res.status(500).json({message: "Internal server error"});
     }
 };

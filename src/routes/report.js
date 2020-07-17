@@ -7,6 +7,6 @@ const logger = require("../middlewares/loggerHandler");
 const middlewares = require("../middlewares/middlewares");
 const reportController = require("../controllers/report");
 
-router.post("/write", logger, middlewares.checkAuthentication, reportController.reportPost);
+router.post("/write", logger.infoHandler, middlewares.checkAuthentication, reportController.reportPost);
 
 module.exports = router;

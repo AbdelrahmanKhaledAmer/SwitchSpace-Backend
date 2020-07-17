@@ -38,14 +38,9 @@ const deletePhotos = async function (photoKeys) {
     for (let i = 0; i < photoKeys.length; i++) {
         deletePromises.push(s3.deleteObject({Key: photoKeys[i], Bucket: BUCKET_NAME}).promise());
     }
-    try {
-        const resp = await Promise.all(deletePromises);
-        return resp;
-    } catch (err) {
-        // log error here
-        console.log(err);
-        return err;
-    }
+    // this function throws an exception if the promise is not met => catched in the function calls
+    const resp = await Promise.all(deletePromises);
+    return resp;
 };
 
 module.exports = {uploadPhoto, deletePhotos};
