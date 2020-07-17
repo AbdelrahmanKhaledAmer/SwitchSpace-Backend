@@ -30,7 +30,7 @@ mongoose
     });
 
 server.on("listening", () => {
-    loggerHandlers.systemInfo(`API is running in port ${config.port}`);
+    loggerHandlers.systemInfo(`API is running on port ${config.port}`);
 });
 
 server.on("error", err => {
