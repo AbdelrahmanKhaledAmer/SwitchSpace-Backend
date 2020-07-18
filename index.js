@@ -30,7 +30,7 @@ mongoose
     });
 
 server.on("listening", () => {
-    loggerHandlers.systemInfo(`SwitchSpace API (v1.0) is running on port ${config.port}`);
+    loggerHandlers.systemInfo(`SwitchSpace API (v1.1) is running on port ${config.port}`);
 });
 
 server.on("error", err => {
