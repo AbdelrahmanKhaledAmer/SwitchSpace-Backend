@@ -80,7 +80,8 @@ const create = async (req, res, next) => {
             });
             return next();
         } else {
-            if (user.remainingPosts == 0) {
+            let diffDays = (Date.now() - user.subscriptionExpirationDate) / (1000 * 60 * 60 * 24);
+            if (user.remainingPosts == 0 || diffDays > 30) {
                 res.status(403).json({
                     message: "User doesn't have sufficient credit to create a post",
                 });
