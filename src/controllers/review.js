@@ -25,6 +25,12 @@ const writeReview = async (req, res) => {
             message: valid.error.details[0].message,
         });
     }
+    // User cannot review himself
+    if (reviewerId == revieweeId) {
+        return res.status(403).json({
+            message: "You cannot review yourself.",
+        });
+    }
     // Retrieve user to be reviewed
     try {
         let reviewee = await userModel.findOne({_id: revieweeId});
