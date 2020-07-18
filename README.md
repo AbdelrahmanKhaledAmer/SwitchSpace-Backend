@@ -1,4 +1,4 @@
-# Switch Space
+# Switch Space ![Node.js CI](https://github.com/AbdelrahmanKhaledAmer/SwitchSpace-Backend/workflows/Node.js%20CI/badge.svg)
 
 ## Project template based on [sebamaster-movie-backend](https://github.com/sebischair/sebamaster-movie-backend/)
 
