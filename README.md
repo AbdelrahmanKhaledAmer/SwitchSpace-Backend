@@ -43,22 +43,6 @@ npm install
 mongod --dbpath relative/path/to/database
 ```
 
--   Create all database schemes and import data to begin with
-
-```
-mongorestore dump/
-```
-
-**Set the environment variables**
-
-This variables are based in your local configuration
-
-```bash
-export PORT=3000
-export MONGODB_URI="your DB URL"
-export JWT_SECRET="Your Secret token"
-```
-
 ## Start the project
 
 **Development environment**
@@ -117,9 +101,11 @@ you will need the following variables in your env file
 -   Your DB URL
     -   `MONGODB_URI=`
 
-*   media server (S3 object storage)
+-   media server (S3 object storage)
     -   `AWS_ACCESS_KEY_ID=`
     -   `AWS_SECRET_KEY=`
+-   Payment
+    - `STRIPE_PAYMENT`
 
 **Deployment on GCP**
 
